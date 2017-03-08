@@ -1,5 +1,6 @@
 package app.mamac.albadiya;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import java.util.TreeSet;
  * Created by mac on 12/12/16.
  */
 
-public class TakeGalleryFragment extends Fragment {
+public class TakeGalleryFragment extends Fragment{
     GridView gridView;
     InstaSearchAdapter instaSearchAdapter;
     ArrayList<String> images;
@@ -44,7 +44,9 @@ public class TakeGalleryFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                postFragment.onGallerySelected(images.get(position));
+//                postFragment.onGallerySelected(images.get(position));
+                Intent intent = new Intent(getActivity(), app.mamac.albadiya.life.knowledge4.videotrimmersample.MainActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -58,15 +60,17 @@ public class TakeGalleryFragment extends Fragment {
 
 
         Uri u = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        Uri v = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {MediaStore.Images.ImageColumns.DATA};
+        String[] projection1 = {MediaStore.Video.VideoColumns.DATA};
         Cursor c = null;
         SortedSet<String> dirList = new TreeSet<String>();
         ArrayList<String> resultIAV = new ArrayList<String>();
 
         String[] directories = null;
-        if (u != null)
+        if (v != null)
         {
-            c = getActivity().managedQuery(u, projection, null, null, null);
+            c = getActivity().managedQuery(u, projection1, null, null, null);
         }
 
         if ((c != null) && (c.moveToFirst()))
@@ -103,15 +107,18 @@ public class TakeGalleryFragment extends Fragment {
                         imageList = imagePath.listFiles();
 
                     }
-                    if ( imagePath.getName().contains(".jpg")|| imagePath.getName().contains(".JPG")
-                            || imagePath.getName().contains(".jpeg")|| imagePath.getName().contains(".JPEG")
-                            || imagePath.getName().contains(".png") || imagePath.getName().contains(".PNG")
-                            || imagePath.getName().contains(".gif") || imagePath.getName().contains(".GIF")
-                            || imagePath.getName().contains(".bmp") || imagePath.getName().contains(".BMP")
+//                    if ( imagePath.getName().contains(".jpg")|| imagePath.getName().contains(".JPG")
+//                            || imagePath.getName().contains(".jpeg")|| imagePath.getName().contains(".JPEG")
+//                            || imagePath.getName().contains(".png") || imagePath.getName().contains(".PNG")
+//                            || imagePath.getName().contains(".gif") || imagePath.getName().contains(".GIF")
+//                            || imagePath.getName().contains(".bmp") || imagePath.getName().contains(".BMP")
+//                            )
+//                    {
+
+                    if ( imagePath.getName().contains(".mp4")|| imagePath.getName().contains(".MP4")
+                            || imagePath.getName().contains(".mpe4")|| imagePath.getName().contains(".MPE4")
                             )
                     {
-
-
 
                         String path= imagePath.getAbsolutePath();
                         resultIAV.add(path);
