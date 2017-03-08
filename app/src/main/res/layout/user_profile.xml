@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#c0ab83">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffffffff">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_one">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit_profile_btn_bg"
+                android:layout_height="25dp"
+                android:id="@+id/edit_profile">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView46"
+                    android:text="Editprofile"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <TextView
+                android:text="Login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/login_btn"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="90dp"
+                android:layout_marginRight="90dp"
+                android:padding="15dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:background="@drawable/linearlayout_bg" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/signup_btn"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="90dp"
+                android:layout_marginRight="90dp"
+                android:padding="15dp"
+                android:background="@drawable/linearlayout_bg"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Signup" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

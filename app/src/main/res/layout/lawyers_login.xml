@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fde7d3">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#6d5739"
+                android:layout_marginEnd="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView23"
+                    android:layout_weight="1"
+                    android:padding="15dp" />
+
+                <TextView
+                    android:text="Skip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/skip"
+                    android:layout_weight="0.11"
+                    android:textColor="@color/common_google_signin_btn_text_dark_default"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="115dp"
+                android:layout_marginTop="30dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/web_image"
+                    android:layout_weight="1"
+                    android:background="#fde7d3"
+                    android:src="@drawable/logo" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="30dp"
+                android:background="@color/common_google_signin_btn_text_dark_default">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:id="@+id/imageView"
+                        android:layout_weight="1"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/email"
+                        android:layout_marginLeft="20dp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text|textPersonName"
+                        android:ems="10"
+                        android:id="@+id/email"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="12sp"
+                        android:textColor="#000"
+                        android:textColorLink="#c69a32"
+                        android:layout_weight="1"
+                        android:hint="E-mail Address"
+                        android:textColorHighlight="#c69a32" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1"
+                    android:layout_margin="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/imageView17"
+                        android:src="@drawable/password"
+                        android:paddingLeft="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="10dp" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:ems="10"
+                        android:id="@+id/password"
+                        android:layout_weight="1"
+                        android:hint="Password"
+                        android:layout_marginLeft="10dp"
+                        android:textColorLink="#c69a32"
+                        android:textColorHighlight="#c69a32"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/lawyerlogin">
+
+                    <RadioButton
+                        android:text="Login as Lawyer"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/lawyr"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/lawyerlogin"
+                    android:id="@+id/userlogin">
+
+                    <RadioButton
+                        android:text="Login as User"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/usr"
+                        android:layout_marginLeft="20dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="false">
+
+                    <TextView
+                        android:text="Forget Password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textColor="#000"
+                        android:id="@+id/fpwd"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:layout_margin="30dp">
+
+                <TextView
+                    android:text="Sign in"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/login_btn"
+                    android:layout_width="match_parent"
+                    android:background="#6d5739"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textSize="12sp"
+                    android:textColor="@color/common_google_signin_btn_text_dark_default"
+                    android:layout_weight="0.40"
+                    android:padding="12dp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/SplitLine_hor1"
+                android:background="#b1a193"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:layout_height="1dp"
+                android:layout_width="150dp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="30dp"
+                android:layout_weight="3.92">
+
+                <TextView
+                    android:text="Sign Up As Lawyer"
+                    android:layout_width="match_parent"
+                    android:id="@+id/lawyer_btn"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    android:background="#a77807"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp" />
+
+                <TextView
+                    android:text="Sign Up As User"
+                    android:layout_width="match_parent"
+                    android:id="@+id/user_btn"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    android:background="#fdb813"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

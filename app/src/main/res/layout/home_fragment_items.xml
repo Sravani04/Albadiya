@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:gravity="center_vertical"
+        android:id="@+id/header">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:id="@+id/settings"
+            android:src="@drawable/ic_settings"
+            android:layout_height="25dp"
+            android:adjustViewBounds="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/imageView43"
+            android:src="@drawable/logo_icon"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/language"
+            android:adjustViewBounds="true"
+            android:text="EN"
+            android:background="#E0AD37"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="#000"
+        android:layout_marginTop="2dp"
+        android:layout_height="1dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_chats"
+            android:id="@+id/imageView46"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="#00000000"
+        android:id="@+id/home_items" />
+</LinearLayout>

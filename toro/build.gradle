@@ -1,0 +1,71 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'im.ene.lab'
+
+ext {
+  bintrayRepo = 'Toro'
+  bintrayName = 'toro'
+
+  publishedGroupId = 'im.ene.toro2'
+  artifact = 'toro'
+  libraryName = 'Toro'
+
+  libraryDescription =
+      'Toro core service, provide Extensible Auto Video playback to Android. Built for RecyclerView.'
+
+  siteUrl = 'https://github.com/eneim/Toro'
+  gitUrl = 'https://github.com/eneim/Toro.git'
+
+  libraryVersion = rootProject.ext.libraryVersion
+
+  developerId = 'eneim'
+  developerName = 'Nam Nguyen'
+  developerEmail = 'nam@ene.im'
+
+  licenseName = 'The Apache Software License, Version 2.0'
+  licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+  allLicenses = ["Apache-2.0"]
+}
+
+android {
+  compileSdkVersion rootProject.ext.androidVersion
+  buildToolsVersion rootProject.ext.buildToolVersion
+
+  resourcePrefix 'tr_core_'
+  // defaultPublishConfig "release"
+
+  defaultConfig {
+    minSdkVersion rootProject.ext.minSupportSDKVersion
+    targetSdkVersion rootProject.ext.androidVersion
+    versionCode 1
+    versionName "1.0"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+    debug {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  testCompile 'junit:junit:4.12'
+  // compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibraryVersion}"
+  compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibraryVersion}"
+
+  javadocDeps "com.android.support:support-annotations:${rootProject.ext.supportLibraryVersion}"
+}
+
+// REF: https://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en
+// > gradlew install
+// > gradlew bintrayUpload
+apply from: '../.scripts/installv1.gradle'
+apply from: '../.scripts/bintrayv1.gradle'

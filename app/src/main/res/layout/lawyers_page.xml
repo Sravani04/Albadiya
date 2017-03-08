@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:id="@+id/header"
+            android:background="#6d5739"
+            android:gravity="center"
+            android:layout_alignParentTop="true">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView9"
+                    android:layout_weight="1"
+                    android:scaleType="center"
+                    android:src="@drawable/page_logo" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/green_icon"
+                    android:id="@+id/imageView24"
+                    android:background="#6d5739"
+                    android:padding="15dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:id="@+id/footer"
+            android:background="#ccaa60"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView26"
+                    android:layout_weight="1"
+                    android:src="@drawable/phone"
+                    android:padding="10dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView27"
+                    android:layout_weight="1"
+                    android:src="@drawable/mail"
+                    android:padding="10dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView29"
+                    android:layout_weight="1"
+                    android:src="@drawable/location"
+                    android:padding="10dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView28"
+                    android:layout_weight="1"
+                    android:src="@drawable/upload"
+                    android:padding="10dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollview"
+            android:layout_above="@+id/footer"
+            android:layout_below="@+id/header"
+            android:background="#fff4ea">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/Layout"
+                android:fillViewport="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:id="@+id/imageView25"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/banner" />
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_below="@+id/imageView25"
+                        android:background="#6d5739"
+                        android:layout_marginBottom="10dp">
+
+                    </LinearLayout>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/add_image"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:src="@drawable/banner1"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="#6d5739"
+                        android:layout_alignParentBottom="true" />
+
+                    <TextView
+                        android:text="AL TAMIMI and COMPANY"
+                        android:id="@+id/textView13"
+                        android:layout_height="100dp"
+                        android:gravity="center_vertical"
+                        android:textSize="12sp"
+                        android:textColor="@color/common_google_signin_btn_text_dark_default"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="280dp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/common_google_signin_btn_text_dark_default">
+
+                    <TextView
+                        android:text="ABOUT COMPANY"
+                        android:id="@+id/textView21"
+                        android:gravity="center_vertical|center"
+                        android:background="#ccaa60"
+                        android:textSize="12sp"
+                        android:textColor="@color/common_google_signin_btn_text_dark_default"
+                        android:textStyle="normal|bold"
+                        android:layout_width="200dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:text="Over the years we have advised, and continue to support, government, government-owned entities,local,regional and international companies,banks and financial institutions along with both international and regional law firms."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView25"
+                        android:layout_weight="1"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="10dp" />
+
+                    <TextView
+                        android:text="Our core strength is our people and the diversity of their experience and local knowledge. our reputation for excellence and regional experience extends beyond our network of offices in Bahrain,Egypt,Iraq,Jordan,Kuwait,Qatar,Oman,Saudi Arabia and the United Arab Emirates."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView26"
+                        android:layout_weight="1"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="10dp" />
+
+                    <TextView
+                        android:text="As a firm, our ability to practice local law in each of these jurisdictions - and the ability of each of our licensed litigators to hage rights of audience before local courts - is a unique strength that truly sets us apart from our competitors."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView27"
+                        android:layout_weight="1"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="10dp" />
+
+                    <TextView
+                        android:text="But more importantly,our strength comes from our clients' trust that we will give them the quality of service that they deserve."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView28"
+                        android:layout_weight="1"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="10dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/common_google_signin_btn_text_dark_default"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:text="PRACTICE AREAS"
+                        android:layout_width="200dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/textView29"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:background="#ccaa60"
+                        android:textSize="12sp"
+                        android:textColor="@color/common_google_signin_btn_text_dark_default"
+                        android:textStyle="normal|bold" />
+
+                    <TextView
+                        android:text=" 1.Arbiration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView30"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:text="2.Banking and Finance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView31"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:text="3.Commercial Advisory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView32"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:text="  4.Construction and Infrastructure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView33"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:text="5.Corporate Governance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView34"
+                        android:textSize="12sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="30dp" />
+                </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@color/common_google_signin_btn_text_dark_default">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="REVIEWS"
+                        android:layout_width="200dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/textView35"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:background="#ccaa60"
+                        android:textSize="18sp"
+                        android:textStyle="normal|bold"
+                        android:textColor="@color/common_google_signin_btn_text_dark_default"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:text="ADD YOUR REVIEWS"
+                        android:layout_height="60dp"
+                        android:id="@+id/textView36"
+                        android:layout_weight="1"
+                        android:layout_width="200dp"
+                        android:gravity="right" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/common_google_signin_btn_text_dark_default"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView37" />
+                </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</LinearLayout>

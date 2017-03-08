@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/textView11"
+        android:text="Switch Button"
+        android:textSize="30sp"
+        android:textColor="#000"
+        android:paddingLeft="5dp"
+        android:background="#c44d4d"
+        android:gravity="center_vertical" />
+
+    <Switch
+        android:text="Android Switch Button 1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch1"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="100dp"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:text="Android Switch Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch_btn"
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="16sp"
+        android:layout_marginTop="2dp" />
+
+    <Switch
+        android:text="Android Switch Button 2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch2"
+        android:layout_marginTop="35dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="18sp" />
+
+    <TextView
+        android:text="Android Switch Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch_btn2"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="2dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:text="ViralAndroid.com"
+        android:layout_width="fill_parent"
+        android:id="@+id/textView14"
+        android:gravity="bottom|center"
+        android:layout_height="match_parent"
+        android:textSize="24sp"
+        android:textColor="#000"
+        android:layout_marginBottom="20dp" />
+</LinearLayout>

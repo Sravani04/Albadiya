@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#e8e8e7" >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:background="#13b586"
+                android:weightSum="1"
+                android:layout_height="50dp">
+
+                <ImageView
+                    app:srcCompat="@mipmap/ic_launcher"
+                    android:id="@+id/logo"
+                    android:scaleType="centerCrop"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.13"
+                    android:layout_width="50dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:weightSum="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="48dp"
+                    android:id="@+id/name_txt"
+                    android:textSize="24sp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="5dp"
+                    android:text="Yellowsoft"
+                    android:background="@drawable/linearlayout_bg"
+                    android:textColor="@android:color/background_dark"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="20dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    app:srcCompat="@drawable/banner"
+                    android:id="@+id/image_view"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:text="About Us"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView2"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:text="Welcome to Yellow Soft, your number one source for services like  Web Designing Web Development Mobile Apps Development E Commerce Solutions Search Engine Optimization We’re dedicated to giving you the best, results, with a focus on three characteristics, i.e, dependability, customer service and uniqueness. We have recently initiated the services out, providing the best results and in turn gives you the  inspiration into a boom in your business.    We help the clients to transform and bloom in a changing world through operational leadership, and the co-creation of breakthrough solutions, which include the services in web designing, web development, apps applications and in SEO."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/desc"
+                    android:layout_marginTop="30dp"
+                    android:paddingLeft="5dp"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:text="COPYRIGHT YELLOW SOFT 2014. ALL RIGHTS RESERVED."
+                    android:layout_width="match_parent"
+                    android:id="@+id/footer"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textStyle="normal|bold"
+                    android:textColor="#000" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

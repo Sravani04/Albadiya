@@ -1,0 +1,2 @@
+include ':toro-sample', ':toro', ':toro-ext-exoplayer', ':toro-ext-mediaplayer', ':toro-extended',
+        ':toro-ext-exoplayer2', ':app'

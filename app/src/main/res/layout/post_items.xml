@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_height="50dp"
+            android:src="@drawable/ic_profile"
+            android:layout_width="50dp"
+            android:id="@+id/user_image" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_title"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp" />
+
+        <ImageView
+            android:layout_height="30dp"
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_star"
+            android:adjustViewBounds="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:id="@+id/imageView45"
+            android:src="@drawable/ic_load"
+            android:layout_height="25dp"
+            android:adjustViewBounds="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mainLayout">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/item_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/banner"
+                android:adjustViewBounds="true" />
+
+            <View
+                android:id="@+id/circleBg"
+                android:layout_width="wrap_content"
+                android:layout_height="140dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle_background"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/heart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="center"
+                android:src="@drawable/ic_heart"
+                android:visibility="gone"
+                android:layout_alignParentBottom="false"
+                android:layout_alignWithParentIfMissing="false"
+                android:tint="#f34141"
+                android:adjustViewBounds="false"
+                android:layout_alignParentTop="false"
+                android:layout_alignParentEnd="false"
+                android:layout_centerHorizontal="false"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/play_btn"
+                android:adjustViewBounds="false"
+                android:layout_centerHorizontal="false"
+                android:layout_centerInParent="true"
+                android:src="@drawable/play_button" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:weightSum="1"
+        android:padding="2dp">
+
+        <ImageView
+            android:id="@+id/user_like"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_likes_vi"
+            android:cropToPadding="false"
+            android:adjustViewBounds="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView48"
+            android:src="@drawable/ic_search"
+            android:adjustViewBounds="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/share_it"
+            android:src="@drawable/ic_arrow"
+            android:adjustViewBounds="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_marginTop="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:id="@+id/imageView49"
+            android:layout_height="15dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/heart"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:text="XXX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/no_of_likes" />
+
+        <TextView
+            android:text="Likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView61"
+            android:paddingLeft="5dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView51"
+            android:adjustViewBounds="true"
+            android:paddingLeft="10dp"
+            android:src="@drawable/ic_eye"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:text="XXX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/no_of_views"
+            android:allowUndo="false" />
+
+        <TextView
+            android:text="Views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView63"
+            android:paddingLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Photo Description...."
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/description"
+            android:paddingLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView52"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_circle"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:text="00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textView65"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+</LinearLayout>

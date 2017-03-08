@@ -1,0 +1,141 @@
+buildscript {
+  repositories {
+    maven { url 'https://maven.fabric.io/public' }
+  }
+
+  dependencies {
+    classpath 'io.fabric.tools:gradle:1.22.0'
+  }
+}
+
+//apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
+
+//apply plugin: 'io.fabric'
+apply plugin: 'com.getkeepsafe.dexcount'
+
+repositories {
+  maven { url 'https://maven.fabric.io/public' }
+}
+
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
+def dateTimeInt() {
+  DateFormat df = new SimpleDateFormat("yyyyMMdd");
+  return Integer.parseInt(df.format(new Date()));
+}
+
+def dateTimeString() {
+  DateFormat df = new SimpleDateFormat("yyyy.MM.dd");
+  return df.format(new Date());
+}
+
+android {
+  compileSdkVersion rootProject.ext.androidVersion
+  buildToolsVersion rootProject.ext.buildToolVersion
+
+  signingConfigs {
+    release {
+      keyAlias toro_prodKeyAlias
+      keyPassword toro_prodKeyPassword
+      storeFile file(toro_prodStoreFile)
+      storePassword toro_prodStorePassword
+    }
+
+    debug {
+      keyAlias "debug"
+      keyPassword "android"
+      storeFile file("debug.jks")
+      storePassword "android"
+    }
+  }
+
+  defaultConfig {
+
+
+//    applicationId "${TORO_SAMPLE_APP_ID}"
+    minSdkVersion rootProject.ext.minSupportSDKVersion
+    targetSdkVersion rootProject.ext.androidVersion
+//
+//    versionCode dateTimeInt()
+//    versionName dateTimeString()
+//    archivesBaseName = "toro_sample"
+//
+//    manifestPlaceholders = [fabric_api_key : "${TORO_SAMPLE_FABRIC_API_KEY}",
+//                            youtube_api_key: "${TORO_SAMPLE_YOUTUBE_API_KEY}"]
+//
+//    vectorDrawables.useSupportLibrary = true
+    multiDexEnabled true
+  }
+
+//  buildTypes {
+//    release {
+//      signingConfig signingConfigs.release
+//      minifyEnabled true
+//      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//    }
+//
+//    prerelease {
+//      debuggable true // this value may change
+//      zipAlignEnabled true
+//      signingConfig signingConfigs.release
+//      minifyEnabled false
+//      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//    }
+//
+//    debug {
+//      signingConfig signingConfigs.debug
+//      applicationIdSuffix ".debug"
+//      minifyEnabled false
+//      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//    }
+//  }
+
+  packagingOptions {
+    exclude 'META-INF/services/javax.annotation.processing.Processor'
+  }
+
+  lintOptions {
+    disable 'InvalidPackage'
+  }
+}
+
+dependencies {
+  compile fileTree(include: ['*.jar'], dir: 'libs')
+  testCompile 'junit:junit:4.12'
+  compile "com.android.support:design:${rootProject.ext.supportLibraryVersion}"
+  compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibraryVersion}"
+  compile "com.android.support:cardview-v7:${rootProject.ext.supportLibraryVersion}"
+
+  // compile project(path: ':toro-ext-exoplayer')
+  compile project(path: ':toro-extended')
+  // compile "im.ene.toro2:toro-extended:2.1.0-SNAPSHOT"
+
+  compile ('com.azoft.carousellayoutmanager:carousel:1.2.1', {
+    exclude group: 'com.android.support', module: 'recyclerview-v7'
+  })
+
+  compile 'com.github.bumptech.glide:glide:3.7.0'
+  compile 'com.squareup.picasso:picasso:2.5.2'
+  compile 'com.jakewharton:butterknife:7.0.1'
+  compile 'com.koushikdutta.ion:ion:2.+'
+  compile 'de.hdodenhof:circleimageview:2.1.0'
+
+//  compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+//    transitive = true;
+//  }
+//
+//  compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5') {
+//    transitive = true;
+//  }
+
+}
+
+//crashlytics {
+//  enableNdk true
+//  androidNdkOut 'src/main/obj'
+//  androidNdkLibsOut 'src/main/libs'
+//}
+
+// apply plugin: 'com.google.gms.google-services'

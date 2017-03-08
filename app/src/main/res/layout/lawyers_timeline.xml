@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:id="@+id/header"
+            android:layout_alignParentTop="true"
+            android:background="#6d5739"
+            android:gravity="center">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView30"
+                    android:layout_weight="1"
+                    android:src="@drawable/page_logo"
+                    android:scaleType="center" />
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView15"
+                    android:background="#6d5739"
+                    android:src="@drawable/filter"
+                    android:layout_width="18dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:id="@+id/footer"
+            android:layout_alignParentBottom="true"
+            android:background="#c69a32">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loading"
+                    android:layout_weight="1"
+                    android:src="@drawable/w_loader"
+                    android:padding="10dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profile"
+                    android:layout_weight="1"
+                    android:src="@drawable/g_user"
+                    android:padding="10dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/books"
+                    android:layout_weight="1"
+                    android:src="@drawable/g_books"
+                    android:layout_margin="10dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/settings"
+                    android:layout_weight="1"
+                    android:src="@drawable/g_settings"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scroll"
+            android:layout_above="@+id/footer"
+            android:layout_below="@+id/header"
+            android:background="#fff4ea">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/myLayout"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/common_google_signin_btn_text_dark_default">
+
+                    <TextView
+                        android:text="DISTRACTED DRIVING"
+                        android:layout_width="match_parent"
+                        android:id="@+id/textView4"
+                        android:gravity="center_vertical"
+                        android:textSize="12sp"
+                        android:textColor="#44423e"
+                        android:textStyle="normal|bold"
+                        android:paddingLeft="8dp"
+                        android:layout_weight="1"
+                        android:layout_height="48dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/imageView3"
+                        android:layout_marginRight="30dp"
+                        android:elevation="1dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/upload_icon"
+                        android:layout_marginTop="10dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="The National Highway Traffic Safety Administration reported that motor vehicle crashes and fetalities increased in 2012. Over 33,000 people died in crashes that year, an increase from the year before.Car accidents are among the most common types of crashes that cause injury."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView16"
+                    android:textSize="12sp"
+                    android:textColor="#000"
+                    android:paddingLeft="5dp"
+                    android:background="@color/common_google_signin_btn_text_dark_default" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView10"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/timeline"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/linearlayout_bg" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/common_google_signin_btn_text_dark_default">
+                <TextView
+                    android:text="08:23 AM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView17"
+                    android:textSize="12sp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginLeft="3dp"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView18"
+                    android:text="03|12|2015"
+                    android:textSize="12sp"
+                    android:layout_marginTop="6dp"
+                    android:padding="10dp" />
+
+                <ImageView
+                    android:id="@+id/imageView19"
+                    android:src="@drawable/readmore"
+                    android:baselineAlignBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="120dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/common_google_signin_btn_text_dark_default"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:text="VISA FOR PRIORITY WORKERS"
+                        android:layout_width="match_parent"
+                        android:id="@+id/textView20"
+                        android:layout_weight="1"
+                        android:layout_marginTop="15dp"
+                        android:textSize="12sp"
+                        android:textStyle="normal|bold"
+                        android:textColor="#44423e"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="30dp" />
+
+                    <ImageView
+                        android:id="@+id/imageView11"
+                        android:layout_weight="1"
+                        android:src="@drawable/upload_icon"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginStart="150dp"
+                        android:layout_height="20dp"
+                        android:layout_width="match_parent" />
+                </LinearLayout>
+
+                <TextView
+                    android:text="Figuring out what type of work visa you need can be a difficult task. There are a number of work visas that are available to foreign citizens who wish to work in the United States. The visa that an individual may be eligible for depends on the nature of the work that is to be conducted."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView22"
+                    android:textSize="12sp"
+                    android:textColor="#000"
+                    android:background="@color/common_google_signin_btn_text_dark_default"
+                    android:paddingLeft="5dp"
+                    android:layout_marginTop="2dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView12"
+                    android:scaleType="fitXY"
+                    android:layout_marginTop="3dp"
+                    android:src="@drawable/visa"
+                    android:background="@drawable/linearlayout_bg" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/common_google_signin_btn_text_dark_default">
+
+                    <TextView
+                        android:text="08:23 AM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView12"
+                        android:textSize="12sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginLeft="3dp"
+                        android:padding="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView2"
+                        android:text="03|12|2015"
+                        android:textSize="12sp"
+                        android:layout_marginTop="12dp"
+                        android:padding="10dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/imageView20"
+                        android:src="@drawable/readmore"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="120dp"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+        </ScrollView>
+    </RelativeLayout>
+
+</LinearLayout>

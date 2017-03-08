@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="#13b586">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:id="@+id/textView3"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="10dp"
+            android:textColor="#f3f3f3"
+            android:textAllCaps="false"
+            android:textStyle="normal|bold"
+            android:textSize="18sp"
+            android:text="Forgot Password?" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal">
+
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:id="@+id/forgotpw"
+            android:hint="Please enter email address"
+            android:layout_marginTop="50dp"
+            android:allowUndo="false"
+            android:background="#f3f3f3"
+            android:textColor="#000"
+            android:inputType="text|textEmailAddress" />
+
+        <TextView
+            android:text="SUBMIT"
+            android:layout_width="190dp"
+            android:layout_height="38dp"
+            android:id="@+id/forgot_btn"
+            android:textSize="13dp"
+            android:background="#13b586"
+            android:textAlignment="center"
+            android:minHeight="47dp"
+            android:maxHeight="48dp"
+            android:minWidth="88dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="40dp"
+            android:textColor="@android:color/background_light"
+            android:textStyle="normal|bold" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fde7d3">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:id="@+id/header"
+            android:layout_alignParentTop="true"
+            android:background="#6d5739"
+            android:gravity="center">
+
+            <TextView
+                android:text="Settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView41"
+                android:textColor="@color/common_google_signin_btn_text_dark_default" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:id="@+id/footer"
+            android:layout_alignParentBottom="true"
+            android:background="#c69a32">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loading"
+                    android:layout_weight="1"
+                    android:src="@drawable/w_loader"
+                    android:padding="10dp"
+                    android:tint="#6d5739" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profile"
+                    android:layout_weight="1"
+                    android:src="@drawable/g_user"
+                    android:padding="10dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/books"
+                    android:layout_weight="1"
+                    android:src="@drawable/g_books"
+                    android:layout_margin="10dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView22"
+                    android:layout_weight="1"
+                    android:src="@drawable/g_settings"
+                    android:padding="10dp"
+                    android:tint="#ffff" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scroll"
+            android:layout_above="@+id/footer"
+            android:layout_below="@+id/header">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:layout_marginTop="4dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/first_name"
+                        android:layout_marginTop="15dp">
+
+                        <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/user_name"
+                            android:layout_marginLeft="3dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="#6d5739" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/emailid"
+                        android:layout_below="@+id/first_name">
+
+                        <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/user_email"
+                            android:layout_marginLeft="3dp"
+                            android:textColor="#6d5739" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/phone"
+                        android:layout_below="@+id/emailid">
+
+                        <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/user_phone"
+                            android:layout_marginLeft="3dp"
+                            android:textColor="#6d5739" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="96dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/userimage"
+                        android:layout_alignParentEnd="false"
+                        android:layout_alignRight="@+id/first_name"
+                        android:layout_alignWithParentIfMissing="false"
+                        android:layout_centerHorizontal="false"
+                        android:layout_centerInParent="false"
+                        android:layout_centerVertical="false">
+
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:id="@+id/add_image"
+                            android:src="@drawable/banner4"
+                            android:scaleType="centerCrop" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentRight="false"
+            android:addStatesFromChildren="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_centerHorizontal="false"
+            android:layout_centerInParent="false"
+            android:layout_below="@+id/header"
+            android:layout_marginTop="120dp"
+            android:layout_height="60dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/common_google_signin_btn_text_dark_default">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@android:drawable/stat_notify_chat"
+                    android:id="@+id/imageView31"
+                    android:layout_weight="0.07"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp" />
+
+                <TextView
+                    android:text="My Chats"
+                    android:layout_alignParentBottom="false"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    app:srcCompat="@drawable/down_arrow1"
+                    android:id="@+id/chat"
+                    android:layout_weight="0.07"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentRight="false"
+            android:addStatesFromChildren="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_centerHorizontal="false"
+            android:layout_centerInParent="false"
+            android:layout_below="@+id/header"
+            android:layout_marginTop="120dp"
+            android:layout_height="60dp"
+            android:id="@+id/chats">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/common_google_signin_btn_text_dark_default">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/imageView31"
+                    android:layout_weight="0.07"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:adjustViewBounds="false"
+                    android:src="@android:drawable/stat_notify_chat"
+                    android:background="@color/cardview_dark_background"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:text="My Chats"
+                    android:id="@+id/chat"
+                    android:layout_alignParentBottom="false"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:textColor="#6d5739" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/imageView32"
+                    android:layout_weight="0.07"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_below="@+id/chats"
+            android:layout_height="60dp"
+            android:background="@color/common_google_signin_btn_text_dark_default"
+            android:id="@+id/changepw">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/imageView33"
+                android:adjustViewBounds="false"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_height="30dp"
+                android:src="@android:drawable/ic_partial_secure" />
+
+            <TextView
+                android:text="Change Password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView51"
+                android:layout_alignParentLeft="false"
+                android:layout_alignLeft="@+id/imageView33"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="false"
+                android:layout_centerInParent="false"
+                android:layout_toRightOf="@+id/imageView33"
+                android:layout_marginLeft="40dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="#6d5739" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/passclick"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25dp"
+                android:src="@drawable/down_arrow1" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_above="@+id/footer"
+            android:layout_below="@+id/location">
+
+            <TextView
+                android:text="Logout"
+                android:id="@+id/logout"
+                android:textColor="#ffff"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentBottom="true"
+                android:layout_width="700dp"
+                android:layout_height="48dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="#6d5739"
+                android:layout_margin="10dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#64424242"
+            android:gravity="center_vertical"
+            android:id="@+id/pop_up_view"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="#fde7d3"
+                android:weightSum="1"
+                android:layout_height="300dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="Change Password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView40"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:padding="10dp" />
+
+                    <TextView
+                        android:text="Close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/close_btn"
+                        android:padding="10dp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/common_google_signin_btn_text_dark_default"
+            android:id="@+id/location"
+            android:layout_below="@+id/changepw"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView35"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="0.01"
+                android:src="@android:drawable/ic_menu_edit" />
+
+            <TextView
+                android:text="Change Language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView52"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="8dp"
+                android:textColor="#6d5739" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView36"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/down_arrow1" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
