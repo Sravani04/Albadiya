@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package app.mamac.albadiya.life.knowledge4.videotrimmer.utils;
+package life.knowledge4.videotrimmer.utils;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;

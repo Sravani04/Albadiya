@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package app.mamac.albadiya.life.knowledge4.videotrimmer.view;
+package life.knowledge4.videotrimmer.view;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

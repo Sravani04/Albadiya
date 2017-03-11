@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package app.mamac.albadiya.life.knowledge4.videotrimmer.view;
+package life.knowledge4.videotrimmer.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -33,8 +33,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import life.knowledge4.videotrimmer.R;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.interfaces.OnProgressVideoListener;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.interfaces.OnRangeSeekBarListener;
+import life.knowledge4.videotrimmer.interfaces.OnProgressVideoListener;
+import life.knowledge4.videotrimmer.interfaces.OnRangeSeekBarListener;
 
 public class ProgressBarView extends View implements OnRangeSeekBarListener, OnProgressVideoListener {
 
@@ -150,4 +150,7 @@ public class ProgressBarView extends View implements OnRangeSeekBarListener, OnP
 
         invalidate();
     }
+
+
+
 }

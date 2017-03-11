@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import app.mamac.albadiya.R;
 import life.knowledge4.videotrimmer.K4LVideoTrimmer;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.interfaces.OnK4LVideoListener;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.interfaces.OnTrimVideoListener;
+import life.knowledge4.videotrimmer.interfaces.OnK4LVideoListener;
+import life.knowledge4.videotrimmer.interfaces.OnTrimVideoListener;
 
 public class TrimmerActivity extends AppCompatActivity implements OnTrimVideoListener, OnK4LVideoListener {
 
@@ -28,6 +28,7 @@ public class TrimmerActivity extends AppCompatActivity implements OnTrimVideoLis
 
         if (extraIntent != null) {
             path = extraIntent.getStringExtra(MainActivity.EXTRA_VIDEO_PATH);
+
         }
 
         //setting progressbar
@@ -38,11 +39,11 @@ public class TrimmerActivity extends AppCompatActivity implements OnTrimVideoLis
         mVideoTrimmer = ((K4LVideoTrimmer) findViewById(R.id.timeLine));
         if (mVideoTrimmer != null) {
             mVideoTrimmer.setMaxDuration(300);
-           // mVideoTrimmer.setOnTrimVideoListener(this);
-           // mVideoTrimmer.setOnK4LVideoListener(this);
-            //mVideoTrimmer.setDestinationPath("/storage/emulated/0/DCIM/CameraCustom/");
-            mVideoTrimmer.setVideoURI(Uri.parse(path));
-           // mVideoTrimmer.setVideoInformationVisibility(true);
+             mVideoTrimmer.setOnTrimVideoListener(TrimmerActivity.this);
+             mVideoTrimmer.setOnK4LVideoListener(this);
+             //mVideoTrimmer.setDestinationPath("/storage/emulated/0/DCIM/CameraCustom/");
+          mVideoTrimmer.setVideoURI(Uri.parse(path));
+           mVideoTrimmer.setVideoInformationVisibility(true);
         }
     }
 

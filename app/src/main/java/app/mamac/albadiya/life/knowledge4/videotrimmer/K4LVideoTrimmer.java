@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package app.mamac.albadiya.life.knowledge4.videotrimmer;
+package life.knowledge4.videotrimmer;
 
 import android.content.Context;
 import android.media.MediaMetadataRetriever;
@@ -51,18 +51,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.mamac.albadiya.R;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.interfaces.OnK4LVideoListener;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.interfaces.OnProgressVideoListener;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.interfaces.OnRangeSeekBarListener;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.interfaces.OnTrimVideoListener;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.utils.BackgroundExecutor;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.utils.TrimVideoUtils;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.utils.UiThreadExecutor;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.view.ProgressBarView;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.view.RangeSeekBarView;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.view.Thumb;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.view.TimeLineView;
-import static app.mamac.albadiya.life.knowledge4.videotrimmer.utils.TrimVideoUtils.stringForTime;
+import life.knowledge4.videotrimmer.interfaces.OnK4LVideoListener;
+import life.knowledge4.videotrimmer.interfaces.OnProgressVideoListener;
+import life.knowledge4.videotrimmer.interfaces.OnRangeSeekBarListener;
+import life.knowledge4.videotrimmer.interfaces.OnTrimVideoListener;
+import life.knowledge4.videotrimmer.utils.BackgroundExecutor;
+import life.knowledge4.videotrimmer.utils.TrimVideoUtils;
+import life.knowledge4.videotrimmer.utils.UiThreadExecutor;
+import life.knowledge4.videotrimmer.view.ProgressBarView;
+import life.knowledge4.videotrimmer.view.RangeSeekBarView;
+import life.knowledge4.videotrimmer.view.Thumb;
+import life.knowledge4.videotrimmer.view.TimeLineView;
+import static life.knowledge4.videotrimmer.utils.TrimVideoUtils.stringForTime;
 
 public class K4LVideoTrimmer extends FrameLayout {
 

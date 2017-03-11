@@ -23,7 +23,7 @@
  */
 package app.mamac.albadiya.life.knowledge4.videotrimmer.interfaces;
 
-import app.mamac.albadiya.life.knowledge4.videotrimmer.view.RangeSeekBarView;
+import life.knowledge4.videotrimmer.view.RangeSeekBarView;
 
 public interface OnRangeSeekBarListener {
     void onCreate(RangeSeekBarView rangeSeekBarView, int index, float value);

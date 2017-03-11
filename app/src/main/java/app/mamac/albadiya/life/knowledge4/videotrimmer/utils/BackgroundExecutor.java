@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package app.mamac.albadiya.life.knowledge4.videotrimmer.utils;
+package life.knowledge4.videotrimmer.utils;
 
 import android.util.Log;
 

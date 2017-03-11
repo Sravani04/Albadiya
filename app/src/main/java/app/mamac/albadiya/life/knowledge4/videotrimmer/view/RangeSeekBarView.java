@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package app.mamac.albadiya.life.knowledge4.videotrimmer.view;
+package life.knowledge4.videotrimmer.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import life.knowledge4.videotrimmer.R;
-import app.mamac.albadiya.life.knowledge4.videotrimmer.interfaces.OnRangeSeekBarListener;
+import life.knowledge4.videotrimmer.interfaces.OnRangeSeekBarListener;
 
 public class RangeSeekBarView extends View {
 

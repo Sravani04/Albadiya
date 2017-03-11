@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,12 +15,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import app.mamac.albadiya.life.knowledge4.videotrimmersample.TrimmerActivity;
+import life.knowledge4.videotrimmer.utils.FileUtils;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by mac on 12/12/16.
@@ -32,6 +39,11 @@ public class TakeGalleryFragment extends Fragment{
     ArrayList<String> title;
     ProgressBar progressBar;
     PostFragment postFragment;
+    public static final String EXTRA_VIDEO_PATH = "EXTRA_VIDEO_PATH";
+    private static final int REQUEST_VIDEO_TRIMMER = 0x01;
+    private static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
+
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.take_gallery_layout, container, false);
@@ -47,7 +59,6 @@ public class TakeGalleryFragment extends Fragment{
 //                postFragment.onGallerySelected(images.get(position));
                 Intent intent = new Intent(getActivity(), app.mamac.albadiya.life.knowledge4.videotrimmersample.MainActivity.class);
                 startActivity(intent);
-
             }
         });
         postFragment = (PostFragment)getParentFragment();
@@ -55,10 +66,33 @@ public class TakeGalleryFragment extends Fragment{
         return view;
     }
 
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if (resultCode == RESULT_OK) {
+                if (requestCode == REQUEST_VIDEO_TRIMMER) {
+                    final Uri selectedUri = data.getData();
+                    if (selectedUri != null) {
+                        startTrimActivity(selectedUri);
+                    } else {
+                        Toast.makeText(getContext(), R.string.toast_cannot_retrieve_selected_video, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
+
+
+        private void startTrimActivity(@NonNull Uri uri) {
+            Intent intent = new Intent(getContext(), TrimmerActivity.class);
+            intent.putExtra(EXTRA_VIDEO_PATH, FileUtils.getPath(getContext(), uri));
+            startActivity(intent);
+        }
+
+
+
+
+
     public ArrayList<String> getFilePaths()
     {
-
-
         Uri u = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         Uri v = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {MediaStore.Images.ImageColumns.DATA};
@@ -167,7 +201,6 @@ public class TakeGalleryFragment extends Fragment{
 
         }
     }
-
 
 
 }
