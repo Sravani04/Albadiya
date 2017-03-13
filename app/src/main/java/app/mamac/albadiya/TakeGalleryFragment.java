@@ -21,6 +21,8 @@ import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import app.mamac.albadiya.life.knowledge4.videotrimmersample.TrimmerActivity;
+
 /**
  * Created by mac on 12/12/16.
  */
@@ -50,7 +52,11 @@ public class TakeGalleryFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                postFragment.onGallerySelected(images.get(position));
-                Intent intent = new Intent(getActivity(), app.mamac.albadiya.life.knowledge4.videotrimmersample.MainActivity.class);
+//                Intent intent = new Intent(getActivity(), app.mamac.albadiya.life.knowledge4.videotrimmersample.MainActivity.class);
+//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), TrimmerActivity.class);
+                Log.e("path1",images.toString());
+                intent.putExtra(EXTRA_VIDEO_PATH,images.get(position));
                 startActivity(intent);
             }
         });

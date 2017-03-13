@@ -67,17 +67,17 @@ public class InstaSearch extends Fragment {
 
 
         Uri u = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        Uri v = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        //Uri v = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {MediaStore.Images.ImageColumns.DATA};
-        String[] projection1 = {MediaStore.Video.VideoColumns.DATA};
+       // String[] projection1 = {MediaStore.Video.VideoColumns.DATA};
         Cursor c = null;
         SortedSet<String> dirList = new TreeSet<String>();
         ArrayList<String> resultIAV = new ArrayList<String>();
 
         String[] directories = null;
-        if (v != null)
+        if (u != null)
         {
-            c = getActivity().managedQuery(u, projection1, null, null, null);
+            c = getActivity().managedQuery(u, projection, null, null, null);
         }
 
         if ((c != null) && (c.moveToFirst()))
