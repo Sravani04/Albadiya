@@ -24,7 +24,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -294,7 +293,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
                     try {
                       if (result.get("status").getAsString().equals("Success")) {
                         Toast.makeText(itemView.getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
-
+                        albadiyaTimelineFragment.delete_post(post_id);
                       } else {
                         Toast.makeText(itemView.getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
                       }

@@ -54,7 +54,6 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
     Settingsinterface mCallback;
     ChatScreeninterface Callback;
     UserProfileSelectedListner uCallback;
-    private AlbadiyaPostsFragment posts;
     HashMap<String,Boolean> flags;
     HashMap<String,Integer> likes;
     LinearLayout header;
@@ -159,7 +158,7 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
     }
 
     private void make_page() {
-        adapter = new TimelineAdapter(itemsfrom_api,this,posts);
+        adapter = new TimelineAdapter(itemsfrom_api,this);
         mRecyclerView.setAdapter(adapter);
 
         final ToroStrategy oldStrategy = Toro.getStrategy();
