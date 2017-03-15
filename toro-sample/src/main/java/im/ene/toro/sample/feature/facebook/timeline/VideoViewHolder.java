@@ -171,7 +171,7 @@ public class VideoViewHolder extends ExoVideoViewHolder {
     delete_btn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        delete_popup();
+         delete_popup();
       }
     });
 
@@ -354,6 +354,9 @@ public class VideoViewHolder extends ExoVideoViewHolder {
                     try {
                       if (result.get("status").getAsString().equals("Success")) {
                         Toast.makeText(itemView.getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
+                        fragment.delete_post(post_id);
+                        //  fragment.delete_post(post_id);
+
                       } else {
                         Toast.makeText(itemView.getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
                       }

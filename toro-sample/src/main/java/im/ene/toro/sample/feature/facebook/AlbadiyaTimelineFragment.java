@@ -153,7 +153,7 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
 //            }
 //        });
 
-        get_posts();
+        get_posts(true);
         return view;
 
     }
@@ -278,7 +278,16 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
         }
     }
 
-    public void get_posts(){
+
+    public void delete_post(String post_id){
+        get_posts(true);
+
+    }
+    public void get_posts(boolean clear_all){
+
+        if(clear_all)
+            itemsfrom_api.clear();
+
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("please wait..");
         progressDialog.setCancelable(false);
@@ -347,7 +356,7 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
             if (previouslast!=lastitem){
                 Log.e("result","last");
                 pageno++;
-                get_posts();
+                get_posts(false);
                 previouslast = lastitem;
             }
         }
