@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.File;
+
+import app.mamac.albadiya.AddPost;
 import app.mamac.albadiya.R;
 import app.mamac.albadiya.TakeGalleryFragment;
 import life.knowledge4.videotrimmer.K4LVideoTrimmer;
@@ -19,6 +22,7 @@ public class TrimmerActivity extends AppCompatActivity implements OnTrimVideoLis
 
     private K4LVideoTrimmer mVideoTrimmer;
     private ProgressDialog mProgressDialog;
+    String path = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +30,7 @@ public class TrimmerActivity extends AppCompatActivity implements OnTrimVideoLis
         setContentView(R.layout.activity_trimmer);
 
         Intent extraIntent = getIntent();
-        String path = "";
+
 
         if (extraIntent != null) {
             path = extraIntent.getStringExtra(TakeGalleryFragment.EXTRA_VIDEO_PATH);
@@ -64,9 +68,15 @@ public class TrimmerActivity extends AppCompatActivity implements OnTrimVideoLis
                 Toast.makeText(TrimmerActivity.this, getString(R.string.video_saved_at, uri.getPath()), Toast.LENGTH_SHORT).show();
             }
         });
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.setDataAndType(uri, "video/mp4");
+
+        Intent intent = new Intent(TrimmerActivity.this,AddPost.class);
+        File file = new File(uri.getPath());
+        intent.putExtra("video", file.toURI().toString());
         startActivity(intent);
+//        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//        intent.setDataAndType(uri, "video/mp4");
+//        startActivity(intent);
+
         finish();
     }
 
