@@ -11,7 +11,8 @@
         android:addStatesFromChildren="false"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp">
 
         <ImageView
             android:layout_width="70dp"
