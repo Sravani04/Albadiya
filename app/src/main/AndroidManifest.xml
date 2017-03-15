@@ -80,6 +80,7 @@
         <activity android:name=".VideoPlayerActivity"  android:configChanges="orientation"></activity>
         <activity android:name=".life.knowledge4.videotrimmersample.MainActivity"></activity>
         <activity android:name=".life.knowledge4.videotrimmersample.TrimmerActivity"></activity>
+        <activity android:name=".MemberChatActivity"></activity>
     </application>
 
 </manifest>

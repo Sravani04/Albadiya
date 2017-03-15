@@ -71,6 +71,14 @@ public class EditProfile extends Fragment{
 
                 }
             });
+
+            edit_image_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(),MemberChatActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
         else{
             //edit_btn.setTag(1);
