@@ -76,6 +76,7 @@ public class EditProfile extends Fragment{
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(),MemberChatActivity.class);
+                    intent.putExtra("receiver_id",member_id);
                     startActivity(intent);
                 }
             });
@@ -217,24 +218,16 @@ public class EditProfile extends Fragment{
             }
         });
 
-        if(getArguments()!=null && getArguments().containsKey("header"))
-            header = getArguments().getString("header");
 
         posts_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(member_id.equals(Settings.GetUserId(getActivity()))) {
                     AlbadiyaTimelineFragment albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("header","0");
-                    bundle.putString("line","0");
+                    bundle.putString("header", "0");
+                    bundle.putString("line", "0");
                     albadiyaTimelineFragment.setArguments(bundle);
                     getFragmentManager().beginTransaction().replace(R.id.frame_one, albadiyaTimelineFragment).commit();
-                }else {
-                    AlbadiyaTimelineFragment albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.frame_one, albadiyaTimelineFragment).commit();
-                }
-
             }
         });
 
