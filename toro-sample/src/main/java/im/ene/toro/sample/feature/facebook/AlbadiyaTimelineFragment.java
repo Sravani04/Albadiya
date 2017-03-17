@@ -62,6 +62,7 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
     String main_header;
     LinearLayout line;
     String horizontal_line;
+    PostsTimlineFragment timeline;
 
 
 
@@ -158,7 +159,7 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
     }
 
     private void make_page() {
-        adapter = new TimelineAdapter(itemsfrom_api,this);
+        adapter = new TimelineAdapter(itemsfrom_api,this,timeline);
         mRecyclerView.setAdapter(adapter);
 
         final ToroStrategy oldStrategy = Toro.getStrategy();
