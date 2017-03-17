@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,8 +27,6 @@ import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,7 +54,7 @@ public class ChatScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatlist_screen);
         listView = (ListView) findViewById(R.id.chat_list);
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         chatsfrom_api = new ArrayList<>();
         send_btn = (ImageView) findViewById(R.id.send_btn);
         member_id = Settings.GetUserId(this);

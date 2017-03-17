@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessagesActivity extends Activity {
     ListView listView;
-    ChatScreenAdapter chatScreenAdapter;
+    MessageActivityAdapter messageActivityAdapter;
     Posts posts;
     ArrayList<Chats> chatsfrom_api;
     String member_id;
@@ -49,6 +50,7 @@ public class MessagesActivity extends Activity {
     ImageView select_files;
     String user_name;
     String user_image;
+    ArrayList<ChatMember> chatmembersfrom_api;
 
 
 
@@ -59,6 +61,7 @@ public class MessagesActivity extends Activity {
 
         chatsfrom_api = new ArrayList<>();
         send_btn = (ImageView) findViewById(R.id.send_btn);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         member_id = Settings.GetUserId(this);
         if(getIntent()!=null && getIntent().hasExtra("receiver_id")){
             receiver_id=getIntent().getStringExtra("receiver_id");
@@ -123,13 +126,13 @@ public class MessagesActivity extends Activity {
             }
         });
         chatsfrom_api = new ArrayList<>();
-
-        get_chats();
-
+        chatmembersfrom_api = new ArrayList<>();
+        //get_chats();
+        get_chats_member();
         postsfrom_api = new ArrayList<>();
 
-        chatScreenAdapter = new ChatScreenAdapter(this,chatsfrom_api);
-        listView.setAdapter(chatScreenAdapter);
+        messageActivityAdapter = new MessageActivityAdapter(this,chatmembersfrom_api);
+        listView.setAdapter(messageActivityAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -170,7 +173,33 @@ public class MessagesActivity extends Activity {
                             chatsfrom_api.add(chats);
 
                         }
-                        chatScreenAdapter.notifyDataSetChanged();
+                        //chatScreenAdapter.notifyDataSetChanged();
+                    }
+                });
+    }
+
+
+    public void get_chats_member(){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("please wait..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        Ion.with(this)
+                .load("http://naqshapp.com/albadiya/api/chats-member.php")
+                .setBodyParameter("member_id",Settings.GetUserId(this))
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+                        if (progressDialog!=null)
+                            progressDialog.dismiss();
+                        Log.e("chats",result.toString());
+                        for (int i = 0; i < result.size(); i++) {
+                            ChatMember chatMember = new ChatMember(result.get(i).getAsJsonObject(), MessagesActivity.this);
+                            chatmembersfrom_api.add(chatMember);
+                        }
+                        messageActivityAdapter.notifyDataSetChanged();
+
                     }
                 });
     }
@@ -178,35 +207,6 @@ public class MessagesActivity extends Activity {
 
 
     ArrayList<Posts> postsfrom_api;
-
-    public void get_member_details(){
-        String url = Settings.SERVER_URL+"member-details.php";
-        Ion.with(MessagesActivity.this)
-                .load(url)
-                .setBodyParameter("member_id",receiver_id)
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonArray result) {
-                        try {
-                            JsonObject jsonObject = result.get(0).getAsJsonObject();
-                            name.setText(jsonObject.get("name").getAsString());
-                            chatScreenAdapter.notifyDataSetChanged();
-                            Ion.with(MessagesActivity.this)
-                                    .load(jsonObject.get("image").getAsString())
-                                    .withBitmap()
-                                    .placeholder(R.drawable.ic_profile)
-                                    .intoImageView(image);
-
-                        }catch (Exception ex){
-                            ex.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-
-
 
     public void show_images(){
         final CharSequence[] items = {"camera","gallery"};

@@ -89,15 +89,13 @@ public class MemberChatActivity extends Activity {
                     public void onCompleted(Exception e, JsonArray result) {
                         if (progressDialog!=null)
                             progressDialog.dismiss();
-                        try {
-                            for (int i = 0; i < result.size(); i++) {
-                                ChatMember chatMember = new ChatMember(result.get(i).getAsJsonObject(), MemberChatActivity.this);
-                                chatmembersfrom_api.add(chatMember);
-                            }
-                            memberChatActivityAdapter.notifyDataSetChanged();
-                        }catch (Exception e1){
-                            e.printStackTrace();
+                        Log.e("chats",result.toString());
+                        for (int i = 0; i < result.size(); i++) {
+                            ChatMember chatMember = new ChatMember(result.get(i).getAsJsonObject(), MemberChatActivity.this);
+                            chatmembersfrom_api.add(chatMember);
                         }
+                        memberChatActivityAdapter.notifyDataSetChanged();
+
                     }
                 });
     }

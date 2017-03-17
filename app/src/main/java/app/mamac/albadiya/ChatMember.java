@@ -13,7 +13,11 @@ public class ChatMember {
 
     public ChatMember(JsonObject jsonObject, Context context){
         id  = jsonObject.get("id").getAsString();
-        name = jsonObject.get("name").getAsString();
+        try {
+            name = jsonObject.get("name").getAsString();
+        }catch (Exception ex){
+            name = "no-name";
+        }
         msg_type = jsonObject.get("msg_type").getAsString();
         file   = jsonObject.get("file").getAsString();
         image  = jsonObject.get("image").getAsString();
