@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import im.ene.toro.sample.feature.facebook.AlbadiyaTimelineFragment;
+import im.ene.toro.sample.feature.facebook.PostsTimlineFragment;
 
 /**
  * Created by T on 12-12-2016.
@@ -44,6 +44,8 @@ public class EditProfile extends Fragment{
     FrameLayout frame_one;
     TextView logout;
     String header;
+
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState){
@@ -222,12 +224,14 @@ public class EditProfile extends Fragment{
         posts_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    AlbadiyaTimelineFragment albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
+                    PostsTimlineFragment postsTimelineFragment = new PostsTimlineFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("header", "0");
                     bundle.putString("line", "0");
-                    albadiyaTimelineFragment.setArguments(bundle);
-                    getFragmentManager().beginTransaction().replace(R.id.frame_one, albadiyaTimelineFragment).commit();
+                    bundle.putString("member_id", member_id);
+                    postsTimelineFragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.frame_one, postsTimelineFragment).commit();
+
             }
         });
 
