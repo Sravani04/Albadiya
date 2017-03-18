@@ -39,6 +39,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MessagesActivity extends Activity {
     ListView listView;
     MessageActivityAdapter messageActivityAdapter;
+    ChatScreenAdapter chatScreenAdapter;
     Posts posts;
     ArrayList<Chats> chatsfrom_api;
     String member_id;
@@ -131,8 +132,8 @@ public class MessagesActivity extends Activity {
         get_chats_member();
         postsfrom_api = new ArrayList<>();
 
-        messageActivityAdapter = new MessageActivityAdapter(this,chatmembersfrom_api);
-        listView.setAdapter(messageActivityAdapter);
+        chatScreenAdapter = new ChatScreenAdapter(this,chatsfrom_api);
+        listView.setAdapter(chatScreenAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -173,7 +174,7 @@ public class MessagesActivity extends Activity {
                             chatsfrom_api.add(chats);
 
                         }
-                        messageActivityAdapter.notifyDataSetChanged();
+                        chatScreenAdapter.notifyDataSetChanged();
                     }
                 });
     }
@@ -198,7 +199,7 @@ public class MessagesActivity extends Activity {
                             ChatMember chatMember = new ChatMember(result.get(i).getAsJsonObject(), MessagesActivity.this);
                             chatmembersfrom_api.add(chatMember);
                         }
-                        messageActivityAdapter.notifyDataSetChanged();
+                        chatScreenAdapter.notifyDataSetChanged();
 
                     }
                 });
