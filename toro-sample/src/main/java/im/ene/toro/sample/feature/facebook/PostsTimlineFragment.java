@@ -66,12 +66,6 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
     String member;
 
 
-
-
-
-
-
-
     public interface Settingsinterface{
         public void opensettings_page();
     }
@@ -84,12 +78,6 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
 
         public void onUserSelected(String member_id);
     }
-
-
-
-
-
-
 
 
     @Override
