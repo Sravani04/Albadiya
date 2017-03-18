@@ -32,6 +32,7 @@ import im.ene.toro.ToroPlayer;
 import im.ene.toro.sample.ToroApp;
 import im.ene.toro.sample.feature.facebook.AlbadiyaTimelineFragment;
 import im.ene.toro.sample.feature.facebook.OrderedPlayList;
+import im.ene.toro.sample.feature.facebook.PostsTimlineFragment;
 
 
 /**
@@ -51,6 +52,7 @@ public class TimelineAdapter extends ToroAdapter<ToroAdapter.ViewHolder>
   private final List<TimelineItem> items;
   private final MediaPlayerManager delegate;
   private AlbadiyaTimelineFragment fragment;
+  private PostsTimlineFragment timeline;
 
   public TimelineAdapter() {
     this.delegate = new MediaPlayerManagerImpl();
@@ -60,10 +62,11 @@ public class TimelineAdapter extends ToroAdapter<ToroAdapter.ViewHolder>
     }
   }
 
-  public TimelineAdapter(ArrayList<TimelineItem> items, AlbadiyaTimelineFragment fragment) {
+  public TimelineAdapter(ArrayList<TimelineItem> items, AlbadiyaTimelineFragment fragment,PostsTimlineFragment timeline) {
     this.delegate = new MediaPlayerManagerImpl();
     this.items = items;
     this.fragment = fragment;
+    this.timeline = timeline;
 
   }
 
