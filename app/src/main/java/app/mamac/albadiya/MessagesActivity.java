@@ -127,7 +127,7 @@ public class MessagesActivity extends Activity {
         });
         chatsfrom_api = new ArrayList<>();
         chatmembersfrom_api = new ArrayList<>();
-        //get_chats();
+        get_chats();
         get_chats_member();
         postsfrom_api = new ArrayList<>();
 
@@ -173,7 +173,7 @@ public class MessagesActivity extends Activity {
                             chatsfrom_api.add(chats);
 
                         }
-                        //chatScreenAdapter.notifyDataSetChanged();
+                        messageActivityAdapter.notifyDataSetChanged();
                     }
                 });
     }
