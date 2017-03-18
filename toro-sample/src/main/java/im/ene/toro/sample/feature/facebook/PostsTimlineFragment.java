@@ -295,7 +295,8 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
             progressDialog.show();
             Ion.with(this)
                     .load(Settings.SERVER_URL + "posts.php")
-                    .setBodyParameter("member_id", member)
+                    .setBodyParameter("member_id", Settings.GetUserId(getContext()))
+                    .setBodyParameter("uploader_id",member)
                     .asJsonArray()
                     .setCallback(new FutureCallback<JsonArray>() {
                         @Override
@@ -325,15 +326,17 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
                                     TimelineItem timelineItem = new TimelineItem(getActivity(), posts.id, posts.user_name,
                                             posts.user_image, posts.description, type, type_url, posts.time, posts.total_likes,
                                             posts.total_views, posts.member_like, posts.user_id);
-                                    itemsfrom_api.add(timelineItem);
+//                                    if (posts.user_id.equals(member)) {
+                                        itemsfrom_api.add(timelineItem);
 
-                                    likes.put(posts.id, Integer.parseInt(itemsfrom_api.get(i).getAuthor().getUserLikes()));
+                                        likes.put(posts.id, Integer.parseInt(itemsfrom_api.get(i).getAuthor().getUserLikes()));
 
-                                    if (itemsfrom_api.get(i).getAuthor().getMemberLike().equals("0")) {
-                                        flags.put(posts.id, Boolean.FALSE);
-                                    } else {
-                                        flags.put(posts.id, Boolean.TRUE);
-                                    }
+                                        if (itemsfrom_api.get(i).getAuthor().getMemberLike().equals("0")) {
+                                            flags.put(posts.id, Boolean.FALSE);
+                                        } else {
+                                            flags.put(posts.id, Boolean.TRUE);
+                                        }
+//                                    }
                                 }
 
                                 make_page();
