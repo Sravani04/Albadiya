@@ -32,7 +32,6 @@ import im.ene.toro.ToroStrategy;
 import im.ene.toro.sample.BaseToroFragment;
 import im.ene.toro.sample.R;
 import im.ene.toro.sample.feature.facebook.playlist.FacebookPlaylistFragment;
-import im.ene.toro.sample.feature.facebook.timeline.MemberDetails;
 import im.ene.toro.sample.feature.facebook.timeline.Posts;
 import im.ene.toro.sample.feature.facebook.timeline.PostsTimelineAdapter;
 import im.ene.toro.sample.feature.facebook.timeline.Settings;
@@ -65,7 +64,7 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
     String horizontal_line;
     AlbadiyaTimelineFragment fragment;
     String member;
-    MemberDetails memberDetails;
+
 
 
 
