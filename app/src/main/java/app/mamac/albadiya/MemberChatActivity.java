@@ -64,7 +64,7 @@ public class MemberChatActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MemberChatActivity.this,MessagesActivity.class);
-                intent.putExtra("receiver_id",receiver_id);
+                intent.putExtra("id",chatmembersfrom_api.get(position).id);
                 intent.putExtra("name",chatmembersfrom_api.get(position).name);
                 intent.putExtra("image",chatmembersfrom_api.get(position).image);
                 startActivity(intent);

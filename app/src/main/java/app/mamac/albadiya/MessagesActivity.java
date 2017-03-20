@@ -49,7 +49,7 @@ public class MessagesActivity extends Activity {
     CircleImageView image;
     TextView name;
     ImageView select_files;
-    String user_name;
+    String user_name,user_id;
     String user_image;
     ArrayList<ChatMember> chatmembersfrom_api;
 
@@ -64,9 +64,9 @@ public class MessagesActivity extends Activity {
         send_btn = (ImageView) findViewById(R.id.send_btn);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         member_id = Settings.GetUserId(this);
-        if(getIntent()!=null && getIntent().hasExtra("receiver_id")){
-            receiver_id=getIntent().getStringExtra("receiver_id");
-            Log.e("chat_reciver",receiver_id);
+        if(getIntent()!=null && getIntent().hasExtra("id")){
+            user_id=getIntent().getStringExtra("id");
+            //Log.e("chat_reciver",receiver_id);
             user_image = getIntent().getStringExtra("image");
             user_name = getIntent().getStringExtra("name");
 
@@ -99,7 +99,7 @@ public class MessagesActivity extends Activity {
                     Ion.with(MessagesActivity.this)
                             .load(Settings.SERVER_URL + "chat.php")
                             .setBodyParameter("member_id", member_id)
-                            .setBodyParameter("receiver_id", receiver_id)
+                            .setBodyParameter("receiver_id", user_id)
                             .setBodyParameter("msg_type", "text")
                             .setBodyParameter("description",message)
                             .asJsonObject()
@@ -161,7 +161,7 @@ public class MessagesActivity extends Activity {
         Ion.with(this)
                 .load(url)
                 .setBodyParameter("member_id",member_id)
-                .setBodyParameter("receiver_id",receiver_id)
+                .setBodyParameter("receiver_id",user_id)
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
@@ -281,7 +281,7 @@ public class MessagesActivity extends Activity {
                     }
                 })
                 .setMultipartParameter("member_id",member_id)
-                .setMultipartParameter("receiver_id",receiver_id)
+                .setMultipartParameter("receiver_id",user_id)
                 .setMultipartParameter("msg_type","file")
                 .setMultipartFile("file", "image/png", new File(selected_image_path))
                 .setMultipartParameter("description",text_message.getText().toString())
