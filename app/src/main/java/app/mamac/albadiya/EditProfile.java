@@ -210,12 +210,18 @@ public class EditProfile extends Fragment{
         frame_one = (FrameLayout) view.findViewById(R.id.frame_one);
 
         GalleryImageItems galleryImageItems = new GalleryImageItems();
+        Bundle bundle = new Bundle();
+        bundle.putString("member_id", member_id);
+        galleryImageItems.setArguments(bundle);
         getFragmentManager().beginTransaction().replace(R.id.frame_one,galleryImageItems).commit();
 
         images_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GalleryImageItems galleryImageItems = new GalleryImageItems();
+                Bundle bundle = new Bundle();
+                bundle.putString("member_id", member_id);
+                galleryImageItems.setArguments(bundle);
                 getFragmentManager().beginTransaction().replace(R.id.frame_one,galleryImageItems).commit();
             }
         });

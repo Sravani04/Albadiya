@@ -25,6 +25,7 @@ public class GalleryImageItems extends Fragment {
     GalleryImagesAdapter galleryImagesAdapter;
     ArrayList<Integer> images;
     ArrayList<Posts> postsfrom_api;
+    String member;
 
 
     @Override
@@ -33,6 +34,11 @@ public class GalleryImageItems extends Fragment {
         gridView = (GridView) view.findViewById(R.id.gallery_images);
         postsfrom_api = new ArrayList<>();
         images = new ArrayList<>();
+
+        if (getArguments()!=null){
+            member  = getArguments().getString("member_id");
+        }
+
 
         images.add(R.drawable.banner3);
         images.add(R.drawable.timeline);
@@ -49,7 +55,8 @@ public class GalleryImageItems extends Fragment {
             }
         });
 
-        get_member_details();
+       // get_member_details();
+        get_posts();
 
         return view;
     }
@@ -81,6 +88,36 @@ public class GalleryImageItems extends Fragment {
                         }catch (Exception ex){
                             ex.printStackTrace();
                         }
+                    }
+                });
+    }
+
+    public void get_posts(){
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("please wait..");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        Ion.with(getContext())
+                .load(Settings.SERVER_URL+"posts.php")
+                .setBodyParameter("member_id",Settings.GetUserId(getContext()))
+                .setBodyParameter("uploader_id",member)
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+                        if (progressDialog!=null)
+                            progressDialog.dismiss();
+                        try {
+                            for (int i=0;i<result.size();i++) {
+                                Posts posts = new Posts(result.get(i).getAsJsonObject(),getContext());
+                                postsfrom_api.add(posts);
+                            }
+                            galleryImagesAdapter.notifyDataSetChanged();
+                        }catch (Exception e1){
+                            e1.printStackTrace();
+                        }
+
+
                     }
                 });
     }
