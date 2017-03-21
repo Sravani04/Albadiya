@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +28,7 @@ public class LoginActivity extends Activity {
        ln_btn = (TextView) findViewById(R.id.ln_btn);
        email   = (EditText) findViewById(R.id.email);
        password = (EditText) findViewById(R.id.password);
+       getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
        ln_btn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
