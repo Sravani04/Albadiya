@@ -72,15 +72,15 @@ public class TakeGalleryFragment extends Fragment{
             }
         });
 
-        image_btn.setBackgroundColor(Color.parseColor("#ffffff"));
+        image_btn.setBackgroundColor(Color.parseColor("#e6d82e"));
         isimages = true;
         new getimagestask().execute();
 
         video_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                video_btn.setBackgroundColor(Color.parseColor("#ffffff"));
-                image_btn.setBackgroundColor(Color.parseColor("#e6d82e"));
+                video_btn.setBackgroundColor(Color.parseColor("#e6d82e"));
+                image_btn.setBackgroundColor(Color.parseColor("#FEFCDD"));
                 isimages = false;
                 new getimagestask().execute();
             }
@@ -89,8 +89,8 @@ public class TakeGalleryFragment extends Fragment{
         image_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                image_btn.setBackgroundColor(Color.parseColor("#ffffff"));
-                video_btn.setBackgroundColor(Color.parseColor("#e6d82e"));
+                image_btn.setBackgroundColor(Color.parseColor("#e6d82e"));
+                video_btn.setBackgroundColor(Color.parseColor("#FEFCDD"));
                 isimages = true;
                 new getimagestask().execute();
             }
