@@ -35,10 +35,10 @@ public class InstaSubscribe extends Fragment {
         wv1.addJavascriptInterface(new WebAppInterface(getContext()),"app");
         wv1.setWebViewClient(new WebViewClient());
         wv1.setWebChromeClient(new MyWebViewClient());
-        //wv1.loadUrl(Settings.PAYMENT_URL + "member_id=" + Settings.GetUserId(getContext()) + "&amount=" + amount);
-        wv1.loadUrl(Settings.PAY_URL + "amount=" + amount);
-        Log.e("pay_url",Settings.PAY_URL + "amount=" +amount);
-        //Log.e("payment_url",Settings.PAYMENT_URL + "member_id=" + Settings.GetUserId(getContext()) + "&amount=" + amount);
+        wv1.loadUrl(Settings.PAYMENT_URL + "member_id=" + Settings.GetUserId(getContext()) + "&amount=" + amount);
+       // wv1.loadUrl(Settings.PAY_URL + "amount=" + amount);
+        //Log.e("pay_url",Settings.PAY_URL + "amount=" +amount);
+        Log.e("payment_url",Settings.PAYMENT_URL + "member_id=" + Settings.GetUserId(getContext()) + "&amount=" + amount);
         progress = (ProgressBar) view.findViewById(R.id.progressBar);
         progress.setMax(100);
         progress.setProgress(0);
@@ -66,6 +66,7 @@ public class InstaSubscribe extends Fragment {
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
+                                Log.e("payment_response",result.toString());
                                 if (result.get("status").getAsString().equals("Success")) {
                                     Toast.makeText(getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
                                     getFragmentManager().popBackStack();
