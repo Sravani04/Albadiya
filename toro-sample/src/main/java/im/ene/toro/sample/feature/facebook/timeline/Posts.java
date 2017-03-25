@@ -63,4 +63,42 @@ public class Posts implements Serializable {
 
     }
 
+
+    public Posts(JsonObject jsonObject, Context context,boolean tre){
+
+
+//        {
+//            "id": "1",
+//                "title": "test",
+//                "description": "Testing",
+//                "image": "http:\/\/naqshapp.com\/albadiya\/uploads\/members\/1483619074.png",
+//                "member": {
+//            "id": "1",
+//                    "name": "Chinna",
+//                    "image": "http:\/\/naqshapp.com\/albadiya\/uploads\/members\/1483446217.png"
+//        },
+//            "voted": "No"
+//        }
+
+        id = jsonObject.get("id").getAsString();
+        title = jsonObject.get("title").getAsString();
+        image = jsonObject.get("image").getAsString();
+        description = jsonObject.get("description").getAsString();
+        video = image;
+        if (image.endsWith(".mp4")){
+            video = image;
+        }else {
+            video ="";
+        }
+        user_id = jsonObject.get("member").getAsJsonObject().get("id").getAsString();
+        user_image = jsonObject.get("member").getAsJsonObject().get("image").getAsString();
+        user_name = jsonObject.get("member").getAsJsonObject().get("name").getAsString();
+        time = "0";
+        member_like = "0";
+        total_likes = "0";
+        total_views="0";
+        description_ar = "0";
+    }
+
+
 }

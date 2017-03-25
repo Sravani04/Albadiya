@@ -1,11 +1,8 @@
 package app.mamac.albadiya;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -63,43 +59,58 @@ public class InstaContestants extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
-//                CompetitorsDetailPage competitorsDetailPage = new CompetitorsDetailPage();
-//                Bundle bundle =new Bundle();
-//                bundle.putSerializable("competitors",competitorsfrom_api.get(position));
-//                competitorsDetailPage.setArguments(bundle);
-//                getFragmentManager().beginTransaction().replace(R.id.fragment_contest,competitorsDetailPage).commit();
-                //Toast.makeText(getActivity(),names.get(position),Toast.LENGTH_SHORT).show();
+                CompetitorsDetailPage competitorsDetailPage = new CompetitorsDetailPage();
+                Bundle bundle =new Bundle();
+                bundle.putSerializable("competitors",competitorsfrom_api.get(position));
+                bundle.putString("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
+//                bundle.putSerializable("title",competitorsfrom_api.get(position).title);
+//                bundle.putSerializable("image",competitorsfrom_api.get(position).image);
+//                bundle.putSerializable("end_date",competitorsfrom_api.get(position).end_date);
+//                bundle.putSerializable("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
+//                bundle.putSerializable("id",competitorsfrom_api.get(position).id);
+                competitorsDetailPage.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_contest,competitorsDetailPage).commit();
+                //Toast.makeText(getActivity(),names.get(position), Toast.LENGTH_SHORT).show();
 
-                Ion.with(getContext())
-                        .load("http://naqshapp.com/albadiya/api/member-subscription.php")
-                        .setBodyParameter("member_id",Settings.GetUserId(getContext()))
-                        .asJsonObject()
-                        .setCallback(new FutureCallback<JsonObject>() {
-                            @Override
-                            public void onCompleted(Exception e, JsonObject result) {
-                                if (result.get("subscription").getAsString().equals("Yes")){
-                                    Log.e("sub_response",result.get("subscription").getAsString());
-                                    Intent intent = new Intent(getActivity(),CompetitorsDetailPage.class);
-                                    intent.putExtra("competitors",competitorsfrom_api.get(position));
-                                    intent.putExtra("title",competitorsfrom_api.get(position).title);
-                                    intent.putExtra("image",competitorsfrom_api.get(position).image);
-                                    intent.putExtra("end_date",competitorsfrom_api.get(position).end_date);
-                                    intent.putExtra("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
-                                    intent.putExtra("id",competitorsfrom_api.get(position).id);
-                                    startActivity(intent);
-                                }else if (result.get("subscription").getAsString().equals("No")){
-                                    Log.e("sub_response",result.get("subscription").toString());
-                                    Fragment fragment = new InstaSubscribe();
-                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                    fragmentTransaction.replace(R.id.fragment_contest, fragment);
-                                    fragmentTransaction.addToBackStack(null);
-                                    fragmentTransaction.commit();
-//                                  InstaSubscribe instaSubscribe = new InstaSubscribe();
-//                                  getFragmentManager().beginTransaction().replace(R.id.fragment_contest,instaSubscribe).commit();
-                                }
-                            }
-                        });
+//                Intent intent = new Intent(getActivity(),CompetitorsDetailPage.class);
+//                intent.putExtra("competitors",competitorsfrom_api.get(position));
+//                intent.putExtra("title",competitorsfrom_api.get(position).title);
+//                intent.putExtra("image",competitorsfrom_api.get(position).image);
+//                intent.putExtra("end_date",competitorsfrom_api.get(position).end_date);
+//                intent.putExtra("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
+//                intent.putExtra("id",competitorsfrom_api.get(position).id);
+//                startActivity(intent);
+
+//                Ion.with(getContext())
+//                        .load("http://naqshapp.com/albadiya/api/member-subscription.php")
+//                        .setBodyParameter("member_id",Settings.GetUserId(getContext()))
+//                        .asJsonObject()
+//                        .setCallback(new FutureCallback<JsonObject>() {
+//                            @Override
+//                            public void onCompleted(Exception e, JsonObject result) {
+//                                if (result.get("subscription").getAsString().equals("Yes")){
+//                                    Log.e("sub_response",result.get("subscription").getAsString());
+//                                    Intent intent = new Intent(getActivity(),CompetitorsDetailPage.class);
+//                                    intent.putExtra("competitors",competitorsfrom_api.get(position));
+//                                    intent.putExtra("title",competitorsfrom_api.get(position).title);
+//                                    intent.putExtra("image",competitorsfrom_api.get(position).image);
+//                                    intent.putExtra("end_date",competitorsfrom_api.get(position).end_date);
+//                                    intent.putExtra("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
+//                                    intent.putExtra("id",competitorsfrom_api.get(position).id);
+//                                    startActivity(intent);
+//                                }else if (result.get("subscription").getAsString().equals("No")){
+//                                    Log.e("sub_response",result.get("subscription").toString());
+//                                    Fragment fragment = new InstaSubscribe();
+//                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                                    fragmentTransaction.replace(R.id.fragment_contest, fragment);
+//                                    fragmentTransaction.addToBackStack(null);
+//                                    fragmentTransaction.commit();
+////                                  InstaSubscribe instaSubscribe = new InstaSubscribe();
+////                                  getFragmentManager().beginTransaction().replace(R.id.fragment_contest,instaSubscribe).commit();
+//                                }
+//                            }
+//                        });
 
             }
         });
