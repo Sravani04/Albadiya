@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,22 +17,28 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.google.android.exoplayer2.C;
 import com.google.gson.JsonArray;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import im.ene.toro.Toro;
 import im.ene.toro.ToroPlayer;
 import im.ene.toro.ToroStrategy;
 import im.ene.toro.sample.BaseToroFragment;
 import im.ene.toro.sample.R;
 import im.ene.toro.sample.feature.facebook.playlist.FacebookPlaylistFragment;
-import im.ene.toro.sample.feature.facebook.timeline.*;
+import im.ene.toro.sample.feature.facebook.timeline.CompetitionTimlineAdapter;
+import im.ene.toro.sample.feature.facebook.timeline.Competitors;
+import im.ene.toro.sample.feature.facebook.timeline.Posts;
+import im.ene.toro.sample.feature.facebook.timeline.Settings;
+import im.ene.toro.sample.feature.facebook.timeline.TimelineItem;
 import im.ene.toro.sample.util.Util;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by T on 24-03-2017.
@@ -59,10 +66,10 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
     String horizontal_line;
     AlbadiyaTimelineFragment fragment;
     PostsTimlineFragment posts;
-    String member,competition_id;
+    String member;
     Competitors competitors;
-    ArrayList<Competitors> competitorsfrom_api;
-    CompetitionTimlineFragment.VoteScreeninterface vCallback;
+    String competion_id;
+
 
     public interface Settingsinterface{
         public void opensettings_page();
@@ -77,9 +84,7 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
         public void onUserSelected(String member_id);
     }
 
-    public interface VoteScreeninterface{
-        public void votescreen(ImageView image);
-    }
+
 
 
     @Override
@@ -88,11 +93,11 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
 
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) return;
         try {
             mCallback = (CompetitionTimlineFragment.Settingsinterface) activity;
             Callback = (CompetitionTimlineFragment.ChatScreeninterface) activity;
             uCallback = (CompetitionTimlineFragment.UserProfileSelectedListner) activity;
-            vCallback = (CompetitionTimlineFragment.VoteScreeninterface) activity;
 
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
@@ -125,13 +130,18 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
             horizontal_line = getArguments().getString("line");
             member  = getArguments().getString("member_id");
             competitors = (Competitors) getArguments().getSerializable("competitors");
-            competition_id = getArguments().getString("competition_id");
             header.setVisibility(View.GONE);
             line.setVisibility(View.GONE);
         } else {
             header.setVisibility(View.VISIBLE);
             line.setVisibility(View.VISIBLE);
         }
+
+
+        if(getArguments()!=null && getArguments().containsKey("competition_id"))
+            competion_id=getArguments().getString("competition_id");
+
+
 
 //        settings = (ImageView) view.findViewById(R.id.settings);
 //        settings.setOnClickListener(new View.OnClickListener() {
@@ -297,7 +307,7 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
         progressDialog.show();
         Ion.with(this)
                 .load(Settings.SERVER_URL+"competitions.php")
-                .setBodyParameter("competition_id",competition_id)
+                .setBodyParameter("competition_id",competion_id)
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
@@ -314,7 +324,6 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
                             try {
 
                                 for (int i = 0; i < result.get(0).getAsJsonObject().get("images").getAsJsonArray().size(); i++) {
-
                                     Posts posts = new Posts(result.get(0).getAsJsonObject().get("images").getAsJsonArray().get(i).getAsJsonObject(), getActivity(),false);
                                     String type, type_url;
                                     if (posts.video.equals("")) {
@@ -373,9 +382,7 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
         uCallback.onUserSelected(member_id);
     }
 
-    public void go_to_vote_page(ImageView image){
-        vCallback.votescreen(image);
-    }
+
 
 
 
