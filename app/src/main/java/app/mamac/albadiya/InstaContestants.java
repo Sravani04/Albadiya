@@ -90,14 +90,17 @@ public class InstaContestants extends Fragment {
 //                            public void onCompleted(Exception e, JsonObject result) {
 //                                if (result.get("subscription").getAsString().equals("Yes")){
 //                                    Log.e("sub_response",result.get("subscription").getAsString());
-//                                    Intent intent = new Intent(getActivity(),CompetitorsDetailPage.class);
-//                                    intent.putExtra("competitors",competitorsfrom_api.get(position));
-//                                    intent.putExtra("title",competitorsfrom_api.get(position).title);
-//                                    intent.putExtra("image",competitorsfrom_api.get(position).image);
-//                                    intent.putExtra("end_date",competitorsfrom_api.get(position).end_date);
-//                                    intent.putExtra("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
-//                                    intent.putExtra("id",competitorsfrom_api.get(position).id);
-//                                    startActivity(intent);
+//                                     CompetitorsDetailPage competitorsDetailPage = new CompetitorsDetailPage();
+                                       // Bundle bundle =new Bundle();
+                                       // bundle.putSerializable("competitors",competitorsfrom_api.get(position));
+                                       // bundle.putString("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
+                        //                bundle.putSerializable("title",competitorsfrom_api.get(position).title);
+                        //                bundle.putSerializable("image",competitorsfrom_api.get(position).image);
+                        //                bundle.putSerializable("end_date",competitorsfrom_api.get(position).end_date);
+                        //                bundle.putSerializable("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
+                        //                bundle.putSerializable("id",competitorsfrom_api.get(position).id);
+                                        //competitorsDetailPage.setArguments(bundle);
+                                       // getFragmentManager().beginTransaction().replace(R.id.fragment_contest,competitorsDetailPage).commit();
 //                                }else if (result.get("subscription").getAsString().equals("No")){
 //                                    Log.e("sub_response",result.get("subscription").toString());
 //                                    Fragment fragment = new InstaSubscribe();

@@ -1,40 +1,31 @@
 package app.mamac.albadiya;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import im.ene.toro.sample.feature.facebook.CompetitionTimlineFragment;
 
 /**
  * Created by T on 19-12-2016.
  */
 
-public class CompetitorsDetailPage extends Activity {
+public class CompetitorsDetailPage extends Fragment {
     GridView gridView;
     CompetitorDetailPageAdapter competitorDetailPageAdapter;
-    ImageView back_btn;
+    ImageView back_btn,competition_post;
     TextView item_name;
     ImageView item_image;
     TextView end_date;
@@ -48,13 +39,13 @@ public class CompetitorsDetailPage extends Activity {
     String participant;
     String images;
     Competitors competitersfrom_api;
+    FrameLayout frame_one;
+    String competition_id;
+
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.competitors_detail_page);
-        gridView = (GridView) findViewById(R.id.gallery_images);
-
-
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        final View view = inflater.inflate(R.layout.competitors_detail_page,container,false);
+        frame_one = (FrameLayout) view.findViewById(R.id.frame_one);
 
         baners = new ArrayList<>();
         baners.add(R.drawable.banner3);
@@ -63,59 +54,68 @@ public class CompetitorsDetailPage extends Activity {
         baners.add(R.drawable.banner1);
         baners.add(R.drawable.banner);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(CompetitorsDetailPage.this,baners.get(position),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CompetitorsDetailPage.this,CompetitorsVoteActivity.class);
-                intent.putExtra("images",competitersfrom_api.images.get(position).image);
-                intent.putExtra("id",competitersfrom_api.id);
-                intent.putExtra("image_id",competitersfrom_api.images.get(position).id);
-                startActivity(intent);
-            }
-        });
-        item_name = (TextView) findViewById(R.id.item_name);
-        item_image = (ImageView) findViewById(R.id.item_image);
-        end_date  = (TextView) findViewById(R.id.end_date);
-        participants = (TextView) findViewById(R.id.participants);
-        add_btn   = (TextView) findViewById(R.id.add_btn);
-        back_btn = (ImageView) findViewById(R.id.back_btn);
+//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                //Toast.makeText(CompetitorsDetailPage.this,baners.get(position),Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(CompetitorsDetailPage.this,CompetitorsVoteActivity.class);
+//                intent.putExtra("images",competitersfrom_api.images.get(position).image);
+//                intent.putExtra("id",competitersfrom_api.id);
+//                intent.putExtra("image_id",competitersfrom_api.images.get(position).id);
+//                startActivity(intent);
+//            }
+//        });
+
+        CompetitionTimlineFragment competitionTimlineFragment = new CompetitionTimlineFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("header", "0");
+        bundle.putString("line", "0");
+        bundle.putSerializable("competitors",competitersfrom_api);
+        bundle.putString("competition_id",competition_id);
+        competitionTimlineFragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.frame_one,competitionTimlineFragment).commit();
+
+
+        item_name = (TextView) view.findViewById(R.id.item_name);
+        item_image = (ImageView) view.findViewById(R.id.item_image);
+        end_date  = (TextView) view.findViewById(R.id.end_date);
+        participants = (TextView) view.findViewById(R.id.participants);
+        add_btn   = (TextView) view.findViewById(R.id.add_btn);
+        back_btn = (ImageView) view.findViewById(R.id.back_btn);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CompetitorsDetailPage.this.onBackPressed();
+                getActivity().onBackPressed();
             }
         });
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CompetitorsDetailPage.this,CompetitorAddPost.class);
+                Intent intent = new Intent(getActivity(),CompetitorAddPost.class);
                 intent.putExtra("id",competitersfrom_api.id);
+                intent.putExtra("video", Uri.parse("/sdcard/myvideo.mp4").toString());
                 startActivity(intent);
             }
         });
 
-       if (getIntent()!=null){
-           comp_id = getIntent().getStringExtra("id");
-           title = getIntent().getStringExtra("title");
-           item_name.setText(title);
-           date  = getIntent().getStringExtra("end_date");
-           end_date.setText(date);
-           image = getIntent().getStringExtra("image");
+       if (getArguments()!=null && getArguments().containsKey("competitors")){
+           competitersfrom_api  = (Competitors) getArguments().getSerializable("competitors");
+           participant = getArguments().getString("participants");
+           comp_id = competitersfrom_api.id;
+           item_name.setText(competitersfrom_api.title);
+           end_date.setText(competitersfrom_api.end_date);
            Ion.with(this)
-                   .load(image)
+                   .load(competitersfrom_api.image)
                    .withBitmap()
                    .placeholder(R.drawable.ic_profile)
                    .intoImageView(item_image);
-           participant= getIntent().getStringExtra("participants");
-           competitersfrom_api = (Competitors)getIntent().getSerializableExtra("competitors");
            participants.setText(participant);
-
-           competitorDetailPageAdapter = new CompetitorDetailPageAdapter(this,competitersfrom_api);
-           gridView.setAdapter(competitorDetailPageAdapter);
+           competitorDetailPageAdapter = new CompetitorDetailPageAdapter(getContext(),competitersfrom_api);
+//           gridView.setAdapter(competitorDetailPageAdapter);
 
 
 
        }
+        return view;
     }
 }

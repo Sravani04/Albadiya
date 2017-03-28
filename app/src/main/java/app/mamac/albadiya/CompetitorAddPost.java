@@ -6,6 +6,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -24,7 +27,10 @@ import com.koushikdutta.ion.ProgressCallback;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by T on 20-12-2016.
@@ -37,6 +43,8 @@ public class CompetitorAddPost extends Activity {
     ImageView item_image;
     ImageView submit_btn;
     String competition_id;
+    VideoView videoview;
+    boolean is_video_added = true;
 
      @Override
     public void onCreate(Bundle savedInstanceState){
@@ -47,13 +55,20 @@ public class CompetitorAddPost extends Activity {
         item_title        = (EditText) findViewById(R.id.item_title);
         item_description  = (EditText) findViewById(R.id.item_description);
         item_image        = (ImageView)findViewById(R.id.item_image);
-        item_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                show_images();
-            }
-        });
-        submit_btn        = (ImageView) findViewById(R.id.submit_btn);
+         item_image.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     show_images();
+                 }
+             });
+
+         videoview = (VideoView) findViewById(R.id.videoView);
+
+
+
+
+
+         submit_btn        = (ImageView) findViewById(R.id.submit_btn);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +84,6 @@ public class CompetitorAddPost extends Activity {
          submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String title_string = item_title.getText().toString();
                 String description_string = item_description.getText().toString();
                 //String competiton = comp_id.getText().toString();
@@ -82,7 +96,7 @@ public class CompetitorAddPost extends Activity {
                 } else{
                     final ProgressBar progressBar = new ProgressBar(CompetitorAddPost.this);
                     final  ProgressDialog progressDialog = new ProgressDialog(CompetitorAddPost.this);
-                    progressDialog.setMessage("Please wait image is loading..");
+                    progressDialog.setMessage("Please wait  image is loading..");
                     progressDialog.setIndeterminate(false);
                     progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                     progressDialog.setCancelable(false);
@@ -106,16 +120,20 @@ public class CompetitorAddPost extends Activity {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
-                                    if(progressDialog!=null)
+                                    if (progressDialog!=null)
                                         progressDialog.dismiss();
-                                    if(result.get("status").getAsString().equals("Success")){
-                                        Log.e("response",result.toString());
-                                        Toast.makeText(CompetitorAddPost.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
-                                        CompetitorAddPost.this.onBackPressed();
+                                    if (e!=null){
+                                        e.printStackTrace();
+                                    }else if (result.isJsonNull()){
+                                        Log.e("json_null",null);
                                     }else {
-                                        Toast.makeText(CompetitorAddPost.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                        Log.e("image_path_response",result.toString());
+                                        if (selected_vide_path.equals("")) {
+                                           post_success();
+                                        }else{
+                                           upload_videos();
+                                        }
                                     }
-
                                 }
                             });
                 }
@@ -124,13 +142,43 @@ public class CompetitorAddPost extends Activity {
             }
         });
 
-        if(getIntent().hasExtra("image")){
-            Log.e("image_in_activity",getIntent().getStringExtra("image"));
-            Picasso.with(this).load(Uri.parse(getIntent().getStringExtra("image"))).into(item_image);
-            selected_image_path = getRealPathFromURI(Uri.parse(getIntent().getStringExtra("image")));
-        }
 
-    }
+         if(getIntent().hasExtra("image")){
+             Log.e("image_in_activity",getIntent().getStringExtra("image"));
+             Picasso.with(this).load(Uri.parse(getIntent().getStringExtra("image"))).into(item_image);
+             selected_image_path = getRealPathFromURI(Uri.parse(getIntent().getStringExtra("image")));
+
+         }else if(getIntent().hasExtra("video")){
+             //   Picasso.with(this).load(Uri.parse(getIntent().getStringExtra("image"))).into(item_image);
+             selected_vide_path  = getRealPathFromURI(Uri.parse(getIntent().getStringExtra("video")));
+             Bitmap thumb = ThumbnailUtils.createVideoThumbnail(selected_vide_path, MediaStore.Images.Thumbnails.MINI_KIND);
+             item_image.setImageBitmap(thumb);
+             File video_thunbnail = getOutputMediaFile();
+             FileOutputStream out = null;
+             try {
+                 out = new FileOutputStream(video_thunbnail);
+                 thumb.compress(Bitmap.CompressFormat.PNG, 100, out);
+                 selected_image_path = getRealPathFromURI(Uri.fromFile(video_thunbnail));
+                 // bmp is your Bitmap instance // PNG is a lossless format, the compression factor (100) is ignored
+             } catch (Exception e) {
+                 e.printStackTrace();
+             } finally
+             { try
+             {
+                 if (out != null) { out.close();
+                 }
+             } catch (IOException e)
+             { e.printStackTrace();
+             }
+             }
+
+         }
+
+
+     }
+
+
+
 
 
     public void show_images(){
@@ -141,13 +189,13 @@ public class CompetitorAddPost extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if(items[item].equals("camera")){
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    Intent intent = new Intent(MediaStore.EXTRA_SHOW_ACTION_ICONS);
                     startActivityForResult(intent,0);
 
                 }else if(items[item].equals("gallery")){
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto,1);
+                    Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    pickIntent.setType("image/* video/*");
+                    startActivityForResult(pickIntent, 1);
                 }
             }
         });
@@ -156,7 +204,10 @@ public class CompetitorAddPost extends Activity {
     }
 
 
+
+
     String selected_image_path = "";
+    String selected_vide_path = "";
     protected void onActivityResult(int requestCode,int resultCode, Intent imageReturnedIntent){
         super.onActivityResult(requestCode,resultCode,imageReturnedIntent);
         switch (requestCode){
@@ -164,7 +215,8 @@ public class CompetitorAddPost extends Activity {
                 if (resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
                     item_image.setImageURI(selectedImage);
-                    selected_image_path = getRealPathFromURI(selectedImage);
+                    selected_image_path = getRealPathFromURI
+                            (selectedImage);
                     Log.e("image_path",selected_image_path);
                 }
                 break;
@@ -180,9 +232,60 @@ public class CompetitorAddPost extends Activity {
         }
     }
 
+
+
+
+
+
+    public void  upload_videos(){
+        final ProgressBar progressBar = new ProgressBar(this);
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("please wait video is uploading...");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        Ion.with(this)
+                .load(Settings.SERVER_URL + "add-competition-video.php")
+                .uploadProgressBar(progressBar)
+                .uploadProgressHandler(new ProgressCallback() {
+                    @Override
+                    public void onProgress(long downloaded, long total) {
+                        progressDialog.setMax((int) total);
+                        progressDialog.setProgress((int) downloaded);
+                    }
+                })
+                .setMultipartParameter("competition_id",competition_id)
+                .setMultipartFile("video","video/mp4",new File(selected_vide_path))
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+                        if (progressDialog!=null)
+                            progressDialog.dismiss();
+                        if (e!=null){
+                            e.printStackTrace();
+                        }else if (result.isJsonNull()){
+                            Log.e("json_null",null);
+                        }else {
+                            Log.e("video_path_response",result.toString());
+                            post_success();
+
+                        }
+                    }
+                });
+    }
+
+    public void post_success(){
+        Toast.makeText(CompetitorAddPost.this,"post added successfully",Toast.LENGTH_SHORT).show();
+        CompetitorAddPost.this.onBackPressed();
+    }
+
     private String getRealPathFromURI(Uri contentURI) {
         String result;
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        String[] columns = { MediaStore.Images.Media.DATA,
+                MediaStore.Images.Media.MIME_TYPE };
+        Cursor cursor = getContentResolver().query(contentURI,columns, null, null, null, null);
         if (cursor == null) {
             result = contentURI.getPath();
         } else {
@@ -192,6 +295,29 @@ public class CompetitorAddPost extends Activity {
             cursor.close();
         }
         return result;
+    }
+
+
+
+
+    private static File getOutputMediaFile() {
+//make a new file directory inside the "sdcard" folder
+        File mediaStorageDir = new File("/sdcard/", "Albadiaya");
+
+        if (!mediaStorageDir.exists()) {
+//if you cannot make this folder return
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+
+//take the current timeStamp
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+//and make a media file:
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
+
+        return mediaFile;
     }
 
 

@@ -17,7 +17,7 @@ import im.ene.toro.sample.feature.facebook.PostsTimlineFragment;
  */
 
 public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineFragment.UserProfileSelectedListner,
-        AlbadiyaTimelineFragment.Settingsinterface,AlbadiyaTimelineFragment.ChatScreeninterface,PostsTimlineFragment.UserProfileSelectedListner,PostsTimlineFragment.ChatScreeninterface,PostsTimlineFragment.Settingsinterface,CompetitionTimlineFragment.Settingsinterface,CompetitionTimlineFragment.ChatScreeninterface,CompetitionTimlineFragment.UserProfileSelectedListner,CompetitionTimlineFragment.VoteScreeninterface{
+        AlbadiyaTimelineFragment.Settingsinterface,AlbadiyaTimelineFragment.ChatScreeninterface,PostsTimlineFragment.UserProfileSelectedListner,PostsTimlineFragment.ChatScreeninterface,PostsTimlineFragment.Settingsinterface,CompetitionTimlineFragment.Settingsinterface,CompetitionTimlineFragment.ChatScreeninterface,CompetitionTimlineFragment.UserProfileSelectedListner{
     FrameLayout fragment;
     ImageView first_item,second_item,third_item,fourth_item,fifth_item;
     String main_header;
@@ -180,10 +180,5 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
     }
 
 
-    @Override
-    public void votescreen(ImageView image) {
-        Intent intent = new Intent(InstaFragment.this,CompetitorsVoteActivity.class);
-        intent.putExtra("image",true);
-        startActivity(intent);
-    }
+
 }

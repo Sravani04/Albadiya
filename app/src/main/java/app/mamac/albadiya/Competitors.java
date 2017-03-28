@@ -48,7 +48,13 @@ public class Competitors implements Serializable{
             image = jsonObject.get("image").getAsString();
             mid            = jsonObject.get("member").getAsJsonObject().get("id").getAsString();
 
-            mname          = jsonObject.get("member").getAsJsonObject().get("name").getAsString();
+            try {
+                mname          = jsonObject.get("member").getAsJsonObject().get("name").getAsString();
+            }catch (Exception ex){
+                mname = "no-name";
+            }
+
+
             mimage            = jsonObject.get("member").getAsJsonObject().get("image").getAsString();
         }
     }
