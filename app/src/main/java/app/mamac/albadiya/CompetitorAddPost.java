@@ -189,7 +189,7 @@ public class CompetitorAddPost extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if(items[item].equals("camera")){
-                    Intent intent = new Intent(MediaStore.EXTRA_SHOW_ACTION_ICONS);
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(intent,0);
 
                 }else if(items[item].equals("gallery")){
