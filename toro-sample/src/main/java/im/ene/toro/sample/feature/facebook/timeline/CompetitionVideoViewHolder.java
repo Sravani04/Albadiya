@@ -2,8 +2,6 @@ package im.ene.toro.sample.feature.facebook.timeline;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -32,7 +30,7 @@ import im.ene.toro.sample.util.Util;
 
 public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
 
-    static final int LAYOUT_RES = R.layout.vh_fb_feed_post_video;
+    static final int LAYOUT_RES = R.layout.competition_post_video;
 
     private TimelineItem.VideoItem videoItem;
     private ImageView mThumbnail;
@@ -41,16 +39,11 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
     private TextView mInfoUser;
     private TextView description;
     private TextView time;
-    private ImageView user_like;
-    private ImageView download,like_image,view_image;
-    private ImageView share_it;
-    private TextView no_of_likes,like_text,view_text;
-    private TextView no_of_views;
-    private TextView seconds;
     private PostsTimlineFragment timeline;
-    private ImageView delete_btn;
+    private ImageView vote_btn;
     String post_id;
     private CompetitionTimlineFragment competiton;
+
 
 
     public CompetitionVideoViewHolder(View itemView) {
@@ -61,28 +54,8 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
         mInfoUser = (TextView) itemView.findViewById(R.id.infouser);
         description = (TextView) itemView.findViewById(R.id.description);
         time = (TextView) itemView.findViewById(R.id.time);
-        user_like = (ImageView) itemView.findViewById(R.id.user_like);
-        download = (ImageView) itemView.findViewById(R.id.download);
-        // share_it = (ImageView) itemView.findViewById(R.id.share_it);
-        no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
-        no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
-        seconds = (TextView) itemView.findViewById(R.id.seconds);
-        delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
-        like_image = (ImageView) itemView.findViewById(R.id.like_image);
-        view_image = (ImageView) itemView.findViewById(R.id.view_image);
-        like_text = (TextView) itemView.findViewById(R.id.like_text);
-        view_text = (TextView) itemView.findViewById(R.id.view_text);
-
+        vote_btn = (ImageView) itemView.findViewById(R.id.vote_btn);
         time.setVisibility(View.GONE);
-        delete_btn.setVisibility(View.GONE);
-        user_like.setVisibility(View.GONE);
-        download.setVisibility(View.GONE);
-        no_of_likes.setVisibility(View.GONE);
-        no_of_views.setVisibility(View.GONE);
-        like_image.setVisibility(View.GONE);
-        view_image.setVisibility(View.GONE);
-        like_text.setVisibility(View.GONE);
-        view_text.setVisibility(View.GONE);
 
 
     }
@@ -94,30 +67,10 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
         mInfoUser = (TextView) itemView.findViewById(R.id.infouser);
         description = (TextView) itemView.findViewById(R.id.description);
         time = (TextView) itemView.findViewById(R.id.time);
-        user_like = (ImageView) itemView.findViewById(R.id.user_like);
-        download = (ImageView) itemView.findViewById(R.id.download);
-        // share_it = (ImageView) itemView.findViewById(R.id.share_it);
-        no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
-        no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
-        seconds = (TextView) itemView.findViewById(R.id.seconds);
-        delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
-        like_image = (ImageView) itemView.findViewById(R.id.like_image);
-        view_image = (ImageView) itemView.findViewById(R.id.view_image);
-        like_text = (TextView) itemView.findViewById(R.id.like_text);
-        view_text = (TextView) itemView.findViewById(R.id.view_text);
+        vote_btn = (ImageView) itemView.findViewById(R.id.vote_btn);
         this.timeline = timeline;
         this.competiton = competition;
-
         time.setVisibility(View.GONE);
-        delete_btn.setVisibility(View.GONE);
-        user_like.setVisibility(View.GONE);
-        download.setVisibility(View.GONE);
-        no_of_likes.setVisibility(View.GONE);
-        no_of_views.setVisibility(View.GONE);
-        like_image.setVisibility(View.GONE);
-        view_image.setVisibility(View.GONE);
-        like_text.setVisibility(View.GONE);
-        view_text.setVisibility(View.GONE);
 
 
     }
@@ -141,26 +94,7 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
         this.description.setText(((TimelineItem) object).getAuthor().getUserDescription());
         Picasso.with(itemView.getContext()).load(((TimelineItem) object).getAuthor().getUserUrl()).into(mThumbnailUser);
         this.time.setText(((TimelineItem) object).getAuthor().getUserTime());
-
-
-        if (((TimelineItem) object).getAuthor().getPersonId().equals(Settings.GetUserId(itemView.getContext()))){
-            delete_btn.setVisibility(View.VISIBLE);
-        }else {
-            delete_btn.setVisibility(View.GONE);
-        }
-
-        delete_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                delete_popup();
-            }
-        });
-
-
-
-
         post_id = ((TimelineItem) object).getAuthor().getUserId();
-
 
 
         mThumbnailUser.setOnClickListener(new View.OnClickListener() {
@@ -177,14 +111,61 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
             }
         });
 
-        videoView.setOnClickListener(new View.OnClickListener() {
+        if(!((TimelineItem) object).getAuthor().getPersonId().equals("-1"))
+            vote_status();
+        else{
+            vote_btn.setImageResource(R.drawable.vote);
+        }
+        vote_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                competiton.go_to_vote_page(mThumbnail);
+            public void onClick(final View v) {
+                Ion.with(itemView.getContext())
+                        .load(Settings.SERVER_URL + "vote.php")
+                        .setBodyParameter("member_id",Settings.GetUserId(itemView.getContext()))
+                        .setBodyParameter("image_id",((TimelineItem) object).getAuthor().getUserId())
+                        .setBodyParameter("competition_id","1")
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                if (result.get("status").getAsString().equals("Success")){
+                                    Toast.makeText(itemView.getContext(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                    vote_status();
+                                }else{
+                                    Toast.makeText(itemView.getContext(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
             }
         });
 
 
+
+
+    }
+
+    String cnt="0";
+    public void vote_status(){
+        Ion.with(itemView.getContext())
+                .load(Settings.SERVER_URL + "vote-status.php")
+                .setBodyParameter("member_id",Settings.GetUserId(itemView.getContext()))
+                .setBodyParameter("competition_id","1")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result.get("status").getAsString().equals("Success")){
+                            cnt = result.get("cnt").getAsString();
+                            if (!cnt.equals("0")){
+                                vote_btn.setImageResource(R.drawable.vote);
+                            }else {
+                                vote_btn.setImageResource(R.drawable.vote);
+                            }
+                        }
+
+                    }
+                });
     }
 
     @Override public void setOnItemClickListener(View.OnClickListener listener) {
@@ -254,43 +235,9 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
         return super.onPlaybackError(error);
     }
 
-    public void delete_popup() {
-        AlertDialog.Builder builder2 = new AlertDialog.Builder(itemView.getContext());
-        builder2.setMessage("Delete post?");
-        builder2.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Ion.with(itemView.getContext())
-                        .load("http://naqshapp.com/albadiya/api/post-delete.php")
-                        .setBodyParameter("member_id", Settings.GetUserId(itemView.getContext()))
-                        .setBodyParameter("post_id", post_id)
-                        .asJsonObject()
-                        .setCallback(new FutureCallback<JsonObject>() {
-                            @Override
-                            public void onCompleted(Exception e, JsonObject result) {
-                                try {
-                                    if (result.get("status").getAsString().equals("Success")) {
-                                        Toast.makeText(itemView.getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
-                                        competiton.delete_post(post_id);
-                                    } else {
-                                        Toast.makeText(itemView.getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (Exception ex) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-            }
-        });
-        builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-//        onViewHolderBound();
-                Toast.makeText(itemView.getContext(), "U Clicked Cancel ", Toast.LENGTH_LONG).show();
-            }
 
-        });
 
-        builder2.show();
-    }
+
+
+
 }

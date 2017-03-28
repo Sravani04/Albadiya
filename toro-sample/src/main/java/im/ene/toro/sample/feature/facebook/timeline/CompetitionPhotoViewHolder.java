@@ -1,7 +1,5 @@
 package im.ene.toro.sample.feature.facebook.timeline;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,7 +24,7 @@ import im.ene.toro.sample.feature.facebook.PostsTimlineFragment;
 
 public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
 
-    static final int LAYOUT_RES = R.layout.vh_fb_feed_post_photo;
+    static final int LAYOUT_RES = R.layout.competition_post_photo;
 
     private TimelineItem.PhotoItem photoItem;
     TimelineAdapter adapter;
@@ -36,21 +34,14 @@ public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
     private TextView mInfoUser;
     private TextView user_desc;
     private TextView time;
-    private ImageView delete_btn;
-    private ImageView user_like;
-    private ImageView download,like_image,view_image;
-    private ImageView share_it;
-    private TextView no_of_likes,like_text,view_text;
-    private TextView no_of_views;
+    private ImageView vote_btn;
+
     private TextView seconds;
     AlbadiyaTimelineFragment albadiyaTimelineFragment;
     String post_id;
     String member_id;
     PostsTimlineFragment postsTimlineFragment;
     CompetitionTimlineFragment competitionTimlineFragment;
-
-
-
 
     public CompetitionPhotoViewHolder(View itemView) {
         super(itemView);
@@ -60,27 +51,9 @@ public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
         mInfoUser = (TextView) itemView.findViewById(R.id.infouser);
         user_desc = (TextView) itemView.findViewById(R.id.user_desc);
         time  = (TextView) itemView.findViewById(R.id.time);
-        user_like = (ImageView) itemView.findViewById(R.id.user_like);
-        download = (ImageView) itemView.findViewById(R.id.download);
-        // share_it = (ImageView) itemView.findViewById(R.id.share_it);
-        no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
-        no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
-        delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
-        like_image = (ImageView) itemView.findViewById(R.id.like_image);
-        view_image = (ImageView) itemView.findViewById(R.id.view_image);
-        like_text = (TextView) itemView.findViewById(R.id.like_text);
-        view_text = (TextView) itemView.findViewById(R.id.view_text);
-
+        vote_btn = (ImageView) itemView.findViewById(R.id.vote_btn);
         time.setVisibility(View.GONE);
-        delete_btn.setVisibility(View.GONE);
-        user_like.setVisibility(View.GONE);
-        download.setVisibility(View.GONE);
-        no_of_likes.setVisibility(View.GONE);
-        no_of_views.setVisibility(View.GONE);
-        like_image.setVisibility(View.GONE);
-        view_image.setVisibility(View.GONE);
-        like_text.setVisibility(View.GONE);
-        view_text.setVisibility(View.GONE);
+
     }
     public CompetitionPhotoViewHolder(View itemView,AlbadiyaTimelineFragment fragment,PostsTimlineFragment timeline,CompetitionTimlineFragment competiton) {
         super(itemView);
@@ -90,30 +63,12 @@ public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
         mInfoUser = (TextView) itemView.findViewById(R.id.infouser);
         user_desc = (TextView) itemView.findViewById(R.id.user_desc);
         time  = (TextView) itemView.findViewById(R.id.time);
-        user_like = (ImageView) itemView.findViewById(R.id.user_like);
-        download = (ImageView) itemView.findViewById(R.id.download);
-        // share_it = (ImageView) itemView.findViewById(R.id.share_it);
-        no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
-        no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
-        delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
-        like_image = (ImageView) itemView.findViewById(R.id.like_image);
-        view_image = (ImageView) itemView.findViewById(R.id.view_image);
-        like_text = (TextView) itemView.findViewById(R.id.like_text);
-        view_text = (TextView) itemView.findViewById(R.id.view_text);
+        vote_btn = (ImageView) itemView.findViewById(R.id.vote_btn);
         albadiyaTimelineFragment = fragment;
         postsTimlineFragment = timeline;
         competitionTimlineFragment = competiton;
 
         time.setVisibility(View.GONE);
-        delete_btn.setVisibility(View.GONE);
-        user_like.setVisibility(View.GONE);
-        download.setVisibility(View.GONE);
-        no_of_likes.setVisibility(View.GONE);
-        no_of_views.setVisibility(View.GONE);
-        like_image.setVisibility(View.GONE);
-        view_image.setVisibility(View.GONE);
-        like_text.setVisibility(View.GONE);
-        view_text.setVisibility(View.GONE);
     }
 
     @Override public void bind(final RecyclerView.Adapter adapter, @Nullable final Object object) {
@@ -145,75 +100,64 @@ public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
             }
         });
 
-        mThumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                competitionTimlineFragment.go_to_vote_page(mThumbnail);
-            }
-        });
-
-
-
-        if (((TimelineItem) object).getAuthor().getPersonId().equals(Settings.GetUserId(itemView.getContext()))){
-            delete_btn.setVisibility(View.VISIBLE);
-        }else {
-            delete_btn.setVisibility(View.GONE);
-        }
-
-        delete_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                delete_popup();
-
-            }
-        });
-
-
         post_id = ((TimelineItem) object).getAuthor().getUserId();
 
-
-    }
-
-
-    public void delete_popup() {
-        AlertDialog.Builder builder2 = new AlertDialog.Builder(itemView.getContext());
-        builder2.setMessage("Delete post?");
-        builder2.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        if(!((TimelineItem) object).getAuthor().getPersonId().equals("-1"))
+            vote_status();
+        else{
+            vote_btn.setImageResource(R.drawable.vote);
+        }
+        vote_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(final View v) {
                 Ion.with(itemView.getContext())
-                        .load("http://naqshapp.com/albadiya/api/post-delete.php")
-                        .setBodyParameter("member_id", Settings.GetUserId(itemView.getContext()))
-                        .setBodyParameter("post_id", post_id)
+                        .load(Settings.SERVER_URL + "vote.php")
+                        .setBodyParameter("member_id",Settings.GetUserId(itemView.getContext()))
+                        .setBodyParameter("image_id",((TimelineItem) object).getAuthor().getUserId())
+                        .setBodyParameter("competition_id","2")
                         .asJsonObject()
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
-                                try {
-                                    if (result.get("status").getAsString().equals("Success")) {
-                                        Toast.makeText(itemView.getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
-                                        competitionTimlineFragment.delete_post(post_id);
-                                    } else {
-                                        Toast.makeText(itemView.getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (Exception ex) {
-                                    e.printStackTrace();
+                                if (result.get("status").getAsString().equals("Success")){
+                                    Toast.makeText(itemView.getContext(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                    vote_status();
+                                }else{
+                                    Toast.makeText(itemView.getContext(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
                                 }
+
                             }
-
-
                         });
             }
         });
-        builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-//        onViewHolderBound();
-                Toast.makeText(itemView.getContext(), "U Clicked Cancel ", Toast.LENGTH_LONG).show();
-            }
 
-        });
 
-        builder2.show();
     }
+
+
+    String cnt="0";
+    public void vote_status(){
+        Ion.with(itemView.getContext())
+                .load(Settings.SERVER_URL + "vote-status.php")
+                .setBodyParameter("member_id",Settings.GetUserId(itemView.getContext()))
+                .setBodyParameter("competition_id","1")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result.get("status").getAsString().equals("Success")){
+                            cnt = result.get("cnt").getAsString();
+                            if (!cnt.equals("0")){
+                                vote_btn.setImageResource(R.drawable.vote);
+                            }else {
+                                vote_btn.setImageResource(R.drawable.vote);
+                            }
+                        }
+
+                    }
+                });
+    }
+
+
+
 }
