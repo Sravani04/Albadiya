@@ -12,7 +12,7 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:id="@+id/imageView49"
+            android:id="@+id/like_image"
             android:layout_height="15dp"
             android:adjustViewBounds="true"
             android:src="@drawable/with"
@@ -28,13 +28,13 @@
             android:text="Likes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView61"
+            android:id="@+id/like_text"
             android:paddingLeft="5dp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="10dp"
-            android:id="@+id/imageView51"
+            android:id="@+id/view_image"
             android:adjustViewBounds="true"
             android:paddingLeft="10dp"
             android:src="@drawable/ic_eye"
@@ -51,7 +51,7 @@
             android:text="Views"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView63"
+            android:id="@+id/view_text"
             android:paddingLeft="10dp" />
     </LinearLayout>
 
