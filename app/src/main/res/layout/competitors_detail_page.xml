@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#ffffff">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:background="#e6d82e"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -18,7 +19,8 @@
             android:gravity="center"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginRight="5dp"
+            android:visibility="visible">
 
             <ImageView
                 android:layout_height="25dp"
@@ -159,37 +161,34 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:background="#000"
+        android:background="#CAAD73"
         android:layout_marginTop="15dp"
-        android:layout_height="1dp"></LinearLayout>
+        android:layout_height="2dp"
+        android:elevation="1dp"
+        android:visibility="gone"></LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
 
             <ImageView
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView53"
+                android:id="@+id/competition_post"
                 android:src="@drawable/ic_points"
                 android:layout_width="match_parent"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:adjustViewBounds="false"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:visibility="gone" />
 
-            <ImageView
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView54"
-                android:src="@drawable/ic_gall"
-                android:layout_width="match_parent"
-                android:adjustViewBounds="false"
-                android:layout_weight="1" />
         </LinearLayout>
 
     </LinearLayout>
@@ -197,15 +196,16 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:background="#000"
-        android:layout_height="1dp"></LinearLayout>
+        android:layout_marginTop="10dp"
+        android:background="#CAAD73"
+        android:layout_height="3dp"></LinearLayout>
 
-    <GridView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/gallery_images"
-        android:numColumns="2"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="5dp"
+        android:id="@+id/frame_one">
+
+    </FrameLayout>
 
 </LinearLayout>
