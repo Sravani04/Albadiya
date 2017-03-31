@@ -38,7 +38,7 @@ public class Competitors implements Serializable{
 
     public class Images implements  Serializable{
 
-        public String id,title,description,image,mid,mname,mimage;
+        public String id,title,description,image,video,mid,mname,mimage;
 
         public Images(JsonObject jsonObject,Context context){
 
@@ -46,6 +46,7 @@ public class Competitors implements Serializable{
             title          = jsonObject.get("title").getAsString();
             description    = jsonObject.get("description").getAsString();
             image = jsonObject.get("image").getAsString();
+            video = jsonObject.get("video").getAsString();
             mid            = jsonObject.get("member").getAsJsonObject().get("id").getAsString();
 
             try {
