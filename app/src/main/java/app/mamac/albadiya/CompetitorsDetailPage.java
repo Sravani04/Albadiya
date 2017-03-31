@@ -1,7 +1,6 @@
 package app.mamac.albadiya;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -93,7 +92,6 @@ public class CompetitorsDetailPage extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),CompetitorAddPost.class);
                 intent.putExtra("id",competitersfrom_api.id);
-                intent.putExtra("video", Uri.parse("/sdcard/myvideo.mp4").toString());
                 startActivity(intent);
             }
         });
