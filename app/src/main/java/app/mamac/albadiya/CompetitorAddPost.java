@@ -6,8 +6,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,11 +22,8 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -143,42 +138,7 @@ public class CompetitorAddPost extends Activity {
         });
 
 
-         if(getIntent().hasExtra("image")){
-             Log.e("image_in_activity",getIntent().getStringExtra("image"));
-             Picasso.with(this).load(Uri.parse(getIntent().getStringExtra("image"))).into(item_image);
-             selected_image_path = getRealPathFromURI(Uri.parse(getIntent().getStringExtra("image")));
-
-         }else if(getIntent().hasExtra("video")){
-             //   Picasso.with(this).load(Uri.parse(getIntent().getStringExtra("image"))).into(item_image);
-             selected_vide_path  = getRealPathFromURI(Uri.parse(getIntent().getStringExtra("video")));
-             Bitmap thumb = ThumbnailUtils.createVideoThumbnail(selected_vide_path, MediaStore.Images.Thumbnails.MINI_KIND);
-             item_image.setImageBitmap(thumb);
-             File video_thunbnail = getOutputMediaFile();
-             FileOutputStream out = null;
-             try {
-                 out = new FileOutputStream(video_thunbnail);
-                 thumb.compress(Bitmap.CompressFormat.PNG, 100, out);
-                 selected_image_path = getRealPathFromURI(Uri.fromFile(video_thunbnail));
-                 // bmp is your Bitmap instance // PNG is a lossless format, the compression factor (100) is ignored
-             } catch (Exception e) {
-                 e.printStackTrace();
-             } finally
-             { try
-             {
-                 if (out != null) { out.close();
-                 }
-             } catch (IOException e)
-             { e.printStackTrace();
-             }
-             }
-
-         }
-
-
      }
-
-
-
 
 
     public void show_images(){
@@ -231,10 +191,6 @@ public class CompetitorAddPost extends Activity {
                 break;
         }
     }
-
-
-
-
 
 
     public void  upload_videos(){
