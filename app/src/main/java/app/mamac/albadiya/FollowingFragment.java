@@ -3,6 +3,7 @@ package app.mamac.albadiya;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,13 +81,14 @@ public class FollowingFragment extends Fragment {
                         try {
                             if (progressDialog!=null)
                                 progressDialog.dismiss();
+                            Log.e("likeresponse",result.toString());
                             for (int i = 0; i < result.size(); i++) {
                                 Notifications notifications = new Notifications(result.get(i).getAsJsonObject(), getActivity());
                                 notificationsfrom_api.add(notifications);
                             }
                             followingFragmentAdapter.notifyDataSetChanged();
-                        }catch (Exception ex){
-                            e.printStackTrace();
+                        }catch (Exception e1){
+                            e1.printStackTrace();
                         }
 
                     }

@@ -16,7 +16,11 @@ public class Notifications implements Serializable {
     public Notifications(JsonObject jsonObject, Context context){
         member_id    = jsonObject.get("member").getAsJsonObject().get("id").getAsString();
         member_image = jsonObject.get("member").getAsJsonObject().get("image").getAsString();
-        member_name  = jsonObject.get("member").getAsJsonObject().get("name").getAsString();
+        try {
+            member_name = jsonObject.get("member").getAsJsonObject().get("name").getAsString();
+        }catch (Exception ex){
+            member_name = "no-name";
+        }
         if (jsonObject.get("type").getAsString().equals("Follow")){
             post = "";
         }else if (jsonObject.get("type").getAsString().equals("Like")){
