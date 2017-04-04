@@ -113,7 +113,6 @@ public class CompetitorAddPost extends Activity {
                             .setCallback(new FutureCallback<JsonArray>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonArray result) {
-                                    Log.e("responses",result.toString());
                                     JsonObject jsonObject = result.get(0).getAsJsonObject();
                                     if (e!=null)
                                         e.printStackTrace();
