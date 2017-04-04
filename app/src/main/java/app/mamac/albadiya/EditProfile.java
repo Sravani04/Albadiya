@@ -142,7 +142,8 @@ public class EditProfile extends Fragment{
             @Override
             public void onClick(View v) {
                 Settings.SetUserId(getActivity(),"-1");
-                getActivity().onBackPressed();
+                Intent intent = new Intent(getActivity(),HomeActivityScreen.class);
+                startActivity(intent);
             }
         });
 
