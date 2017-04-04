@@ -14,7 +14,8 @@ import java.io.Serializable;
 
 public class Posts implements Serializable {
 
-    public String id,title,title_ar,image,video,description,description_ar,member_like,total_likes,total_views,user_image,user_id,user_name,time;
+    public String id,title,title_ar,image,video,description,description_ar,member_like,total_likes,total_views,user_image,user_id,user_name,time,
+            competition_id;
 
 
     public Posts(JsonObject jsonObject, Context context){
@@ -50,7 +51,12 @@ public class Posts implements Serializable {
 
             user_id = jsonObject.get("posted").getAsJsonObject().get("id").getAsString();
             user_image = jsonObject.get("posted").getAsJsonObject().get("image").getAsString();
-            user_name = jsonObject.get("posted").getAsJsonObject().get("name").getAsString();
+            try {
+                user_name = jsonObject.get("posted").getAsJsonObject().get("name").getAsString();
+            }catch (Exception ex){
+                user_name = "no-name";
+            }
+
 
 
 
@@ -71,12 +77,13 @@ public class Posts implements Serializable {
         title = jsonObject.get("title").getAsString();
         image = jsonObject.get("image").getAsString();
         description = jsonObject.get("description").getAsString();
-        video = image;
-        if (image.endsWith(".mp4")){
-            video = image;
-        }else {
-            video ="";
-        }
+        //video = image;
+//        if (image.endsWith(".mp4")){
+//            video = image;
+//        }else {
+//            video ="";
+//        }
+        video = jsonObject.get("video").getAsString();
         user_id = jsonObject.get("member").getAsJsonObject().get("id").getAsString();
         user_image = jsonObject.get("member").getAsJsonObject().get("image").getAsString();
         try {
@@ -90,6 +97,12 @@ public class Posts implements Serializable {
         total_likes = "0";
         total_views="0";
         description_ar = "0";
+    }
+
+    public Posts(Competitors jsonObject,Context context){
+         competition_id = jsonObject.id;
+        title = jsonObject.id;
+        title_ar = jsonObject.id;
     }
 
 
