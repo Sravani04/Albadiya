@@ -46,8 +46,8 @@ public class TimelineItem {
 
   public TimelineItem(Context context,String id, String username, String image, String user_des,
                       String post_type, String media_url,String time,String total_likes,
-                      String total_views,String member_like,String user_id) {
-    author = new FbUser(id,username,image,user_des,time,total_likes,total_views,member_like,user_id);
+                      String total_views,String member_like,String user_id,String competition_id) {
+    author = new FbUser(id,username,image,user_des,time,total_likes,total_views,member_like,user_id,competition_id);
     itemContent = user_des;
     embedItem = Factory.newPostItem(context,post_type,media_url);
   }

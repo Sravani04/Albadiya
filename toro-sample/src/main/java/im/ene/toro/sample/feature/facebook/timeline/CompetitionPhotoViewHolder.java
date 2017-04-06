@@ -2,6 +2,7 @@ package im.ene.toro.sample.feature.facebook.timeline;
 
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,7 +35,7 @@ public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
     private TextView mInfoUser;
     private TextView user_desc;
     private TextView time;
-    private ImageView vote_btn;
+    private TextView vote_btn;
 
     private TextView seconds;
     AlbadiyaTimelineFragment albadiyaTimelineFragment;
@@ -51,7 +52,7 @@ public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
         mInfoUser = (TextView) itemView.findViewById(R.id.infouser);
         user_desc = (TextView) itemView.findViewById(R.id.user_desc);
         time  = (TextView) itemView.findViewById(R.id.time);
-        vote_btn = (ImageView) itemView.findViewById(R.id.vote_btn);
+        vote_btn = (TextView) itemView.findViewById(R.id.vote_btn);
         time.setVisibility(View.GONE);
 
     }
@@ -63,7 +64,7 @@ public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
         mInfoUser = (TextView) itemView.findViewById(R.id.infouser);
         user_desc = (TextView) itemView.findViewById(R.id.user_desc);
         time  = (TextView) itemView.findViewById(R.id.time);
-        vote_btn = (ImageView) itemView.findViewById(R.id.vote_btn);
+        vote_btn = (TextView) itemView.findViewById(R.id.vote_btn);
         albadiyaTimelineFragment = fragment;
         postsTimlineFragment = timeline;
         competitionTimlineFragment = competiton;
@@ -100,25 +101,29 @@ public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
             }
         });
 
-        post_id = ((TimelineItem) object).getAuthor().getUserId();
+        post_id = ((TimelineItem) object).getAuthor().getCompetitionId();
+
+
 
         if(!((TimelineItem) object).getAuthor().getPersonId().equals("-1"))
             vote_status();
         else{
-            vote_btn.setImageResource(R.drawable.vote);
+            vote_btn.setText("Vote");
+            vote_btn.setText("Vote");
         }
         vote_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 Ion.with(itemView.getContext())
                         .load(Settings.SERVER_URL + "vote.php")
-                        .setBodyParameter("member_id",Settings.GetUserId(itemView.getContext()))
+                        .setBodyParameter("member_id",((TimelineItem) object).getAuthor().getPersonId())
                         .setBodyParameter("image_id",((TimelineItem) object).getAuthor().getUserId())
-                        .setBodyParameter("competition_id","2")
+                        .setBodyParameter("competition_id",post_id)
                         .asJsonObject()
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
+                                Log.e("voteresponse",result.toString());
                                 if (result.get("status").getAsString().equals("Success")){
                                     Toast.makeText(itemView.getContext(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
                                     vote_status();
@@ -140,17 +145,20 @@ public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
         Ion.with(itemView.getContext())
                 .load(Settings.SERVER_URL + "vote-status.php")
                 .setBodyParameter("member_id",Settings.GetUserId(itemView.getContext()))
-                .setBodyParameter("competition_id","1")
+                .setBodyParameter("competition_id",post_id)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        Log.e("votestatus",result.toString());
                         if (result.get("status").getAsString().equals("Success")){
                             cnt = result.get("cnt").getAsString();
                             if (!cnt.equals("0")){
-                                vote_btn.setImageResource(R.drawable.vote);
+                                vote_btn.setText("Voted");
+                                vote_btn.setText("Voted");
                             }else {
-                                vote_btn.setImageResource(R.drawable.vote);
+                                vote_btn.setText("Vote");
+                                vote_btn.setText("Vote");
                             }
                         }
 
