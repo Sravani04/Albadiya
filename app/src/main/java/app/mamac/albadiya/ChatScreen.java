@@ -210,9 +210,9 @@ public class ChatScreen extends Activity {
                     startActivityForResult(intent,0);
 
                 }else if(items[item].equals("gallery")){
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto,1);
+                    Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    pickIntent.setType("image/* video/*");
+                    startActivityForResult(pickIntent, 1);
                 }
             }
         });

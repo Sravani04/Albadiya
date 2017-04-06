@@ -70,7 +70,7 @@ public class CompetitorsDetailPage extends Fragment {
         bundle.putString("header", "0");
         bundle.putString("line", "0");
         bundle.putSerializable("competitors",competitersfrom_api);
-        bundle.putString("competition_id",competition_id);
+        bundle.putSerializable("competition_id",comp_id);
         competitionTimlineFragment.setArguments(bundle);
         getFragmentManager().beginTransaction().replace(R.id.frame_one,competitionTimlineFragment).commit();
 
