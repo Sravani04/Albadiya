@@ -1,7 +1,7 @@
 package im.ene.toro.sample.feature.facebook;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -52,18 +52,17 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
     ArrayList<TimelineItem> itemsfrom_api;
     int pageno=1;
     private  int previouslast;
-    Settingsinterface mCallback;
-    ChatScreeninterface Callback;
-    UserProfileSelectedListner uCallback;
+    AlbadiyaTimelineFragment.Settingsinterface mCallback;
+    AlbadiyaTimelineFragment.ChatScreeninterface Callback;
+    AlbadiyaTimelineFragment.UserProfileSelectedListner uCallback;
     HashMap<String,Boolean> flags;
     HashMap<String,Integer> likes;
     LinearLayout header;
     TextView language;
-    String post_id;
-    String main_header;
+    String post_id,main_header,horizontal_line;
     LinearLayout line;
-    String horizontal_line;
     PostsTimlineFragment timeline;
+    ImageView chat_btn;
 
 
 
@@ -86,19 +85,19 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
 
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) return;
         try {
-            mCallback = (Settingsinterface) activity;
-            Callback = (ChatScreeninterface) activity;
-            uCallback = (UserProfileSelectedListner) activity;
+            mCallback = (Settingsinterface) context;
+            Callback = (ChatScreeninterface) context;
+            uCallback = (UserProfileSelectedListner) context;
 
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnHeadlineSelectedListener");
         }
     }
@@ -106,22 +105,17 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
 
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.generic_recycler_view, container, false);
          itemsfrom_api = new ArrayList<>();
          mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
          layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
          mRecyclerView.setHasFixedSize(false);
          mRecyclerView.setLayoutManager(layoutManager);
-         language = (TextView) view.findViewById(R.id.language);
+
          header = (LinearLayout) view.findViewById(R.id.header);
          line = (LinearLayout) view.findViewById(R.id.line);
-         language.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
         if(getArguments()!=null && getArguments().containsKey("header")) {
             main_header = getArguments().getString("header");
@@ -143,13 +137,13 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
 //            }
 //        });
 
-//        chat_screen = (ImageView) view.findViewById(R.id.chat_screen);
-//        chat_screen.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Callback.openchatscreen_page();
-//            }
-//        });
+//        chat_btn = (ImageView) view.findViewById(R.id.chat_btn);
+//       chat_btn.setOnClickListener(new View.OnClickListener() {
+//           @Override
+//           public void onClick(View view) {
+//
+//           }
+//       });
 
         get_posts(true);
         return view;
@@ -321,7 +315,7 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
                                 post_id = posts.id;
                                 TimelineItem timelineItem = new TimelineItem(getActivity(),posts.id,posts.user_name,
                                         posts.user_image, posts.description, type, type_url, posts.time,posts.total_likes,
-                                        posts.total_views,posts.member_like,posts.user_id);
+                                        posts.total_views,posts.member_like,posts.user_id,posts.competition_id);
                                 itemsfrom_api.add(timelineItem);
 
                                 likes.put(posts.id,Integer.parseInt(itemsfrom_api.get(i).getAuthor().getUserLikes()));
@@ -361,10 +355,10 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
     }
 
 
-    public void go_to_user_profile(String member_id){
+    public void go_to_user_profile(String member_id)
+    {
         uCallback.onUserSelected(member_id);
     }
-
 
 
 

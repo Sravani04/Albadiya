@@ -1,7 +1,7 @@
 package im.ene.toro.sample.feature.facebook;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -46,7 +46,7 @@ import im.ene.toro.sample.util.Util;
 public class PostsTimlineFragment extends BaseToroFragment implements FacebookPlaylistFragment.Callback,AbsListView.OnScrollListener{
     RecyclerView mRecyclerView;
     ImageView settings;
-    ImageView chat_screen;
+    ImageView chat_screen,chat_btn;
     private PostsTimelineAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<TimelineItem> itemsfrom_api;
@@ -59,12 +59,9 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
     HashMap<String,Integer> likes;
     LinearLayout header;
     TextView language;
-    String post_id;
-    String main_header;
+    String post_id,main_header,horizontal_line,member;
     LinearLayout line;
-    String horizontal_line;
     AlbadiyaTimelineFragment fragment;
-    String member;
 
 
     public interface Settingsinterface{
@@ -82,19 +79,19 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
 
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) return;
         try {
-            mCallback = (Settingsinterface) activity;
-            Callback = (ChatScreeninterface) activity;
-            uCallback = (UserProfileSelectedListner) activity;
+            mCallback = (PostsTimlineFragment.Settingsinterface) context;
+            Callback = (PostsTimlineFragment.ChatScreeninterface) context;
+            uCallback = (PostsTimlineFragment.UserProfileSelectedListner) context;
 
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnHeadlineSelectedListener");
         }
     }
@@ -109,15 +106,9 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(layoutManager);
-        language = (TextView) view.findViewById(R.id.language);
         header = (LinearLayout) view.findViewById(R.id.header);
         line = (LinearLayout) view.findViewById(R.id.line);
-        language.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
         if(getArguments()!=null && getArguments().containsKey("header")) {
             main_header = getArguments().getString("header");
@@ -138,13 +129,14 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
 //            }
 //        });
 
-//        chat_screen = (ImageView) view.findViewById(R.id.chat_screen);
-//        chat_screen.setOnClickListener(new View.OnClickListener() {
+//        chat_btn = (ImageView) view.findViewById(R.id.chat_btn);
+//        chat_btn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Callback.openchatscreen_page();
 //            }
 //        });
+
         get_posts(true);
         return view;
 
@@ -314,7 +306,7 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
                                     post_id = posts.id;
                                     TimelineItem timelineItem = new TimelineItem(getActivity(), posts.id, posts.user_name,
                                             posts.user_image, posts.description, type, type_url, posts.time, posts.total_likes,
-                                            posts.total_views, posts.member_like, posts.user_id);
+                                            posts.total_views, posts.member_like, posts.user_id,posts.competition_id);
 //                                    if (posts.user_id.equals(member)) {
                                         itemsfrom_api.add(timelineItem);
 
@@ -358,6 +350,9 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
         uCallback.onUserSelected(member_id);
     }
 
+    public void go_to_member_chat_screen(){
+        Callback.openchatscreen_page();;
+    }
 
 
 

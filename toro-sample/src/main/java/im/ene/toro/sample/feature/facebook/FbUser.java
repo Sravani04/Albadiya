@@ -36,6 +36,7 @@ public class FbUser {
   private final String userId;
   private final String memberLike;
   private final String personId;
+  private final String competitionId;
 
 
 
@@ -50,11 +51,12 @@ public class FbUser {
     userViews = "";
     memberLike = "";
     personId = "";
+    competitionId = "";
 
   }
 
   public FbUser(String id,String username,String image,String  user_des,String time,
-                String total_likes,String total_views,String member_like,String person_id) {
+                String total_likes,String total_views,String member_like,String person_id,String competition_id) {
     profileImageUrl = R.drawable.ic_profile;
     userId  = id;
     userName =  username;//"Toro Creator";
@@ -65,6 +67,7 @@ public class FbUser {
     userViews = total_views;
     memberLike = member_like;
     personId   = person_id;
+    competitionId = competition_id;
 
   }
 
@@ -101,6 +104,8 @@ public class FbUser {
   public String getMemberLike() { return  memberLike; }
 
   public String getPersonId() { return  personId; }
+
+  public String getCompetitionId() { return competitionId; }
 
 
 }
