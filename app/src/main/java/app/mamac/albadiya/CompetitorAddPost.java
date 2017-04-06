@@ -113,19 +113,22 @@ public class CompetitorAddPost extends Activity {
                             .setCallback(new FutureCallback<JsonArray>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonArray result) {
-                                    JsonObject jsonObject = result.get(0).getAsJsonObject();
-                                    if (e!=null)
-                                        e.printStackTrace();
-                                    if (jsonObject.get("status").getAsString().equals("Success"))
-                                    {
-                                        if(selected_vide_path.equals("")){
-                                            post_success();
-                                            Log.e("success",selected_vide_path);
+                                    try {
+                                        JsonObject jsonObject = result.get(0).getAsJsonObject();
+                                        if (e != null)
+                                            e.printStackTrace();
+                                        if (jsonObject.get("status").getAsString().equals("Success")) {
+                                            if (selected_vide_path.equals("")) {
+                                                post_success();
+                                                Log.e("success", selected_vide_path);
+                                            } else {
+                                                upload_videos(jsonObject.get("id").getAsString());
+                                            }
                                         } else {
-                                            upload_videos(jsonObject.get("id").getAsString());
+                                            Toast.makeText(CompetitorAddPost.this, jsonObject.get("message").getAsString(), Toast.LENGTH_SHORT).show();
                                         }
-                                    }else {
-                                        Toast.makeText(CompetitorAddPost.this,jsonObject.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                    }catch (Exception e1){
+                                        e1.printStackTrace();
                                     }
 
                                 }
