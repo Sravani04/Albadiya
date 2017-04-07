@@ -3,8 +3,6 @@ package app.mamac.albadiya;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,14 +104,8 @@ public class InstaContestants extends Fragment {
                                         getFragmentManager().beginTransaction().replace(R.id.fragment_contest,competitorsDetailPage).commit();
                                 }else if (result.get("subscription").getAsString().equals("No")){
                                     Log.e("sub_response",result.get("subscription").toString());
-                                    Fragment fragment = new InstaSubscribe();
-                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                    fragmentTransaction.replace(R.id.fragment_contest, fragment);
-                                    fragmentTransaction.addToBackStack(null);
-                                    fragmentTransaction.commit();
-//                                  InstaSubscribe instaSubscribe = new InstaSubscribe();
-//                                  getFragmentManager().beginTransaction().replace(R.id.fragment_contest,instaSubscribe).commit();
+                                    InstaSubscribe instaSubscribe = new InstaSubscribe();
+                                    getFragmentManager().beginTransaction().replace(R.id.fragment_contest,instaSubscribe).commit();
                                 }
                             }
                         });
