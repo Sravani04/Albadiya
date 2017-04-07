@@ -1,7 +1,6 @@
 package app.mamac.albadiya;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -76,14 +75,14 @@ public class InstaContestants extends Fragment {
                 getFragmentManager().beginTransaction().replace(R.id.fragment_contest,competitorsDetailPage).commit();
                 //Toast.makeText(getActivity(),names.get(position), Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getActivity(),CompetitorsDetailPage.class);
-                intent.putExtra("competitors",competitorsfrom_api.get(position));
-                intent.putExtra("title",competitorsfrom_api.get(position).title);
-                intent.putExtra("image",competitorsfrom_api.get(position).image);
-                intent.putExtra("end_date",competitorsfrom_api.get(position).end_date);
-                intent.putExtra("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
-                intent.putExtra("id",competitorsfrom_api.get(position).id);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(),CompetitorsDetailPage.class);
+//                intent.putExtra("competitors",competitorsfrom_api.get(position));
+//                intent.putExtra("title",competitorsfrom_api.get(position).title);
+//                intent.putExtra("image",competitorsfrom_api.get(position).image);
+//                intent.putExtra("end_date",competitorsfrom_api.get(position).end_date);
+//                intent.putExtra("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
+//                intent.putExtra("id",competitorsfrom_api.get(position).id);
+//                startActivity(intent);
 
                 Ion.with(getContext())
                         .load("http://naqshapp.com/albadiya/api/member-subscription.php")
