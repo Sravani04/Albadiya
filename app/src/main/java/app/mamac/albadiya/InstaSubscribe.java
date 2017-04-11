@@ -37,7 +37,7 @@ public class InstaSubscribe extends Fragment {
         wv1.setWebChromeClient(new MyWebViewClient());
         wv1.loadUrl(Settings.PAYMENT_URL + "member_id=" + Settings.GetUserId(getContext()) + "&amount=" + amount);
        // wv1.loadUrl(Settings.PAY_URL + "amount=" + amount);
-        //Log.e("pay_url",Settings.PAY_URL + "amount=" +amount);
+       // Log.e("pay_url",Settings.PAY_URL + "amount=" +amount);
         Log.e("payment_url",Settings.PAYMENT_URL + "member_id=" + Settings.GetUserId(getContext()) + "&amount=" + amount);
         progress = (ProgressBar) view.findViewById(R.id.progressBar);
         progress.setMax(100);
