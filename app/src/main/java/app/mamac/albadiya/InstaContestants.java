@@ -61,17 +61,17 @@ public class InstaContestants extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
-                CompetitorsDetailPage competitorsDetailPage = new CompetitorsDetailPage();
-                Bundle bundle =new Bundle();
-                bundle.putSerializable("competitors",competitorsfrom_api.get(position));
-                bundle.putString("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
-//                bundle.putSerializable("title",competitorsfrom_api.get(position).title);
-//                bundle.putSerializable("image",competitorsfrom_api.get(position).image);
-//                bundle.putSerializable("end_date",competitorsfrom_api.get(position).end_date);
-//                bundle.putSerializable("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
-//                bundle.putSerializable("id",competitorsfrom_api.get(position).id);
-                competitorsDetailPage.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_contest,competitorsDetailPage).commit();
+//                CompetitorsDetailPage competitorsDetailPage = new CompetitorsDetailPage();
+//                Bundle bundle =new Bundle();
+//                bundle.putSerializable("competitors",competitorsfrom_api.get(position));
+//                bundle.putString("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
+////                bundle.putSerializable("title",competitorsfrom_api.get(position).title);
+////                bundle.putSerializable("image",competitorsfrom_api.get(position).image);
+////                bundle.putSerializable("end_date",competitorsfrom_api.get(position).end_date);
+////                bundle.putSerializable("participants",String.valueOf(competitorsfrom_api.get(position).images.size()));
+////                bundle.putSerializable("id",competitorsfrom_api.get(position).id);
+//                competitorsDetailPage.setArguments(bundle);
+//                getFragmentManager().beginTransaction().replace(R.id.fragment_contest,competitorsDetailPage).commit();
                 //Toast.makeText(getActivity(),names.get(position), Toast.LENGTH_SHORT).show();
 
 //                Intent intent = new Intent(getActivity(),CompetitorsDetailPage.class);
@@ -106,8 +106,6 @@ public class InstaContestants extends Fragment {
                                         bundle.putSerializable("result","FAILURE");
                                         instaSubscribe.setArguments(bundle);
                                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contest, instaSubscribe).commit();
-                                       // FragmentManager manager = getActivity().getSupportFragmentManager();
-                                        //manager.beginTransaction().replace(R.id.fragment_contest,instaSubscribe).commit();
                                     }
                                 }catch (Exception e1){
                                     e1.printStackTrace();
