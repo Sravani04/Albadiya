@@ -3,7 +3,6 @@ package app.mamac.albadiya;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,7 @@ public class InstaContestants extends Fragment {
     ArrayList<String>  names;
     ArrayList<String>  comments;
     ArrayList<Competitors> competitorsfrom_api;
-    private static FragmentManager myFragmentManagerSupport;
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -106,8 +105,9 @@ public class InstaContestants extends Fragment {
                                         Bundle bundle = new Bundle();
                                         bundle.putSerializable("result","FAILURE");
                                         instaSubscribe.setArguments(bundle);
-                                        FragmentManager manager = getActivity().getSupportFragmentManager();
-                                        manager.beginTransaction().add(R.id.fragment_contest,instaSubscribe).commit();
+                                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contest, instaSubscribe).commit();
+                                       // FragmentManager manager = getActivity().getSupportFragmentManager();
+                                        //manager.beginTransaction().replace(R.id.fragment_contest,instaSubscribe).commit();
                                     }
                                 }catch (Exception e1){
                                     e1.printStackTrace();
@@ -120,6 +120,8 @@ public class InstaContestants extends Fragment {
         get_competitors();
         return view;
     }
+
+
 
     public void get_competitors(){
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
@@ -157,7 +159,5 @@ public class InstaContestants extends Fragment {
                     }
                 });
     }
-
-
 
 }
