@@ -204,7 +204,7 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
                 .load(R.drawable.video_play_button)
                 .resize(400, 300 )
                 .into(mThumbnail);
-        mInfo.setText("Bound");
+        //mInfo.setText("Bound");
     }
 
     @Override public void onPlaybackStarted() {
