@@ -78,23 +78,29 @@ public class MemberChatActivity extends Activity {
     public void get_chats_member(){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("please wait..");
+        progressDialog.setIndeterminate(false);
         progressDialog.setCancelable(false);
         progressDialog.show();
         Ion.with(this)
-                .load("http://naqshapp.com/albadiya/api/chats-member.php")
+                .load(Settings.SERVER_URL+"chats-member.php")
                 .setBodyParameter("member_id",Settings.GetUserId(this))
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
                     public void onCompleted(Exception e, JsonArray result) {
-                        if (progressDialog!=null)
-                            progressDialog.dismiss();
-                        Log.e("chats",result.toString());
-                        for (int i = 0; i < result.size(); i++) {
-                            ChatMember chatMember = new ChatMember(result.get(i).getAsJsonObject(), MemberChatActivity.this);
-                            chatmembersfrom_api.add(chatMember);
+                        try {
+                            if (progressDialog!=null)
+                                progressDialog.dismiss();
+                            Log.e("chats",result.toString());
+                            for (int i = 0; i < result.size(); i++) {
+                                ChatMember chatMember = new ChatMember(result.get(i).getAsJsonObject(), MemberChatActivity.this);
+                                chatmembersfrom_api.add(chatMember);
+                            }
+                            memberChatActivityAdapter.notifyDataSetChanged();
+                        }catch (Exception e1){
+                            e1.printStackTrace();
                         }
-                        memberChatActivityAdapter.notifyDataSetChanged();
+
 
                     }
                 });

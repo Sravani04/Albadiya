@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-
+import android.widget.TextView;
 
 
 /**
@@ -17,6 +17,7 @@ import android.widget.ImageView;
 public class InstaCategories extends Fragment {
     ImageView contestants_icon,likes_icon;
     FrameLayout fragment_category;
+    TextView en_lang,ar_lang;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -24,6 +25,31 @@ public class InstaCategories extends Fragment {
         contestants_icon = (ImageView) view.findViewById(R.id.contestants_icon);
         likes_icon    = (ImageView) view.findViewById(R.id.likes_icon);
         fragment_category = (FrameLayout) view.findViewById(R.id.fragment_category);
+        en_lang = (TextView) view.findViewById(R.id.en_lang);
+        ar_lang = (TextView) view.findViewById(R.id.ar_lang);
+        ar_lang.setText("Ar");
+        ar_lang.setVisibility(View.VISIBLE);
+        en_lang.setVisibility(View.GONE);
+
+        ar_lang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                en_lang.setText("En");
+                en_lang.setVisibility(View.VISIBLE);
+                ar_lang.setVisibility(View.GONE);
+                view.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+            }
+        });
+
+        en_lang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ar_lang.setText("Ar");
+                ar_lang.setVisibility(View.VISIBLE);
+                en_lang.setVisibility(View.GONE);
+                view.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+            }
+        });
 
         reset_icons(1);
         final CategoryFragment categoryFragment = new CategoryFragment();

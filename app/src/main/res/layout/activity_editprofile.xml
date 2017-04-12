@@ -198,6 +198,35 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/date">
+
+                    <TextView
+                        android:text="Expire Date:"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginLeft="10dp" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/exp_date" />
+
+                </LinearLayout>
+
+
+
         </LinearLayout>
 
     </LinearLayout>
@@ -247,7 +276,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:background="#CAAD73"
-        android:layout_height="3dp"></LinearLayout>
+        android:layout_height="2dp"></LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

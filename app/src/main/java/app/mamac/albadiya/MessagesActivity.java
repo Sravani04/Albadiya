@@ -106,11 +106,16 @@ public class MessagesActivity extends Activity {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
-                                    if (result.get("status").getAsString().equals("Success")){
-                                        chat_success();
-                                    }else {
-                                        Toast.makeText(MessagesActivity.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                    try {
+                                        if (result.get("status").getAsString().equals("Success")){
+                                            chat_success();
+                                        }else {
+                                            Toast.makeText(MessagesActivity.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                        }
+                                    }catch (Exception e1){
+                                        e1.printStackTrace();
                                     }
+
                                 }
                             });
                 }
@@ -166,15 +171,20 @@ public class MessagesActivity extends Activity {
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
                     public void onCompleted(Exception e, JsonArray result) {
-                        Log.e("chat_response", String.valueOf(result.size()));
-                        if (progressDialog!=null)
-                            progressDialog.dismiss();
-                        for (int i = 0; i < result.size(); i++) {
-                            Chats chats = new Chats(result.get(i).getAsJsonObject(),MessagesActivity.this);
-                            chatsfrom_api.add(chats);
+                        try {
+                            Log.e("chat_response", String.valueOf(result.size()));
+                            if (progressDialog!=null)
+                                progressDialog.dismiss();
+                            for (int i = 0; i < result.size(); i++) {
+                                Chats chats = new Chats(result.get(i).getAsJsonObject(),MessagesActivity.this);
+                                chatsfrom_api.add(chats);
 
+                            }
+                            chatScreenAdapter.notifyDataSetChanged();
+                        }catch (Exception e1){
+                            e1.printStackTrace();
                         }
-                        chatScreenAdapter.notifyDataSetChanged();
+
                     }
                 });
     }
@@ -192,14 +202,19 @@ public class MessagesActivity extends Activity {
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
                     public void onCompleted(Exception e, JsonArray result) {
-                        if (progressDialog!=null)
-                            progressDialog.dismiss();
-                        Log.e("chats",result.toString());
-                        for (int i = 0; i < result.size(); i++) {
-                            ChatMember chatMember = new ChatMember(result.get(i).getAsJsonObject(), MessagesActivity.this);
-                            chatmembersfrom_api.add(chatMember);
+                        try {
+                            if (progressDialog!=null)
+                                progressDialog.dismiss();
+                            Log.e("chats",result.toString());
+                            for (int i = 0; i < result.size(); i++) {
+                                ChatMember chatMember = new ChatMember(result.get(i).getAsJsonObject(), MessagesActivity.this);
+                                chatmembersfrom_api.add(chatMember);
+                            }
+                            chatScreenAdapter.notifyDataSetChanged();
+                        }catch (Exception e1){
+                            e1.printStackTrace();
                         }
-                        chatScreenAdapter.notifyDataSetChanged();
+
 
                     }
                 });

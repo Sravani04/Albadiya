@@ -76,16 +76,21 @@ public class UserEditProfile extends Activity {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
-                                    if (result.get("status").getAsString().equals("Success")){
-                                        //   Toast.makeText(lawyerEditProfile.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
-                                        if(selected_image_path.equals("")){
-                                            edit_success();
+                                    try {
+                                        if (result.get("status").getAsString().equals("Success")){
+                                            //   Toast.makeText(lawyerEditProfile.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                            if(selected_image_path.equals("")){
+                                                edit_success();
+                                            }else {
+                                                upload_image();
+                                            }
                                         }else {
-                                            upload_image();
+                                            Toast.makeText(UserEditProfile.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
                                         }
-                                    }else {
-                                        Toast.makeText(UserEditProfile.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                    }catch (Exception e1){
+                                        e1.printStackTrace();
                                     }
+
                                 }
                             });
                 }

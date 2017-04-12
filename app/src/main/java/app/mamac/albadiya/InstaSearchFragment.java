@@ -121,20 +121,25 @@ public class InstaSearchFragment extends Fragment {
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
                     public void onCompleted(Exception e, JsonArray result) {
-                        if (progressDialog!=null)
-                            progressDialog.dismiss();
-                        if (e != null) {
-                            e.printStackTrace();
-                        } else {
-                            Log.e("response", String.valueOf(result.size()));
-                            for (int i = 0; i < result.size(); i++) {
-                                Members members = new Members(result.get(i).getAsJsonObject(), getActivity());
-                                membersfrom_api.add(members);
+                        try {
+                            if (progressDialog!=null)
+                                progressDialog.dismiss();
+                            if (e != null) {
+                                e.printStackTrace();
+                            } else {
+                                Log.e("response", String.valueOf(result.size()));
+                                for (int i = 0; i < result.size(); i++) {
+                                    Members members = new Members(result.get(i).getAsJsonObject(), getActivity());
+                                    membersfrom_api.add(members);
+                                }
+
+                                instaSearchAdapter.notifyDataSetChanged();
+
                             }
-
-                            instaSearchAdapter.notifyDataSetChanged();
-
+                        }catch (Exception e1){
+                            e1.printStackTrace();
                         }
+
 
                     }
                 });

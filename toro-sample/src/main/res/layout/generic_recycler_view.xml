@@ -45,16 +45,16 @@
         android:adjustViewBounds="true"
         android:layout_marginTop="5dp" />
 
-    <TextView
-        android:layout_width="40dp"
-        android:id="@+id/language"
-        android:adjustViewBounds="true"
-        android:text="EN"
-        android:textColor="#E0AD37"
-        android:layout_height="30dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:textSize="19sp"
-        android:textStyle="normal|bold" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/chat_btn"
+            android:src="@drawable/ic_chats"
+            android:adjustViewBounds="true"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:padding="4dp" />
 
     </LinearLayout>
 

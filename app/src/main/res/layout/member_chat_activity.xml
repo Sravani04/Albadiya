@@ -10,7 +10,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginLeft="5dp"
@@ -26,11 +26,35 @@
                 android:padding="2dp"
                 android:tint="#948067" />
 
+            <TextView
+                android:text="my_chats"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/textView48"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_weight="1"
+                android:textColor="#0000ff" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:id="@+id/textView49"
+                android:layout_weight="1" />
+
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="#CAAD73"
+        android:layout_marginTop="5dp"
+        android:elevation="1dp"
+        android:layout_height="1dp"></LinearLayout>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/member_chats" />
+        android:id="@+id/member_chats"
+        android:layout_marginTop="5dp" />
 </LinearLayout>

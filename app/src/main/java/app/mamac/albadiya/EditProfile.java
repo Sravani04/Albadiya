@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,8 +43,9 @@ public class EditProfile extends Fragment{
     ImageView edit_image_btn;
     ImageView posts_list;
     FrameLayout frame_one;
-    TextView logout;
+    TextView logout,exp_date;
     String header;
+    LinearLayout date;
 
 
 
@@ -73,6 +75,8 @@ public class EditProfile extends Fragment{
 
                 }
             });
+
+            edit_image_btn.setVisibility(View.GONE);
 
             edit_image_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -146,6 +150,39 @@ public class EditProfile extends Fragment{
                 startActivity(intent);
             }
         });
+
+        date = (LinearLayout) view.findViewById(R.id.date);
+
+        exp_date = (TextView) view.findViewById(R.id.exp_date);
+        if (member_id.equals(Settings.GetUserId(getContext()))){
+            date.setVisibility(View.VISIBLE);
+            Ion.with(getContext())
+                    .load(Settings.SERVER_URL+"member-subscription.php")
+                    .setBodyParameter("member_id",Settings.GetUserId(getContext()))
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            try {
+                                if (result.get("subscription").getAsString().equals("Yes")) {
+                                    exp_date.setText(result.get("expiry_date").getAsString());
+                                    date.setVisibility(View.VISIBLE);
+                                }else if (result.get("subscription").getAsString().equals("No")){
+                                    exp_date.setText(result.get("expiry_date").getAsString());
+                                    date.setVisibility(View.GONE);
+                                }else {
+                                    //Print the toast
+                                }
+                            }catch (Exception e1){
+                                e1.printStackTrace();
+                            }
+
+                        }
+                    });
+        }else {
+            date.setVisibility(View.GONE);
+        }
+
 
 
 
@@ -260,17 +297,22 @@ public class EditProfile extends Fragment{
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        if (result.get("status").getAsString().equals("Success")){
-                            cnt = result.get("cnt").getAsString();
-                            //Toast.makeText(getActivity(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
-                            if (!cnt.equals("0")){
-                                edit_btn.setText("unfollow");
-                                edit_btn.setText("unfollow");
-                            }else{
-                                edit_btn.setText("follow");
-                                edit_btn.setText("follow");
+                        try {
+                            if (result.get("status").getAsString().equals("Success")){
+                                cnt = result.get("cnt").getAsString();
+                                //Toast.makeText(getActivity(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                if (!cnt.equals("0")){
+                                    edit_btn.setText("unfollow");
+                                    edit_btn.setText("unfollow");
+                                }else{
+                                    edit_btn.setText("follow");
+                                    edit_btn.setText("follow");
+                                }
                             }
+                        }catch (Exception e1){
+                            e1.printStackTrace();
                         }
+
                     }
                 });
     }

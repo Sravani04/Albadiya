@@ -16,11 +16,11 @@ import im.ene.toro.sample.feature.facebook.PostsTimlineFragment;
  * Created by T on 03-12-2016.
  */
 
-public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineFragment.UserProfileSelectedListner,
-        AlbadiyaTimelineFragment.Settingsinterface,AlbadiyaTimelineFragment.ChatScreeninterface,PostsTimlineFragment.UserProfileSelectedListner,PostsTimlineFragment.ChatScreeninterface,PostsTimlineFragment.Settingsinterface,CompetitionTimlineFragment.Settingsinterface,CompetitionTimlineFragment.ChatScreeninterface,CompetitionTimlineFragment.UserProfileSelectedListner{
+public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineFragment.UserProfileSelectedListner,AlbadiyaTimelineFragment.ChatScreeninterface,PostsTimlineFragment.UserProfileSelectedListner,PostsTimlineFragment.ChatScreeninterface,
+        CompetitionTimlineFragment.ChatScreeninterface,CompetitionTimlineFragment.UserProfileSelectedListner{
     FrameLayout fragment;
     ImageView first_item,second_item,third_item,fourth_item,fifth_item;
-    String main_header;
+    String main_header,ex_date;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -31,9 +31,6 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
         third_item = (ImageView) findViewById(R.id.third_item);
         fourth_item = (ImageView) findViewById(R.id.fourth_item);
         fifth_item  = (ImageView) findViewById(R.id.fifth_item);
-
-
-
 
         //HomeProfile homeProfile = new HomeProfile();
        // VideoRecyclerViewFragment videoRecyclerViewFragment = new VideoRecyclerViewFragment();
@@ -109,8 +106,6 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
                 {
                     Intent intent = new Intent(InstaFragment.this, HomeActivityScreen.class);
                     startActivity(intent);
-
-
                 }else{
                     reset_icons(5);
                     EditProfile userProfile = new EditProfile();
@@ -120,7 +115,6 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
 
             }
         });
-
 
 
     }
@@ -164,20 +158,20 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
         Bundle bundle = new Bundle();
         bundle.putString("member_id",member_id);
         userProfile.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,userProfile).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,userProfile).commit();
     }
 
-    @Override
-    public void opensettings_page() {
-        SettingsFragment settingsFragment = new SettingsFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,settingsFragment).addToBackStack(null).commit();
-    }
 
     @Override
-    public void openchatscreen_page() {
-       Intent intent = new Intent(InstaFragment.this,ChatScreen.class);
+    public void openchatscreen_page(String member_id) {
+        Intent intent = new Intent(InstaFragment.this,MemberChatActivity.class);
+        intent.putExtra("receiver_id",member_id);
         startActivity(intent);
     }
+
+
+
+
 
 
 

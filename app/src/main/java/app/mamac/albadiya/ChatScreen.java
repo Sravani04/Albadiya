@@ -70,6 +70,7 @@ public class ChatScreen extends Activity {
             @Override
             public void onClick(View v) {
                 show_images();
+                select_files.setImageResource(R.drawable.attachment);
             }
         });
 
@@ -152,6 +153,7 @@ public class ChatScreen extends Activity {
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
                     public void onCompleted(Exception e, JsonArray result) {
+                        try {
                             Log.e("response", String.valueOf(result.size()));
                             if (progressDialog!=null)
                                 progressDialog.dismiss();
@@ -161,6 +163,10 @@ public class ChatScreen extends Activity {
 
                             }
                             chatScreenAdapter.notifyDataSetChanged();
+                        }catch (Exception e1){
+                            e1.printStackTrace();
+                        }
+
                     }
                 });
     }

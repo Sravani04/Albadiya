@@ -80,18 +80,23 @@ public class AddPost extends Activity {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
+                                    try {
+                                        if (result.get("status").getAsString().equals("Success")){
+                                            //   Toast.makeText(lawyerEditProfile.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                            if(selected_image_path.equals("")){
+                                                addpost_success();
+                                            } else {
+                                                upload_images(result.get("post_id").getAsString());
 
-                                    if (result.get("status").getAsString().equals("Success")){
-                                        //   Toast.makeText(lawyerEditProfile.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
-                                        if(selected_image_path.equals("")){
-                                            addpost_success();
-                                        } else {
-                                            upload_images(result.get("post_id").getAsString());
-
+                                            }
+                                        }else {
+                                            Toast.makeText(AddPost.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
                                         }
-                                    }else {
-                                        Toast.makeText(AddPost.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                    }catch (Exception e1){
+                                        e1.printStackTrace();
                                     }
+
+
                                 }
                             });
                 }

@@ -61,21 +61,23 @@
 
         <TextView
             android:text="Photo Description...."
-            android:layout_width="300dp"
+            android:layout_width="290dp"
             android:layout_height="match_parent"
             android:id="@+id/description"
             android:paddingLeft="10dp"
             android:gravity="center_vertical" />
 
-        <ImageView
+        <TextView
             android:layout_width="60dp"
             android:layout_height="30dp"
             android:id="@+id/vote_btn"
-            android:adjustViewBounds="true"
-            android:src="@drawable/vote"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:background="@drawable/votelayout_bg"
+            android:text="Vote"
+            android:textColor="#ffffff"
+            android:gravity="center_vertical|center_horizontal" />
     </LinearLayout>
 
     <!--<include layout="@layout/vh_fb_feed_seconds"/>-->

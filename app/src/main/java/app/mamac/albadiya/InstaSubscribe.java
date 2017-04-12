@@ -66,13 +66,18 @@ public class InstaSubscribe extends Fragment {
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
-                                Log.e("payment_response",result.toString());
-                                if (result.get("status").getAsString().equals("Success")) {
-                                    Toast.makeText(getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
-                                    getFragmentManager().popBackStack();
-                                } else {
-                                    Toast.makeText(getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
+                                try {
+                                    Log.e("payment_response",result.toString());
+                                    if (result.get("status").getAsString().equals("Success")) {
+                                        Toast.makeText(getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
+                                        getFragmentManager().popBackStack();
+                                    } else {
+                                        Toast.makeText(getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }catch (Exception e1){
+                                    e1.printStackTrace();
                                 }
+
                             }
                         });
             }
@@ -87,11 +92,16 @@ public class InstaSubscribe extends Fragment {
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
-                                if (result.get("status").getAsString().equals("Success")) {
-                                    Toast.makeText(getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
+                                try {
+                                    if (result.get("status").getAsString().equals("Success")) {
+                                        Toast.makeText(getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getContext(), result.get("message").getAsString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }catch (Exception e1){
+                                    e1.printStackTrace();
                                 }
+
                             }
                         });
             }
