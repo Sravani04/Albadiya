@@ -233,7 +233,7 @@ public class ChatScreen extends Activity {
             case 1:
                 if (resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
-                    select_files.setImageURI(selectedImage);
+                   // select_files.setImageURI(selectedImage);
                     selected_image_path = getRealPathFromURI(selectedImage);
                     Log.e("image_path",selected_image_path);
 
@@ -242,7 +242,7 @@ public class ChatScreen extends Activity {
             case 2:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
-                    select_files.setImageURI(selectedImage);
+                    //select_files.setImageURI(selectedImage);
                     File new_file = new File(selectedImage.getPath());
                     selected_image_path = getRealPathFromURI(selectedImage);
                     Log.e("image_path",selected_image_path);
