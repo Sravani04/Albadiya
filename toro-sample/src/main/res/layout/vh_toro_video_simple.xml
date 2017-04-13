@@ -51,7 +51,7 @@
   <TextView
       android:id="@+id/info"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="30dp"
       android:layout_alignParentBottom="true"
       android:layout_alignParentEnd="true"
       android:layout_alignParentRight="true"
@@ -66,6 +66,27 @@
       android:maxLines="1"
       android:textAppearance="@style/TextAppearance.AppCompat.Small"
       android:textColor="@android:color/white"
-      />
+      android:visibility="gone"/>
+
+  <ImageView
+      android:id="@+id/sound_btn"
+      android:layout_width="40dp"
+      android:layout_height="30dp"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_margin="4dp"
+      android:gravity="center"
+      android:includeFontPadding="false"
+      android:paddingBottom="4dp"
+      android:paddingEnd="8dp"
+      android:paddingStart="8dp"
+      android:paddingTop="4dp"
+      android:maxLines="1"
+      android:textAppearance="@style/TextAppearance.AppCompat.Small"
+      android:textColor="@android:color/white"
+      android:visibility="visible"
+      android:src="@drawable/mute_volume"
+      android:tint="#ffffff" />
 
 </RelativeLayout>

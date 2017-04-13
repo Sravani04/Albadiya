@@ -412,7 +412,4 @@ public class VideoViewHolder extends ExoVideoViewHolder {
     builder2.show();
   }
 
-  public void unmute(){
-    sound_btn.setImageResource(R.drawable.voulme);
-  }
 }
