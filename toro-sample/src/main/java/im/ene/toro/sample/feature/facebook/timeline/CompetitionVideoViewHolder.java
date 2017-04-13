@@ -44,6 +44,8 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
     private TextView vote_btn;
     String post_id;
     private CompetitionTimlineFragment competiton;
+    private ImageView sound_btn;
+    boolean isvolume = true;
 
 
 
@@ -57,6 +59,7 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
         time = (TextView) itemView.findViewById(R.id.time);
         vote_btn = (TextView) itemView.findViewById(R.id.vote_btn);
         time.setVisibility(View.GONE);
+        sound_btn = (ImageView) itemView.findViewById(R.id.sound_btn);
 
 
     }
@@ -72,6 +75,7 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
         this.timeline = timeline;
         this.competiton = competition;
         time.setVisibility(View.GONE);
+        sound_btn = (ImageView) itemView.findViewById(R.id.sound_btn);
 
 
     }
@@ -146,6 +150,28 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
             }
         });
 
+        videoView.setVolume(0f);
+        sound_btn.setImageResource(R.drawable.mute_volume);
+        Log.e("sound","sound muted");
+        isvolume = true;
+
+        sound_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isvolume) {
+                    videoView.setVolume(0.9f);
+                    sound_btn.setImageResource(R.drawable.voulme);
+                    isvolume = false;
+                    Log.e("sound", "sound on");
+                }else {
+                    videoView.setVolume(0f);
+                    sound_btn.setImageResource(R.drawable.mute_volume);
+                    Log.e("sound","sound muted");
+                    isvolume = true;
+                }
+            }
+        });
+
 
 
 
@@ -190,13 +216,13 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
 
     @Override public void onVideoPreparing() {
         super.onVideoPreparing();
-        mInfo.setText("Preparing");
+        //mInfo.setText("Preparing");
     }
 
-//  @Override public void onVideoPrepared() {
-//    super.onVideoPrepared();
-//    mInfo.setText("Prepared");
-//  }
+  @Override public void onVideoPrepared() {
+    super.onVideoPrepared();
+   // mInfo.setText("Prepared");
+  }
 
     @Override public void onViewHolderBound() {
         super.onViewHolderBound();
@@ -213,7 +239,7 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
                 CompetitionVideoViewHolder.super.onPlaybackStarted();
             }
         }).start();
-        mInfo.setText("Started");
+       // mInfo.setText("Started");
     }
 
     @Override public void onPlaybackPaused() {
@@ -222,7 +248,7 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
                 CompetitionVideoViewHolder.super.onPlaybackPaused();
             }
         }).start();
-        mInfo.setText("Paused");
+        //mInfo.setText("Paused");
     }
 
     @Override public void onPlaybackCompleted() {
@@ -231,7 +257,7 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
                 CompetitionVideoViewHolder.super.onPlaybackCompleted();
             }
         }).start();
-        mInfo.setText("Completed");
+        //mInfo.setText("Completed");
     }
 
     @Override public boolean onPlaybackError(Exception error) {
