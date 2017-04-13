@@ -69,7 +69,10 @@ public class VideoViewHolder extends ExoVideoViewHolder {
   private TextView seconds;
   private AlbadiyaTimelineFragment fragment;
   private ImageView delete_btn;
+  private ImageView sound_btn;
   String post_id;
+  boolean isvolume = true;
+
 
 
   public VideoViewHolder(View itemView) {
@@ -87,6 +90,7 @@ public class VideoViewHolder extends ExoVideoViewHolder {
     no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
     seconds = (TextView) itemView.findViewById(R.id.seconds);
     delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
+    sound_btn = (ImageView) itemView.findViewById(R.id.sound_btn);
 
   }
   public VideoViewHolder(View itemView, AlbadiyaTimelineFragment fragment) {
@@ -105,6 +109,7 @@ public class VideoViewHolder extends ExoVideoViewHolder {
     seconds = (TextView) itemView.findViewById(R.id.seconds);
     delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
     this.fragment = fragment;
+    sound_btn = (ImageView) itemView.findViewById(R.id.sound_btn);
 
   }
 
@@ -140,6 +145,34 @@ public class VideoViewHolder extends ExoVideoViewHolder {
 //        itemView.getContext().startActivity(Intent.createChooser(i,"Share via"));
 //      }
 //    });
+
+
+    videoView.setVolume(0f);
+    sound_btn.setImageResource(R.drawable.mute_volume);
+    Log.e("sound","sound muted");
+    isvolume = true;
+
+    sound_btn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (isvolume) {
+          videoView.setVolume(0.9f);
+          sound_btn.setImageResource(R.drawable.voulme);
+          isvolume = false;
+          Log.e("sound", "sound on");
+        }else {
+          videoView.setVolume(0f);
+          sound_btn.setImageResource(R.drawable.mute_volume);
+          Log.e("sound","sound muted");
+          isvolume = true;
+        }
+      }
+    });
+
+
+
+
+
 
     Ion.with(itemView.getContext())
             .load("http://naqshapp.com/albadiya/api/view.php")
@@ -270,6 +303,8 @@ public class VideoViewHolder extends ExoVideoViewHolder {
 
   }
 
+
+
   @Override public void setOnItemClickListener(View.OnClickListener listener) {
     super.setOnItemClickListener(listener);
     mInfo.setOnClickListener(listener);
@@ -283,13 +318,13 @@ public class VideoViewHolder extends ExoVideoViewHolder {
 
   @Override public void onVideoPreparing() {
     super.onVideoPreparing();
-    mInfo.setText("Preparing");
+   // mInfo.setText("Preparing");
   }
 
-//  @Override public void onVideoPrepared() {
-//    super.onVideoPrepared();
-//    mInfo.setText("Prepared");
-//  }
+  @Override public void onVideoPrepared() {
+    super.onVideoPrepared();
+    //mInfo.setText("Prepared");
+  }
 
   @Override public void onViewHolderBound() {
     super.onViewHolderBound();
@@ -306,7 +341,7 @@ public class VideoViewHolder extends ExoVideoViewHolder {
         VideoViewHolder.super.onPlaybackStarted();
       }
     }).start();
-    mInfo.setText("Started");
+    //mInfo.setText("Started");
   }
 
   @Override public void onPlaybackPaused() {
@@ -315,7 +350,7 @@ public class VideoViewHolder extends ExoVideoViewHolder {
         VideoViewHolder.super.onPlaybackPaused();
       }
     }).start();
-    mInfo.setText("Paused");
+    //mInfo.setText("Paused");
   }
 
   @Override public void onPlaybackCompleted() {
@@ -324,7 +359,7 @@ public class VideoViewHolder extends ExoVideoViewHolder {
         VideoViewHolder.super.onPlaybackCompleted();
       }
     }).start();
-    mInfo.setText("Completed");
+    //mInfo.setText("Completed");
   }
 
   @Override public boolean onPlaybackError(Exception error) {
@@ -375,5 +410,9 @@ public class VideoViewHolder extends ExoVideoViewHolder {
     });
 
     builder2.show();
+  }
+
+  public void unmute(){
+    sound_btn.setImageResource(R.drawable.voulme);
   }
 }
