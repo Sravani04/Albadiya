@@ -39,7 +39,7 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
 
         final AlbadiyaTimelineFragment albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment,albadiyaTimelineFragment).commit();
-        getSupportFragmentManager().popBackStackImmediate();
+        getSupportFragmentManager().popBackStack();
         reset_icons(1);
 
         first_item.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +50,7 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment,homeProfile).commit();
                 AlbadiyaTimelineFragment albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment,albadiyaTimelineFragment).commit();
-                getSupportFragmentManager().popBackStackImmediate();
+                getSupportFragmentManager().popBackStack();
                 reset_icons(1);
             }
         });
@@ -61,7 +61,7 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
               //  InstaSearchAdapter.InstaSearch instaSearch = new InstaSearchAdapter.InstaSearch();
                 InstaSearchFragment instaSearchFragment = new InstaSearchFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment,instaSearchFragment).commit();
-                getSupportFragmentManager().popBackStackImmediate();
+                getSupportFragmentManager().popBackStack();
                 reset_icons(2);
             }
         });
