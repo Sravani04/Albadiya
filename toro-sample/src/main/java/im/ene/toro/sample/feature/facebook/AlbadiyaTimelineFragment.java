@@ -146,7 +146,6 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
     private void make_page() {
         adapter = new TimelineAdapter(itemsfrom_api,this,timeline);
         mRecyclerView.setAdapter(adapter);
-
         final ToroStrategy oldStrategy = Toro.getStrategy();
         final int firstVideoPosition = adapter.firstVideoPosition();
 
@@ -200,12 +199,12 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
                 long position = C.POSITION_UNSET;
                 int order = viewHolder.getAdapterPosition();
 
-//               ToroPlayer player = adapter.getPlayer();
-//                if (player != null) {
-//                    duration = player.getDuration();
-//                    position = player.isPlaying() ? player.getCurrentPosition()
-//                            : adapter.getSavedPosition(Util.genVideoId(item.getVideoUrl(), order)); // safe
-//                }
+               ToroPlayer player = adapter.getPlayer();
+                if (player != null) {
+                    duration = player.getDuration();
+                    position = player.isPlaying() ? player.getCurrentPosition()
+                            : adapter.getSavedPosition(Util.genVideoId(item.getVideoUrl(), order)); // safe
+                }
 //
 //                if (item != null) {
 //                    FacebookPlaylistFragment playlistFragment =
@@ -214,6 +213,8 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
 //                            FacebookPlaylistFragment.class.getSimpleName());
 //                }
             }
+
+
 
 
         });
@@ -240,6 +241,10 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
     }
 
 
+
+
+
+
     private static final String TAG = "Toro:FB:TL";
 
     @Override
@@ -262,6 +267,8 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
             Toro.register(mRecyclerView);
         }
     }
+
+
 
 
     public void delete_post(String post_id){
