@@ -55,6 +55,8 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
     private PostsTimlineFragment timeline;
     private ImageView delete_btn;
     String post_id;
+    private ImageView sound_btn;
+    boolean isvolume = true;
 
 
     public PostsVideoViewHolder(View itemView) {
@@ -72,6 +74,7 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
         no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
         seconds = (TextView) itemView.findViewById(R.id.seconds);
         delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
+        sound_btn = (ImageView) itemView.findViewById(R.id.sound_btn);
 
     }
     public PostsVideoViewHolder(View itemView, AlbadiyaTimelineFragment fragment,PostsTimlineFragment timeline) {
@@ -90,6 +93,7 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
         seconds = (TextView) itemView.findViewById(R.id.seconds);
         delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
         this.timeline = timeline;
+        sound_btn = (ImageView) itemView.findViewById(R.id.sound_btn);
 
     }
 
@@ -125,6 +129,29 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
 //        itemView.getContext().startActivity(Intent.createChooser(i,"Share via"));
 //      }
 //    });
+
+
+        videoView.setVolume(0f);
+        sound_btn.setImageResource(R.drawable.mute_volume);
+        Log.e("sound","sound muted");
+        isvolume = true;
+
+        sound_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isvolume) {
+                    videoView.setVolume(0.9f);
+                    sound_btn.setImageResource(R.drawable.voulme);
+                    isvolume = false;
+                    Log.e("sound", "sound on");
+                }else {
+                    videoView.setVolume(0f);
+                    sound_btn.setImageResource(R.drawable.mute_volume);
+                    Log.e("sound","sound muted");
+                    isvolume = true;
+                }
+            }
+        });
 
         Ion.with(itemView.getContext())
                 .load("http://naqshapp.com/albadiya/api/view.php")
@@ -271,10 +298,10 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
         mInfo.setText("Preparing");
     }
 
-//  @Override public void onVideoPrepared() {
-//    super.onVideoPrepared();
-//    mInfo.setText("Prepared");
-//  }
+  @Override public void onVideoPrepared() {
+    super.onVideoPrepared();
+    //mInfo.setText("Prepared");
+  }
 
     @Override public void onViewHolderBound() {
         super.onViewHolderBound();
@@ -282,7 +309,7 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
                 .load(R.drawable.video_play_button)
                 .resize(400, 300 )
                 .into(mThumbnail);
-        mInfo.setText("Bound");
+        //mInfo.setText("Bound");
     }
 
     @Override public void onPlaybackStarted() {
@@ -291,7 +318,7 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
                 PostsVideoViewHolder.super.onPlaybackStarted();
             }
         }).start();
-        mInfo.setText("Started");
+        //mInfo.setText("Started");
     }
 
     @Override public void onPlaybackPaused() {
@@ -300,7 +327,7 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
                 PostsVideoViewHolder.super.onPlaybackPaused();
             }
         }).start();
-        mInfo.setText("Paused");
+       // mInfo.setText("Paused");
     }
 
     @Override public void onPlaybackCompleted() {
@@ -309,7 +336,7 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
                 PostsVideoViewHolder.super.onPlaybackCompleted();
             }
         }).start();
-        mInfo.setText("Completed");
+       // mInfo.setText("Completed");
     }
 
     @Override public boolean onPlaybackError(Exception error) {
