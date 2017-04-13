@@ -28,7 +28,7 @@ public class InstaContestants extends Fragment {
     ArrayList<String>  names;
     ArrayList<String>  comments;
     ArrayList<Competitors> competitorsfrom_api;
-
+    ArrayList<Subscription> subscriptions;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -39,6 +39,7 @@ public class InstaContestants extends Fragment {
         names    = new ArrayList<>();
         comments = new ArrayList<>();
         competitorsfrom_api = new ArrayList<>();
+        subscriptions = new ArrayList<>();
 
 
         images.add(R.drawable.yellowsoft);
@@ -121,6 +122,8 @@ public class InstaContestants extends Fragment {
 
 
 
+
+
     public void get_competitors(){
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("please wait..");
@@ -156,6 +159,7 @@ public class InstaContestants extends Fragment {
 
                     }
                 });
+
     }
 
 }

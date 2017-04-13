@@ -44,12 +44,15 @@ public class CategoryFragment extends Fragment {
         subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reset_color(2);
-                InstaSubscribe instaSubscribe = new InstaSubscribe();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("result","FAILURE");
-                instaSubscribe.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_contest,instaSubscribe).commit();
+                reset_color(1);
+                InstaContestants instaContestants = new InstaContestants();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_contest,instaContestants).commit();
+//                reset_color(2);
+//                InstaSubscribe instaSubscribe = new InstaSubscribe();
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("result","FAILURE");
+//                instaSubscribe.setArguments(bundle);
+//                getFragmentManager().beginTransaction().replace(R.id.fragment_contest,instaSubscribe).commit();
             }
         });
 

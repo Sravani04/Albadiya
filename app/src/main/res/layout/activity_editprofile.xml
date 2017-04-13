@@ -14,7 +14,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
@@ -64,9 +64,9 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_height="115dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_image"
@@ -77,7 +77,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="130dp">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -165,8 +165,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -180,7 +179,7 @@
                         android:background="@drawable/edit_profile_btn_bg"
                         android:textColor="#948067"
                         android:id="@+id/edit_btn"
-                        android:layout_height="35dp"
+                        android:layout_height="30dp"
                         android:layout_width="150dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
@@ -202,7 +201,7 @@
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical|center_horizontal"
                     android:paddingLeft="10dp"
                     android:id="@+id/date">
@@ -218,9 +217,8 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical|center_horizontal"
+                        android:gravity="center_vertical"
                         android:layout_marginTop="7dp"
-                        android:layout_marginLeft="10dp"
                         android:id="@+id/exp_date" />
 
                 </LinearLayout>

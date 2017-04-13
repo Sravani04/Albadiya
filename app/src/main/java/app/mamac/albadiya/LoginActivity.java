@@ -53,16 +53,21 @@ public class LoginActivity extends Activity {
                            .setCallback(new FutureCallback<JsonObject>() {
                                @Override
                                public void onCompleted(Exception e, JsonObject result) {
-                                   if (progressDialog!=null)
-                                       progressDialog.dismiss();
-                                   if (result.get("status").getAsString().equals("Success")){
-                                       Settings.SetUserId(LoginActivity.this,result.get("member_id").getAsString());
-                                       Toast.makeText(LoginActivity.this,result.get("name").getAsString(),Toast.LENGTH_SHORT).show();
-                                       Intent intent = new Intent(LoginActivity.this,InstaFragment.class);
-                                       startActivity(intent);
-                                   }else {
-                                       Toast.makeText(LoginActivity.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                   try {
+                                       if (progressDialog!=null)
+                                           progressDialog.dismiss();
+                                       if (result.get("status").getAsString().equals("Success")){
+                                           Settings.SetUserId(LoginActivity.this,result.get("member_id").getAsString());
+                                           Toast.makeText(LoginActivity.this,result.get("name").getAsString(),Toast.LENGTH_SHORT).show();
+                                           Intent intent = new Intent(LoginActivity.this,InstaFragment.class);
+                                           startActivity(intent);
+                                       }else {
+                                           Toast.makeText(LoginActivity.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+                                       }
+                                   }catch (Exception e1){
+                                       e1.printStackTrace();
                                    }
+
                                }
                            });
 
