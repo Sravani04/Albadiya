@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import app.mamac.albadiya.Competitors;
 import im.ene.toro.Toro;
 import im.ene.toro.ToroPlayer;
 import im.ene.toro.ToroStrategy;
@@ -34,7 +34,6 @@ import im.ene.toro.sample.BaseToroFragment;
 import im.ene.toro.sample.R;
 import im.ene.toro.sample.feature.facebook.playlist.FacebookPlaylistFragment;
 import im.ene.toro.sample.feature.facebook.timeline.CompetitionTimlineAdapter;
-import im.ene.toro.sample.feature.facebook.timeline.Competitors;
 import im.ene.toro.sample.feature.facebook.timeline.Posts;
 import im.ene.toro.sample.feature.facebook.timeline.Settings;
 import im.ene.toro.sample.feature.facebook.timeline.TimelineItem;
@@ -47,13 +46,12 @@ import im.ene.toro.sample.util.Util;
 public class CompetitionTimlineFragment  extends BaseToroFragment implements FacebookPlaylistFragment.Callback,AbsListView.OnScrollListener{
     RecyclerView mRecyclerView;
     ImageView settings;
-    ImageView chat_screen;
+    ImageView chat_screen,chat_btn;
     private CompetitionTimlineAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<TimelineItem> itemsfrom_api;
     int pageno=1;
     private  int previouslast;
-    CompetitionTimlineFragment.Settingsinterface mCallback;
     CompetitionTimlineFragment.ChatScreeninterface Callback;
     CompetitionTimlineFragment.UserProfileSelectedListner uCallback;
     HashMap<String,Boolean> flags;
@@ -67,16 +65,14 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
     AlbadiyaTimelineFragment fragment;
     PostsTimlineFragment posts;
     String member;
-    Competitors competitors;
     String competion_id;
+    Competitors comp_obj;
 
 
-    public interface Settingsinterface{
-        public void opensettings_page();
-    }
+
 
     public interface ChatScreeninterface{
-        public void openchatscreen_page();
+        public void openchatscreen_page(String member_id);
     }
 
     public interface UserProfileSelectedListner {
@@ -93,10 +89,8 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
 
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) return;
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) return;
         try {
-            mCallback = (CompetitionTimlineFragment.Settingsinterface) activity;
-            Callback = (CompetitionTimlineFragment.ChatScreeninterface) activity;
             uCallback = (CompetitionTimlineFragment.UserProfileSelectedListner) activity;
 
         } catch (ClassCastException e) {
@@ -115,21 +109,13 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(layoutManager);
-        language = (TextView) view.findViewById(R.id.language);
         header = (LinearLayout) view.findViewById(R.id.header);
         line = (LinearLayout) view.findViewById(R.id.line);
-        language.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         if(getArguments()!=null && getArguments().containsKey("header")) {
             main_header = getArguments().getString("header");
             horizontal_line = getArguments().getString("line");
             member  = getArguments().getString("member_id");
-            competitors = (Competitors) getArguments().getSerializable("competitors");
+            comp_obj = (Competitors) getArguments().getSerializable("competitors");
             header.setVisibility(View.GONE);
             line.setVisibility(View.GONE);
         } else {
@@ -151,8 +137,8 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
 //            }
 //        });
 
-//        chat_screen = (ImageView) view.findViewById(R.id.chat_screen);
-//        chat_screen.setOnClickListener(new View.OnClickListener() {
+//        chat_btn = (ImageView) view.findViewById(R.id.chat_btn);
+//        chat_btn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Callback.openchatscreen_page();
@@ -294,8 +280,9 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
 
     public void delete_post(String post_id){
         get_posts(true);
-
     }
+
+
     public void get_posts(boolean clear_all){
 
         if(clear_all)
@@ -305,6 +292,7 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
         progressDialog.setMessage("please wait..");
         progressDialog.setCancelable(false);
         progressDialog.show();
+        Log.e("competitionid",comp_obj.id);
         Ion.with(this)
                 .load(Settings.SERVER_URL+"competitions.php")
                 .setBodyParameter("competition_id",competion_id)
@@ -322,6 +310,22 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
                             flags = new HashMap<>();
                             likes = new HashMap<>();
                             try {
+//                                for (int i = 0; i < result.size(); i++) {
+//                                    Posts posts = new Posts(result.get(i).getAsJsonObject(), getActivity(),false);
+//                                    String type, type_url;
+//                                    if (posts.images.get(0).video.equals("")) {
+//                                        type = "image";
+//                                        type_url = posts.images.get(0).image;
+//                                    } else {
+//                                        type = "video";
+//                                        type_url = posts.images.get(0).video;
+//                                    }
+//
+//                                    post_id = posts.competition_id;
+//                                    TimelineItem timelineItem = new TimelineItem(getActivity(), posts.images.get(0).id, posts.images.get(0).mname,
+//                                            posts.images.get(0).mimage, posts.images.get(0).description, type, type_url, posts.time, posts.total_likes,
+//                                            posts.total_views, posts.member_like, posts.images.get(0).mid,posts.competition_id);
+//                                    itemsfrom_api.add(timelineItem);
 
                                 for (int i = 0; i < result.get(0).getAsJsonObject().get("images").getAsJsonArray().size(); i++) {
                                     Posts posts = new Posts(result.get(0).getAsJsonObject().get("images").getAsJsonArray().get(i).getAsJsonObject(), getActivity(),false);
@@ -334,13 +338,13 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
                                         type_url = posts.video;
                                     }
 
-                                    post_id = posts.id;
+                                    post_id = competion_id;
                                     TimelineItem timelineItem = new TimelineItem(getActivity(), posts.id, posts.user_name,
                                             posts.user_image, posts.description, type, type_url, posts.time, posts.total_likes,
-                                            posts.total_views, posts.member_like, posts.user_id);
+                                            posts.total_views, posts.member_like, posts.user_id,competion_id);
                                     itemsfrom_api.add(timelineItem);
 
-                                    //likes.put(posts.id, Integer.parseInt(itemsfrom_api.get(i).getAuthor().getUserLikes()));
+                                    likes.put(posts.id, Integer.parseInt(itemsfrom_api.get(i).getAuthor().getUserLikes()));
 
                                     if (itemsfrom_api.get(i).getAuthor().getMemberLike().equals("0")) {
                                         flags.put(posts.id, Boolean.FALSE);
@@ -381,6 +385,7 @@ public class CompetitionTimlineFragment  extends BaseToroFragment implements Fac
     public void go_to_user_profile(String member_id){
         uCallback.onUserSelected(member_id);
     }
+
 
 
 
