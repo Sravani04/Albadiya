@@ -118,7 +118,7 @@ public class CompetitionVideoViewHolder extends ExoVideoViewHolder {
 
        post_id =((TimelineItem) object).getAuthor().getCompetitionId();
 
-        if(!((TimelineItem) object).getAuthor().getPersonId().equals("-1"))
+        if(((TimelineItem) object).getAuthor().getPersonId().equals("-1"))
             vote_status();
         else{
 
