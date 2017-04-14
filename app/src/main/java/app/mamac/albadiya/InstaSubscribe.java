@@ -24,9 +24,10 @@ import com.koushikdutta.ion.Ion;
 
 public class InstaSubscribe extends Fragment {
     private WebView wv1;
-    String amount="200";
+    String amount;
     String member_id;
     ProgressBar progress;
+    Subscription subscription;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View view = inflater.inflate(R.layout.subscribe_page,container,false);
@@ -35,10 +36,14 @@ public class InstaSubscribe extends Fragment {
         wv1.addJavascriptInterface(new WebAppInterface(getContext()),"app");
         wv1.setWebViewClient(new WebViewClient());
         wv1.setWebChromeClient(new MyWebViewClient());
-        // wv1.loadUrl(Settings.PAYMENT_URL + "member_id=" + Settings.GetUserId(getContext()) + "&amount=" + amount);
-         wv1.loadUrl(Settings.PAY_URL + "amount=" + amount);
-         Log.e("pay_url",Settings.PAY_URL + "amount=" +amount);
-        //Log.e("payment_url",Settings.PAYMENT_URL + "member_id=" + Settings.GetUserId(getContext()) + "&amount=" + amount);
+        if (getArguments()!=null && getArguments().containsKey("subscriptions")){
+            amount =  getArguments().getString("subscriptions");
+            Log.e("amount",amount);
+        }
+        wv1.loadUrl(Settings.PAYMENT_URL + "member_id=" + Settings.GetUserId(getContext()) + "&amount=" + amount);
+        // wv1.loadUrl(Settings.PAY_URL + "amount=" + amount);
+         //Log.e("pay_url",Settings.PAY_URL + "amount=" +amount);
+        Log.e("payment_url",Settings.PAYMENT_URL + "member_id=" + Settings.GetUserId(getContext()) + "&amount=" + amount);
         progress = (ProgressBar) view.findViewById(R.id.progressBar);
         progress.setMax(100);
         progress.setProgress(0);

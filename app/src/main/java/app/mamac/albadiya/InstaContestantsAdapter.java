@@ -24,13 +24,15 @@ public class InstaContestantsAdapter extends BaseAdapter {
 //    ArrayList<String>  mnames;
 //    ArrayList<String>  mcomments;
     ArrayList<Competitors> competitors;
+    ArrayList<Subscription> subscriptions;
 
-    public   InstaContestantsAdapter(Context context,ArrayList<Competitors> competitors){
+    public   InstaContestantsAdapter(Context context,ArrayList<Competitors> competitors,ArrayList<Subscription> subscriptions){
         this.context = context;
         this.competitors =  competitors;
 //        mimages = images;
 //        mnames  = names;
 //        mcomments = comments;
+        this.subscriptions = subscriptions;
         inflater = LayoutInflater.from(context);
     }
     @Override

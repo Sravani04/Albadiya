@@ -65,14 +65,14 @@ public class CompetitorsDetailPage extends Fragment {
 //            }
 //        });
 
-        CompetitionTimlineFragment competitionTimlineFragment = new CompetitionTimlineFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("header", "0");
-        bundle.putString("line", "0");
-        bundle.putSerializable("competitors",competitersfrom_api);
-        bundle.putSerializable("competition_id",comp_id);
-        competitionTimlineFragment.setArguments(bundle);
-        getFragmentManager().beginTransaction().replace(R.id.frame_one,competitionTimlineFragment).commit();
+//        CompetitionTimlineFragment competitionTimlineFragment = new CompetitionTimlineFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("header", "0");
+//        bundle.putString("line", "0");
+//        bundle.putSerializable("competitors",competitersfrom_api);
+//        bundle.putSerializable("competition_id",comp_id);
+//        competitionTimlineFragment.setArguments(bundle);
+//        getFragmentManager().beginTransaction().replace(R.id.frame_one,competitionTimlineFragment).commit();
 
 
         item_name = (TextView) view.findViewById(R.id.item_name);
@@ -111,9 +111,16 @@ public class CompetitorsDetailPage extends Fragment {
            competitorDetailPageAdapter = new CompetitorDetailPageAdapter(getContext(),competitersfrom_api);
 //           gridView.setAdapter(competitorDetailPageAdapter);
 
-
-
        }
+
+        CompetitionTimlineFragment competitionTimlineFragment = new CompetitionTimlineFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("header", "0");
+        bundle.putString("line", "0");
+        bundle.putSerializable("competitors",competitersfrom_api);
+        bundle.putSerializable("competition_id",comp_id);
+        competitionTimlineFragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.frame_one,competitionTimlineFragment).commit();
         return view;
     }
 }

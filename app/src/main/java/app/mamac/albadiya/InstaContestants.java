@@ -29,6 +29,7 @@ public class InstaContestants extends Fragment {
     ArrayList<String>  comments;
     ArrayList<Competitors> competitorsfrom_api;
     ArrayList<Subscription> subscriptions;
+    String logo,title,title_ar,subscription_price,itunes_link,playstore_link;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -57,7 +58,7 @@ public class InstaContestants extends Fragment {
         comments.add("Yahoo");
         comments.add("Amazon");
 
-        instaContestantsAdapter = new InstaContestantsAdapter(getActivity(),competitorsfrom_api);
+        instaContestantsAdapter = new InstaContestantsAdapter(getActivity(),competitorsfrom_api,subscriptions);
         listView.setAdapter(instaContestantsAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -105,6 +106,7 @@ public class InstaContestants extends Fragment {
                                         InstaSubscribe instaSubscribe = new InstaSubscribe();
                                         Bundle bundle = new Bundle();
                                         bundle.putSerializable("result","FAILURE");
+                                        bundle.putString("subscriptions",subscription_price);
                                         instaSubscribe.setArguments(bundle);
                                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contest, instaSubscribe).commit();
                                     }
@@ -117,6 +119,7 @@ public class InstaContestants extends Fragment {
             }
         });
         get_competitors();
+        get_subscription();
         return view;
     }
 
@@ -160,6 +163,32 @@ public class InstaContestants extends Fragment {
                     }
                 });
 
+    }
+
+    public void get_subscription(){
+        Ion.with(getContext())
+                .load(Settings.SERVER_URL+"settings.php")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (e!=null)
+                            e.printStackTrace();
+                        Log.e("result",result.toString());
+                        try {
+                             logo  = result.get("logo").getAsString();
+                             title = result.get("title").getAsString();
+                             title_ar = result.get("title_ar").getAsString();
+                             subscription_price = result.get("subscription_price").getAsString();
+                             itunes_link = result.get("itunes_link").getAsString();
+                             playstore_link = result.get("playstore_link").getAsString();
+                        }catch (Exception e1){
+                            e1.printStackTrace();
+                        }
+
+
+                    }
+                });
     }
 
 }
