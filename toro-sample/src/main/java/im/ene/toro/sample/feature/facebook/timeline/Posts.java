@@ -69,9 +69,6 @@ public class Posts implements Serializable {
 
     }
 
-
-
-
     public Posts(JsonObject jsonObject, Context context,boolean tre){
         id = jsonObject.get("id").getAsString();
         title = jsonObject.get("title").getAsString();
@@ -99,11 +96,7 @@ public class Posts implements Serializable {
         description_ar = "0";
     }
 
-    public Posts(Competitors jsonObject,Context context){
-         competition_id = jsonObject.id;
-        title = jsonObject.id;
-        title_ar = jsonObject.id;
-    }
+
 
 
 }

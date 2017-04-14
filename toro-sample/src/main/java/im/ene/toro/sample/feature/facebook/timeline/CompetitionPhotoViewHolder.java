@@ -102,6 +102,7 @@ public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
         });
 
         post_id = ((TimelineItem) object).getAuthor().getCompetitionId();
+        Log.e("postId",post_id);
 
 
 
