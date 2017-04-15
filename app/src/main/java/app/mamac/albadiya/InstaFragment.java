@@ -3,6 +3,7 @@ package app.mamac.albadiya;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -36,10 +37,16 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
        // VideoRecyclerViewFragment videoRecyclerViewFragment = new VideoRecyclerViewFragment();
        //VideoListFragment videoListFragment = new VideoListFragment();
        // getSupportFragmentManager().beginTransaction().replace(R.id.fragment,videoListFragment).commit();
+//        final AlbadiyaTimelineFragment albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
+//        getSupportFragmentManager().popBackStack();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,albadiyaTimelineFragment).commit();
+//        reset_icons(1);
 
         final AlbadiyaTimelineFragment albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,albadiyaTimelineFragment).commit();
-        getSupportFragmentManager().popBackStack();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+        transaction.replace(R.id.fragment, albadiyaTimelineFragment);
+        transaction.commit();
         reset_icons(1);
 
         first_item.setOnClickListener(new View.OnClickListener() {
@@ -48,10 +55,13 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
                 //HomeProfile homeProfile = new HomeProfile();
                 //VideoRecyclerViewFragment videoRecyclerViewFragment = new VideoRecyclerViewFragment();
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment,homeProfile).commit();
-                AlbadiyaTimelineFragment albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,albadiyaTimelineFragment).commit();
-                getSupportFragmentManager().popBackStack();
+                final AlbadiyaTimelineFragment albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+                transaction.replace(R.id.fragment, albadiyaTimelineFragment);
+                transaction.commit();
                 reset_icons(1);
+
             }
         });
 
@@ -59,10 +69,20 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
             @Override
             public void onClick(View v) {
               //  InstaSearchAdapter.InstaSearch instaSearch = new InstaSearchAdapter.InstaSearch();
+//                InstaSearchFragment instaSearchFragment = new InstaSearchFragment();
+//                getSupportFragmentManager().popBackStack();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,instaSearchFragment).commit();
+//                reset_icons(2);
                 InstaSearchFragment instaSearchFragment = new InstaSearchFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,instaSearchFragment).commit();
-                getSupportFragmentManager().popBackStack();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_left, R.anim.exit_to_left);
+                transaction.replace(R.id.fragment, instaSearchFragment);
+                transaction.commit();
                 reset_icons(2);
+                albadiyaTimelineFragment.onPlaylistAttached();
+                albadiyaTimelineFragment.isResumed();
+
+
             }
         });
 
@@ -75,14 +95,19 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
                 }else{
                     //HomeProfile homeProfile = new HomeProfile();
                     //getSupportFragmentManager().beginTransaction().replace(R.id.fragment,homeProfile).commit();
+//                    PostFragment postFragment = new PostFragment();
+//                    getSupportFragmentManager().popBackStackImmediate();
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment,postFragment).commit();
+//                    reset_icons(3);
                     PostFragment postFragment = new PostFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment,postFragment).commit();
-                    getSupportFragmentManager().popBackStackImmediate();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+                    transaction.replace(R.id.fragment, postFragment);
+                    transaction.commit();
                     reset_icons(3);
+                    albadiyaTimelineFragment.onPlaylistAttached();
+                    albadiyaTimelineFragment.isResumed();
                 }
-
-
-
             }
         });
 
@@ -93,12 +118,27 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
                     Intent intent = new Intent(InstaFragment.this,HomeActivityScreen.class);
                     startActivity(intent);
                 }else{
-                    reset_icons(4);
-                    InstaCategories instaCategories = new InstaCategories();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment,instaCategories).commit();
-                    getSupportFragmentManager().popBackStackImmediate();
-                }
+//                    reset_icons(4);
+//                    InstaCategories instaCategories = new InstaCategories();
+//                    getSupportFragmentManager().popBackStackImmediate();
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment,instaCategories).commit();
 
+//                    InstaCategories instaCategories = new InstaCategories();
+//                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                    transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right);
+//                    transaction.replace(R.id.fragment, instaCategories);
+//                    transaction.commit();
+//                    reset_icons(4);
+                    InstaCategories instaCategories = new InstaCategories();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+                    transaction.replace(R.id.fragment, instaCategories);
+                    transaction.commit();
+                    reset_icons(4);
+                    albadiyaTimelineFragment.onPlaylistAttached();
+                    albadiyaTimelineFragment.isResumed();
+
+                }
             }
         });
 
@@ -111,11 +151,19 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
                     Intent intent = new Intent(InstaFragment.this, HomeActivityScreen.class);
                     startActivity(intent);
                 }else{
-                    reset_icons(5);
-                    EditProfile userProfile = new EditProfile();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment,userProfile).commit();
-                    getSupportFragmentManager().popBackStackImmediate();
+//                    reset_icons(5);
+//                    EditProfile userProfile = new EditProfile();
+//                    getSupportFragmentManager().popBackStackImmediate();
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment,userProfile).commit();
 
+                    EditProfile userProfile = new EditProfile();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+                    transaction.replace(R.id.fragment, userProfile);
+                    transaction.commit();
+                    reset_icons(5);
+                    albadiyaTimelineFragment.onPlaylistAttached();
+                    albadiyaTimelineFragment.isResumed();
                 }
 
             }
@@ -123,7 +171,6 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
 
 
     }
-
 
 
 
@@ -173,11 +220,6 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
         intent.putExtra("receiver_id",member_id);
         startActivity(intent);
     }
-
-
-
-
-
 
 
 }
