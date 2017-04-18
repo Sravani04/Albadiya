@@ -21,15 +21,12 @@ public class SplashActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, LanguageActivity.class);
+                Intent intent = new Intent(SplashActivity.this,InstaFragment.class);
                 startActivity(intent);
+               // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 finish();
             }
         }, 1500);
 
     }
-
-
-
-
 }

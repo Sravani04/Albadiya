@@ -27,7 +27,7 @@ public class InstaCategories extends Fragment {
         fragment_category = (FrameLayout) view.findViewById(R.id.fragment_category);
         en_lang = (TextView) view.findViewById(R.id.en_lang);
         ar_lang = (TextView) view.findViewById(R.id.ar_lang);
-        ar_lang.setText("Ar");
+        ar_lang.setText("عربي");
         ar_lang.setVisibility(View.VISIBLE);
         en_lang.setVisibility(View.GONE);
 
@@ -44,7 +44,7 @@ public class InstaCategories extends Fragment {
         en_lang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ar_lang.setText("Ar");
+                ar_lang.setText("عربي");
                 ar_lang.setVisibility(View.VISIBLE);
                 en_lang.setVisibility(View.GONE);
                 view.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
