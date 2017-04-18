@@ -213,7 +213,7 @@ public class CompetitorAddPost extends Activity {
             public void onClick(DialogInterface dialog, int item) {
                 if(items[item].equals("Take Photo")){
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent,0);
+                    startActivityForResult(intent,1);
                 }else if(items[item].equals("Take Video")){
                     Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                     startActivityForResult(intent,1);
@@ -247,6 +247,11 @@ public class CompetitorAddPost extends Activity {
                     if (selected_image_path.endsWith(".mp4")) {
                         selected_vide_path = selected_image_path;
                         get_thumbnail();
+                    }else {
+                        if(selected_image_path.endsWith(".jpg"))  {
+
+                       }
+
                     }
                 }
                 break;
@@ -312,9 +317,8 @@ public class CompetitorAddPost extends Activity {
 
     private String getRealPathFromURI(Uri contentURI) {
         String result;
-        String[] columns = { MediaStore.Images.Media.DATA,
-                MediaStore.Images.Media.MIME_TYPE };
-        Cursor cursor = getContentResolver().query(contentURI,null, null, null, null);
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(contentURI,projection, null, null, null);
         if (cursor == null) {
             result = contentURI.getPath();
         } else {
