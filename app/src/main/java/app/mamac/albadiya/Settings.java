@@ -9,7 +9,8 @@ import android.preference.PreferenceManager;
  */
 
 public class Settings {
-    public static String SERVER_URL = "http://naqshapp.com/albadiya/api/";
+//    public static String SERVER_URL = "http://naqshapp.com/albadiya/api/";
+    public static String SERVER_URL = "http://albadiya.net/api/";
     public static String  PAYMENT_URL = "http://naqshapp.com/albadiya/Tap-app.php?";
     public static  String PAY_URL    = "http://clients.yellowsoft.in/lawyers/Tap2.php?";
 
