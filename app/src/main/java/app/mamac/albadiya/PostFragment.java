@@ -65,10 +65,24 @@ public class PostFragment extends Fragment implements TakeVideoFragment.TakeVide
 
         reset_icons(1);
 
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            public void onPageSelected(int position) {
+                // Check if this is the page you want.
+//                  reset_icons(position+1);
+                reset_icons(position+1);
+                viewPager.setCurrentItem(position);
+            }
+        });
+
+
         video_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reset_icons(1);
+                viewPager.setCurrentItem(0);
 
             }
         });
@@ -76,23 +90,14 @@ public class PostFragment extends Fragment implements TakeVideoFragment.TakeVide
         camera_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reset_icons(2);
+                viewPager.setCurrentItem(1);
             }
         });
 
         gallery_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            }
-        });
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            public void onPageScrollStateChanged(int state) {}
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-            public void onPageSelected(int position) {
-                // Check if this is the page you want.
-                  reset_icons(position+1);
-
+                viewPager.setCurrentItem(2);
             }
         });
 
