@@ -9,8 +9,8 @@ import android.preference.PreferenceManager;
  */
 
 public class Settings {
-    public static String SERVER_URL = "http://naqshapp.com/albadiya/api/";
-
+//    public static String SERVER_URL = "http://naqshapp.com/albadiya/api/";
+public static String SERVER_URL = "http://albadiya.net/api/";
 
     public  static  final String mem_id="mem_id";
     public  static  final String mem_name="mem_name";
