@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -172,6 +174,30 @@ public class CompetitorAddPost extends Activity {
             { e.printStackTrace();
             }
             }
+
+
+        item_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                item_image.setVisibility(View.GONE);
+                if(!selected_vide_path.equals("")){
+
+                    videoview.setVideoPath(selected_vide_path);
+                    MediaController mediaController = new MediaController(CompetitorAddPost.this);
+                    mediaController.setAnchorView(videoview);
+                    videoview.setMediaController(mediaController);
+                    //  videoView.resolveAdjustedSize()
+                    videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            Log.i("TAG","Duration = " + videoview.getDuration());
+                        }
+                    });
+                    videoview.start();
+
+                }
+            }
+        });
 
 
     }
