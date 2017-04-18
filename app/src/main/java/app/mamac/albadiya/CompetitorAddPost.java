@@ -47,6 +47,7 @@ public class CompetitorAddPost extends Activity {
     String competition_id;
     VideoView videoview;
     boolean is_video_added = true;
+    private static final int CAMERA_REQUEST = 1888;
 
      @Override
     public void onCreate(Bundle savedInstanceState){
@@ -204,20 +205,22 @@ public class CompetitorAddPost extends Activity {
 
 
     public void show_images(){
-        final CharSequence[] items = {"camera","gallery"};
+        final CharSequence[] items = {"Take Photo","Take Video","gallery"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("select_image");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if(items[item].equals("camera")){
+                if(items[item].equals("Take Photo")){
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(intent,0);
-
-                }else if(items[item].equals("gallery")){
+                }else if(items[item].equals("Take Video")){
+                    Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                    startActivityForResult(intent,1);
+                } else if(items[item].equals("gallery")){
                     Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     pickIntent.setType("image/* video/*");
-                    startActivityForResult(pickIntent, 1);
+                    startActivityForResult(pickIntent, 2);
                 }
             }
         });
@@ -241,7 +244,7 @@ public class CompetitorAddPost extends Activity {
                     selected_image_path = getRealPathFromURI
                             (selectedImage);
                     Log.e("image_path",selected_image_path);
-                    if (selected_image_path.endsWith(".mp4")){
+                    if (selected_image_path.endsWith(".mp4")) {
                         selected_vide_path = selected_image_path;
                         get_thumbnail();
                     }
@@ -311,7 +314,7 @@ public class CompetitorAddPost extends Activity {
         String result;
         String[] columns = { MediaStore.Images.Media.DATA,
                 MediaStore.Images.Media.MIME_TYPE };
-        Cursor cursor = getContentResolver().query(contentURI,columns, null, null, null, null);
+        Cursor cursor = getContentResolver().query(contentURI,null, null, null, null);
         if (cursor == null) {
             result = contentURI.getPath();
         } else {
