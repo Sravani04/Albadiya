@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Albadiya</string>
+    <string name="app_name">البادية</string>
     <string name="hello">Hello World,MainActivity!</string>
     <string name="hintTxtItem">Enter an item here...</string>
     <string name="lblBtnAdd">Add Item</string>
