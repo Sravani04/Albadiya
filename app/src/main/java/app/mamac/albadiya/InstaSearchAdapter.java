@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -52,6 +53,9 @@ public class InstaSearchAdapter extends BaseAdapter {
         TextView title  = (TextView) item_view.findViewById(R.id.title);
         title.setText(mtitle.get(position));
         Picasso.with(context).load(new File(mimages.get(position))).fit().into(item_image);
+        Glide.with( context )
+                .load( mimages.get(position) )
+                .into( item_image );
         return item_view;
     }
 
