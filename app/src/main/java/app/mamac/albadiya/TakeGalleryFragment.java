@@ -162,8 +162,8 @@ public class TakeGalleryFragment extends Fragment{
                             String path = imagePath.getAbsolutePath();
                             resultIAV.add(path);
                             Log.e("path", path);
-                            if (resultIAV.size() > 10)
-                                return resultIAV;
+//                            if (resultIAV.size() > 10)
+//                                return resultIAV;
 
                         }
                     }
@@ -239,8 +239,8 @@ public class TakeGalleryFragment extends Fragment{
                         String path = imagePath.getAbsolutePath();
                         resultIAV.add(path);
                         Log.e("path", path);
-                        if (resultIAV.size() > 10)
-                            return resultIAV;
+//                        if (resultIAV.size() > 10)
+//                            return resultIAV;
 
                     }
                 }
