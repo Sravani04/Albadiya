@@ -106,7 +106,7 @@ public class CompetitionPhotoViewHolder extends PostsTimelineViewHolder {
 
 
 
-        if(((TimelineItem) object).getAuthor().getPersonId().equals("-1"))
+        if(!((TimelineItem) object).getAuthor().getPersonId().equals("-1"))
             vote_status();
         else{
             vote_btn.setText("Vote");
