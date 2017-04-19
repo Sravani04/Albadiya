@@ -1,9 +1,11 @@
 package app.mamac.albadiya;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
     FrameLayout fragment;
     ImageView first_item,second_item,third_item,fourth_item,fifth_item;
     String main_header,ex_date;
+    AlbadiyaTimelineFragment albadiyaTimelineFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -42,8 +45,8 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
 //        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,albadiyaTimelineFragment).commit();
 //        reset_icons(1);
 
-        final AlbadiyaTimelineFragment albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+         albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
         transaction.replace(R.id.fragment, albadiyaTimelineFragment);
         transaction.commit();
@@ -55,7 +58,7 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
                 //HomeProfile homeProfile = new HomeProfile();
                 //VideoRecyclerViewFragment videoRecyclerViewFragment = new VideoRecyclerViewFragment();
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment,homeProfile).commit();
-                final AlbadiyaTimelineFragment albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
+                albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
                 transaction.replace(R.id.fragment, albadiyaTimelineFragment);
@@ -65,6 +68,7 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
             }
         });
 
+
         second_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,18 +77,26 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
 //                getSupportFragmentManager().popBackStack();
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,instaSearchFragment).commit();
 //                reset_icons(2);
+                try{
+                    albadiyaTimelineFragment.adapter.pausePlayback();
+                    Log.e("message","created");
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
                 InstaSearchFragment instaSearchFragment = new InstaSearchFragment();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_left, R.anim.exit_to_left);
                 transaction.replace(R.id.fragment, instaSearchFragment);
                 transaction.commit();
                 reset_icons(2);
-                albadiyaTimelineFragment.onPlaylistAttached();
-                albadiyaTimelineFragment.isResumed();
+//                albadiyaTimelineFragment.onPlaylistAttached();
+//                albadiyaTimelineFragment.isResumed();
 
 
             }
         });
+
 
         third_item.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +111,10 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
 //                    getSupportFragmentManager().popBackStackImmediate();
 //                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment,postFragment).commit();
 //                    reset_icons(3);
+
+                    FragmentManager fm = getFragmentManager();
+                    fm.popBackStackImmediate();
+
                     PostFragment postFragment = new PostFragment();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
