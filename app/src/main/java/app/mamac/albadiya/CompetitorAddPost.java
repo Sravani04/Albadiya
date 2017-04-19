@@ -3,6 +3,7 @@ package app.mamac.albadiya;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -28,6 +29,7 @@ import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,7 +49,7 @@ public class CompetitorAddPost extends Activity {
     String competition_id;
     VideoView videoview;
     boolean is_video_added = true;
-    private static final int CAMERA_REQUEST = 1888;
+    Integer REQUEST_CAMERA=1,SELECT_FILE=0,REQUEST_VIDEO=2;
 
      @Override
     public void onCreate(Bundle savedInstanceState){
@@ -212,15 +214,15 @@ public class CompetitorAddPost extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if(items[item].equals("Take Photo")){
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent,1);
+                    final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_CAMERA);
                 }else if(items[item].equals("Take Video")){
                     Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                    startActivityForResult(intent,1);
+                    startActivityForResult(intent,REQUEST_VIDEO);
                 } else if(items[item].equals("gallery")){
                     Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     pickIntent.setType("image/* video/*");
-                    startActivityForResult(pickIntent, 2);
+                    startActivityForResult(pickIntent, SELECT_FILE);
                 }
             }
         });
@@ -234,42 +236,92 @@ public class CompetitorAddPost extends Activity {
     String selected_image_path = "";
     String selected_vide_path = "";
 
+//    protected void onActivityResult(int requestCode,int resultCode, Intent imageReturnedIntent){
+//        super.onActivityResult(requestCode,resultCode,imageReturnedIntent);
+//        switch (requestCode){
+//            case 1:
+//                if (resultCode == RESULT_OK){
+//                    Uri selectedImage = imageReturnedIntent.getData();
+//                    item_image.setImageURI(selectedImage);
+//                    selected_image_path = getRealPathFromURI
+//                            (selectedImage);
+//                    Log.e("image_path",selected_image_path);
+//                    if (selected_image_path.endsWith(".mp4")) {
+//                        selected_vide_path = selected_image_path;
+//                        get_thumbnail();
+//                    }
+//
+//                }
+//                break;
+//            case 2:
+//                if (resultCode == RESULT_OK){
+//                    Uri selectedImage = imageReturnedIntent.getData();
+//                    item_image.setImageURI(selectedImage);
+//                    File new_file = new File(selectedImage.getPath());
+//                    selected_image_path = getRealPathFromURI(selectedImage);
+//                    Log.e("selected_image_path",selected_image_path);
+//                    if (selected_image_path.endsWith(".mp4")){
+//                        selected_vide_path = selected_image_path;
+//                        get_thumbnail();
+//                    }
+//                }
+//                break;
+//
+//            case 3:
+//                if (resultCode == RESULT_OK){
+//                    if(selected_image_path.endsWith(".jpg"))  {
+//                        Log.e("image_path",selected_image_path);
+//                        Uri selectedImage = imageReturnedIntent.getData();
+//                        item_image.setImageURI(selectedImage);
+//                        selected_image_path = getRealPathFromURI(selectedImage);
+//                        }
+//
+//                }
+//                break;
+//
+//        }
+//    }
     protected void onActivityResult(int requestCode,int resultCode, Intent imageReturnedIntent){
         super.onActivityResult(requestCode,resultCode,imageReturnedIntent);
-        switch (requestCode){
-            case 1:
-                if (resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    item_image.setImageURI(selectedImage);
-                    selected_image_path = getRealPathFromURI
-                            (selectedImage);
-                    Log.e("image_path",selected_image_path);
-                    if (selected_image_path.endsWith(".mp4")) {
-                        selected_vide_path = selected_image_path;
-                        get_thumbnail();
-                    }else {
-                        if(selected_image_path.endsWith(".jpg"))  {
-
-                       }
-
-                    }
+        if (resultCode== Activity.RESULT_OK) {
+            if (requestCode == REQUEST_CAMERA && imageReturnedIntent != null) {
+                Bundle bundle = imageReturnedIntent.getExtras();
+                final Bitmap bmp = (Bitmap) bundle.get("data");
+                item_image.setImageBitmap(bmp);
+                Uri selectedImage = getImageUri(getApplicationContext(), bmp);
+                selected_image_path = getRealPathFromURI(selectedImage);
+                Toast.makeText(CompetitorAddPost.this, "Here " + getRealPathFromURI(selectedImage), Toast.LENGTH_LONG).show();
+            } else if (requestCode == SELECT_FILE) {
+                Uri selectedImage = imageReturnedIntent.getData();
+                item_image.setImageURI(selectedImage);
+                File new_file = new File(selectedImage.getPath());
+                selected_image_path = getRealPathFromURI(selectedImage);
+                Log.e("selected_image_path", selected_image_path);
+                if (selected_image_path.endsWith(".mp4")) {
+                    selected_vide_path = selected_image_path;
+                    get_thumbnail();
                 }
-                break;
-            case 2:
-                if (resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    item_image.setImageURI(selectedImage);
-                    File new_file = new File(selectedImage.getPath());
-                    selected_image_path = getRealPathFromURI(selectedImage);
-                    Log.e("selected_image_path",selected_image_path);
-                    if (selected_image_path.endsWith(".mp4")){
-                        selected_vide_path = selected_image_path;
-                        get_thumbnail();
-                    }
+            } else if (requestCode == REQUEST_VIDEO) {
+                Uri selectedImage = imageReturnedIntent.getData();
+                item_image.setImageURI(selectedImage);
+                selected_image_path = getRealPathFromURI(selectedImage);
+                Log.e("video_path", selected_image_path);
+                if (selected_image_path.endsWith(".mp4")) {
+                    selected_vide_path = selected_image_path;
+                    get_thumbnail();
                 }
-                break;
+            }
         }
     }
+
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
 
 
     public void  upload_videos(final String id){
@@ -317,8 +369,7 @@ public class CompetitorAddPost extends Activity {
 
     private String getRealPathFromURI(Uri contentURI) {
         String result;
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getContentResolver().query(contentURI,projection, null, null, null);
+        Cursor cursor = getContentResolver().query(contentURI,null, null, null, null);
         if (cursor == null) {
             result = contentURI.getPath();
         } else {
@@ -329,6 +380,16 @@ public class CompetitorAddPost extends Activity {
         }
         return result;
     }
+
+//    public String getPath(Uri uri) {
+//        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+//        cursor.moveToFirst();
+//        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+//        return cursor.getString(idx);
+//    }
+
+
+
 
 
 

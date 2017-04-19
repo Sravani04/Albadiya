@@ -3,9 +3,11 @@ package app.mamac.albadiya;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,6 +28,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -47,6 +50,7 @@ public class ChatScreen extends Activity {
     CircleImageView image;
     TextView name;
     ImageView select_files;
+    Integer REQUEST_CAMERA=1,SELECT_FILE=0,REQUEST_VIDEO=2;
 
 
 
@@ -117,7 +121,7 @@ public class ChatScreen extends Activity {
             }
         });
         chatsfrom_api = new ArrayList<>();
-        get_chats();
+//        get_chats();
         postsfrom_api = new ArrayList<>();
 
 
@@ -213,12 +217,11 @@ public class ChatScreen extends Activity {
             public void onClick(DialogInterface dialog, int item) {
                 if(items[item].equals("camera")){
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent,0);
-
+                    startActivityForResult(intent,REQUEST_CAMERA);
                 }else if(items[item].equals("gallery")){
                     Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     pickIntent.setType("image/* video/*");
-                    startActivityForResult(pickIntent, 1);
+                    startActivityForResult(pickIntent, SELECT_FILE);
                 }
             }
         });
@@ -227,28 +230,49 @@ public class ChatScreen extends Activity {
     }
 
     String selected_image_path = "";
-    protected void onActivityResult(int requestCode,int resultCode,Intent imageReturnedIntent){
+//    protected void onActivityResult(int requestCode,int resultCode,Intent imageReturnedIntent){
+//        super.onActivityResult(requestCode,resultCode,imageReturnedIntent);
+//        switch (requestCode){
+//            case 1:
+//                if (resultCode == RESULT_OK){
+//                    Uri selectedImage = imageReturnedIntent.getData();
+//                   // select_files.setImageURI(selectedImage);
+//                    selected_image_path = getRealPathFromURI(selectedImage);
+//                    Log.e("image_path",selected_image_path);
+//
+//                }
+//                break;
+//            case 2:
+//                if(resultCode == RESULT_OK){
+//                    Uri selectedImage = imageReturnedIntent.getData();
+//                    //select_files.setImageURI(selectedImage);
+//                    File new_file = new File(selectedImage.getPath());
+//                    selected_image_path = getRealPathFromURI(selectedImage);
+//                    Log.e("image_path",selected_image_path);
+//
+//                }
+//                break;
+//        }
+//    }
+
+    protected void onActivityResult(int requestCode,int resultCode, Intent imageReturnedIntent){
         super.onActivityResult(requestCode,resultCode,imageReturnedIntent);
-        switch (requestCode){
-            case 1:
-                if (resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                   // select_files.setImageURI(selectedImage);
-                    selected_image_path = getRealPathFromURI(selectedImage);
-                    Log.e("image_path",selected_image_path);
-
-                }
-                break;
-            case 2:
-                if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    //select_files.setImageURI(selectedImage);
-                    File new_file = new File(selectedImage.getPath());
-                    selected_image_path = getRealPathFromURI(selectedImage);
-                    Log.e("image_path",selected_image_path);
-
-                }
-                break;
+        if (resultCode== Activity.RESULT_OK){
+            if (requestCode == REQUEST_CAMERA && imageReturnedIntent!=null){
+                Bundle bundle = imageReturnedIntent.getExtras();
+                final Bitmap bmp = (Bitmap) bundle.get("data");
+                //select_files.setImageBitmap(bmp);
+                Uri selectedImage = getImageUri(getApplicationContext(),bmp);
+                selected_image_path = getRealPathFromURI(selectedImage);
+                Toast.makeText(ChatScreen.this,"Here "+ getRealPathFromURI(selectedImage),Toast.LENGTH_LONG).show();
+            }
+            else if (requestCode==SELECT_FILE){
+                Uri selectedImage = imageReturnedIntent.getData();
+                //select_files.setImageURI(selectedImage);
+                File new_file = new File(selectedImage.getPath());
+                selected_image_path = getRealPathFromURI(selectedImage);
+                Log.e("selected_image_path",selected_image_path);
+            }
         }
     }
 
@@ -309,10 +333,18 @@ public class ChatScreen extends Activity {
                 });
     }
 
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
 
     private String getRealPathFromURI(Uri contentURI){
         String result;
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(contentURI, projection, null, null, null);
         if (cursor == null) { // Source is Dropbox or other similar local file path
             result = contentURI.getPath();
         } else {
@@ -323,6 +355,7 @@ public class ChatScreen extends Activity {
         }
         return result;
     }
+
 
     public  void chat_success(){
         Toast.makeText(ChatScreen.this, "message added successfully", Toast.LENGTH_SHORT).show();
