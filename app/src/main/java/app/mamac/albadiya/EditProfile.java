@@ -340,7 +340,7 @@ public class EditProfile extends Fragment{
                             progressDialog.dismiss();
                         try {
                             JsonObject jsonObject = result.get(0).getAsJsonObject();
-                            item_name.setText(jsonObject.get("name").getAsString());
+                            //item_name.setText(jsonObject.get("name").getAsString());
                             no_posts.setText(String.valueOf(jsonObject.get("posts").getAsJsonArray().size()));
                             no_of_followers.setText(String.valueOf(jsonObject.get("follows").getAsJsonArray().size()));
                             no_of_following.setText(String.valueOf(jsonObject.get("following").getAsJsonArray().size()));
