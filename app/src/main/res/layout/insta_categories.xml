@@ -15,31 +15,29 @@
         android:visibility="visible">
 
         <TextView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="25dp"
             android:id="@+id/en_lang"
             android:adjustViewBounds="true"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:gravity="center_vertical|center_horizontal"
             android:textColor="#948067"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:layout_width="25dp" />
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:id="@+id/imageView43"
             android:src="@drawable/logo_icon"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
             android:layout_marginTop="5dp"
-            android:padding="10dp"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:paddingLeft="5dp" />
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:padding="7dp"
+            android:adjustViewBounds="true" />
 
         <TextView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="25dp"
             android:id="@+id/ar_lang"
             android:adjustViewBounds="true"
             android:layout_marginRight="5dp"
@@ -47,7 +45,8 @@
             android:text="Ar"
             android:gravity="center_vertical|center_horizontal"
             android:textColor="#948067"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:layout_width="20dp" />
 
     </LinearLayout>
 
