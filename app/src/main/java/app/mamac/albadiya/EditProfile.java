@@ -203,13 +203,13 @@ public class EditProfile extends Fragment{
         });
 
         //gridView = (GridView) view.findViewById(R.id.gallery_images);
-        item_name = (TextView) view.findViewById(R.id.item_name);
-        item_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
+        //item_name = (TextView) view.findViewById(R.id.item_name);
+//        item_name.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getActivity().onBackPressed();
+//            }
+//        });
         item_image = (CircleImageView) view.findViewById(R.id.item_image);
         //log_out = (TextView) view.findViewById(R.id.log_out_btn);
 //        log_out.setOnClickListener(new View.OnClickListener() {
