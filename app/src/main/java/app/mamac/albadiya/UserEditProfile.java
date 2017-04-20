@@ -253,6 +253,7 @@ public class UserEditProfile extends Activity {
 
     private void edit_success(){
         Toast.makeText(UserEditProfile.this,"profile edit success",Toast.LENGTH_SHORT).show();
+        UserEditProfile.this.onBackPressed();
     }
 
 
