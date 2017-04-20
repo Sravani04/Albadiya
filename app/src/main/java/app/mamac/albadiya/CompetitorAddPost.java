@@ -119,6 +119,8 @@ public class CompetitorAddPost extends Activity {
                                 @Override
                                 public void onCompleted(Exception e, JsonArray result) {
                                     try {
+                                        if (progressDialog!=null)
+                                            progressDialog.dismiss();
                                         JsonObject jsonObject = result.get(0).getAsJsonObject();
                                         if (e != null)
                                             e.printStackTrace();
@@ -130,10 +132,12 @@ public class CompetitorAddPost extends Activity {
                                                 upload_videos(jsonObject.get("id").getAsString());
                                             }
                                         } else {
-                                            Toast.makeText(CompetitorAddPost.this, jsonObject.get("message").getAsString(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(CompetitorAddPost.this, "Already Posted", Toast.LENGTH_SHORT).show();
+                                            CompetitorAddPost.this.onBackPressed();
                                         }
                                     }catch (Exception e1){
                                         e1.printStackTrace();
+                                        Toast.makeText(CompetitorAddPost.this, "Already Posted", Toast.LENGTH_SHORT).show();
                                     }
 
                                 }
