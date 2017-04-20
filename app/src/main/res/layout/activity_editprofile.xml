@@ -96,8 +96,8 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:src="@drawable/logo_icon"
-                android:padding="7dp"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"
+                android:padding="7dp" />
 
             <TextView
                 android:layout_width="60dp"
@@ -107,22 +107,22 @@
                 android:adjustViewBounds="true"
                 android:gravity="center_vertical|center_horizontal"
                 android:textColor="#948067"
-                android:textSize="17sp"
-                android:layout_marginRight="2dp"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                android:textStyle="normal|bold" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#CAAD73"></LinearLayout>
+        android:background="#CAAD73"
+        android:layout_height="2dp"></LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -245,14 +245,14 @@
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="25dp"
                         android:id="@+id/edit_image_btn"
                         android:src="@drawable/ic_chats"
                         android:adjustViewBounds="true"
                         android:layout_marginRight="5dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="5dp"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:layout_height="27dp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -274,11 +274,12 @@
                         android:layout_marginLeft="10dp" />
 
                     <TextView
-                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:layout_marginTop="7dp"
-                        android:id="@+id/exp_date" />
+                        android:id="@+id/exp_date"
+                        android:layout_marginRight="3dp"
+                        android:layout_width="100dp" />
 
                 </LinearLayout>
 
