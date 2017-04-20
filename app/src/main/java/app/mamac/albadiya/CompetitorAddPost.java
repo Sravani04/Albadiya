@@ -138,6 +138,7 @@ public class CompetitorAddPost extends Activity {
                                     }catch (Exception e1){
                                         e1.printStackTrace();
                                         Toast.makeText(CompetitorAddPost.this, "Already Posted", Toast.LENGTH_SHORT).show();
+                                        CompetitorAddPost.this.onBackPressed();
                                     }
 
                                 }
