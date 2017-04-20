@@ -35,7 +35,7 @@
       android:layout_height="200dp"
       android:layout_marginTop="2dp"
       android:scaleType="centerCrop"
-      android:src="@drawable/placeholder"
+      android:src="@drawable/holder"
       />
 
 
