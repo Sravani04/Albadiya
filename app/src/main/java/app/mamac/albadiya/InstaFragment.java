@@ -1,6 +1,5 @@
 package app.mamac.albadiya;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,6 +9,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import im.ene.toro.Toro;
 import im.ene.toro.sample.feature.facebook.AlbadiyaTimelineFragment;
 import im.ene.toro.sample.feature.facebook.CompetitionTimlineFragment;
 import im.ene.toro.sample.feature.facebook.PostsTimlineFragment;
@@ -45,7 +45,8 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
 //        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,albadiyaTimelineFragment).commit();
 //        reset_icons(1);
 
-         albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
+
+        albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
         transaction.replace(R.id.fragment, albadiyaTimelineFragment);
@@ -58,6 +59,11 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
                 //HomeProfile homeProfile = new HomeProfile();
                 //VideoRecyclerViewFragment videoRecyclerViewFragment = new VideoRecyclerViewFragment();
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment,homeProfile).commit();
+                try{
+                    Toro.rest(false);
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
                 albadiyaTimelineFragment = new AlbadiyaTimelineFragment();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
@@ -78,7 +84,7 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,instaSearchFragment).commit();
 //                reset_icons(2);
                 try{
-                    albadiyaTimelineFragment.adapter.pausePlayback();
+                    Toro.rest(true);
                     Log.e("message","created");
                 }catch (Exception ex){
                     ex.printStackTrace();
@@ -90,8 +96,6 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
                 transaction.replace(R.id.fragment, instaSearchFragment);
                 transaction.commit();
                 reset_icons(2);
-//                albadiyaTimelineFragment.onPlaylistAttached();
-//                albadiyaTimelineFragment.isResumed();
 
 
             }
@@ -112,17 +116,18 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
 //                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment,postFragment).commit();
 //                    reset_icons(3);
 
-                    FragmentManager fm = getFragmentManager();
-                    fm.popBackStackImmediate();
-
+                    try{
+                        Toro.rest(true);
+                        Log.e("message","created");
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
                     PostFragment postFragment = new PostFragment();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
                     transaction.replace(R.id.fragment, postFragment);
                     transaction.commit();
                     reset_icons(3);
-                    albadiyaTimelineFragment.onPlaylistAttached();
-                    albadiyaTimelineFragment.isResumed();
                 }
             }
         });
@@ -138,21 +143,18 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
 //                    InstaCategories instaCategories = new InstaCategories();
 //                    getSupportFragmentManager().popBackStackImmediate();
 //                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment,instaCategories).commit();
-
-//                    InstaCategories instaCategories = new InstaCategories();
-//                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                    transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right);
-//                    transaction.replace(R.id.fragment, instaCategories);
-//                    transaction.commit();
-//                    reset_icons(4);
+                    try{
+                        Toro.rest(true);
+                        Log.e("message","created");
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
                     InstaCategories instaCategories = new InstaCategories();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
                     transaction.replace(R.id.fragment, instaCategories);
                     transaction.commit();
                     reset_icons(4);
-                    albadiyaTimelineFragment.onPlaylistAttached();
-                    albadiyaTimelineFragment.isResumed();
 
                 }
             }
@@ -172,14 +174,18 @@ public class InstaFragment extends FragmentActivity implements AlbadiyaTimelineF
 //                    getSupportFragmentManager().popBackStackImmediate();
 //                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment,userProfile).commit();
 
+                    try{
+                        Toro.rest(true);
+                        Log.e("message","created");
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
                     EditProfile userProfile = new EditProfile();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
                     transaction.replace(R.id.fragment, userProfile);
                     transaction.commit();
                     reset_icons(5);
-                    albadiyaTimelineFragment.onPlaylistAttached();
-                    albadiyaTimelineFragment.isResumed();
                 }
 
             }
