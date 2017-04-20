@@ -46,7 +46,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:textColor="#948067"
             android:textSize="17sp"
-            android:layout_width="20dp" />
+            android:layout_width="25dp" />
 
     </LinearLayout>
 
@@ -61,7 +61,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:elevation="1dp"
         android:layout_gravity="center"
