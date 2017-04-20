@@ -46,7 +46,7 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
     RecyclerView mRecyclerView;
     ImageView settings;
     ImageView chat_screen;
-    public TimelineAdapter adapter;
+    private TimelineAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<TimelineItem> itemsfrom_api;
     int pageno=1;
@@ -118,8 +118,6 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
             header.setVisibility(View.VISIBLE);
             line.setVisibility(View.VISIBLE);
         }
-
-
 
 //        settings = (ImageView) view.findViewById(R.id.settings);
 //        settings.setOnClickListener(new View.OnClickListener() {
@@ -194,7 +192,7 @@ public class AlbadiyaTimelineFragment extends BaseToroFragment implements Facebo
             }
 
             @Override
-            public void onVideoClick(RecyclerView.ViewHolder viewHolder, View view,
+            protected void onVideoClick(RecyclerView.ViewHolder viewHolder, View view,
                                         TimelineItem.VideoItem item) {
                 long duration = C.LENGTH_UNSET;
                 long position = C.POSITION_UNSET;
