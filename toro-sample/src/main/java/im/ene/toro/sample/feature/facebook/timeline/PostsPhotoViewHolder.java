@@ -31,7 +31,7 @@ import im.ene.toro.sample.feature.facebook.PostsTimlineFragment;
 
 public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
 
-    static final int LAYOUT_RES = R.layout.vh_fb_feed_post_photo;
+    static final int LAYOUT_RES = R.layout.post_photo;
 
     private TimelineItem.PhotoItem photoItem;
     TimelineAdapter adapter;

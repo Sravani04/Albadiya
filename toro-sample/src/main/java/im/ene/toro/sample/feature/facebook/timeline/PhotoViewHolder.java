@@ -61,7 +61,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
   private ImageView share_it;
   private TextView  no_of_likes;
   private TextView  no_of_views;
-  private ImageView delete_btn;
+  //private ImageView delete_btn;
   AlbadiyaTimelineFragment albadiyaTimelineFragment;
   String post_id;
   String member_id;
@@ -82,7 +82,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
     //share_it = (ImageView) itemView.findViewById(R.id.share_it);
     no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
         no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
-    delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
+    //delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
   }
   public PhotoViewHolder(View itemView,AlbadiyaTimelineFragment fragment) {
     super(itemView);
@@ -97,7 +97,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
    // share_it = (ImageView) itemView.findViewById(R.id.share_it);
     no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
     no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
-    delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
+    //delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
     albadiyaTimelineFragment = fragment;
 
   }
@@ -169,19 +169,19 @@ public class PhotoViewHolder extends TimelineViewHolder {
 
 
 
-    if (((TimelineItem) object).getAuthor().getPersonId().equals(Settings.GetUserId(itemView.getContext()))){
-      delete_btn.setVisibility(View.VISIBLE);
-    }else {
-      delete_btn.setVisibility(View.GONE);
-    }
+//    if (((TimelineItem) object).getAuthor().getPersonId().equals(Settings.GetUserId(itemView.getContext()))){
+//      delete_btn.setVisibility(View.VISIBLE);
+//    }else {
+//      delete_btn.setVisibility(View.GONE);
+//    }
 
-    delete_btn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        delete_popup();
-
-      }
-    });
+//    delete_btn.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View view) {
+//        delete_popup();
+//
+//      }
+//    });
 
 
 

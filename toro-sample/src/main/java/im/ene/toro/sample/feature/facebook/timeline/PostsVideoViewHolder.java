@@ -37,7 +37,7 @@ import im.ene.toro.sample.util.Util;
 
 public class PostsVideoViewHolder extends ExoVideoViewHolder {
 
-    static final int LAYOUT_RES = R.layout.vh_fb_feed_post_video;
+    static final int LAYOUT_RES = R.layout.post_video;
 
     private TimelineItem.VideoItem videoItem;
     private ImageView mThumbnail;
