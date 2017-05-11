@@ -220,6 +220,7 @@ public class EditProfile extends Fragment{
 //            }
 //        });
         postsfrom_api = new ArrayList<>();
+        postsfrom_api_tkl = new ArrayList<>();
         images = new ArrayList<>();
 
 
@@ -323,6 +324,8 @@ public class EditProfile extends Fragment{
 
 
     ArrayList<Posts> postsfrom_api;
+    ArrayList<im.ene.toro.sample.feature.facebook.timeline.Posts> postsfrom_api_tkl;
+
     public void get_member_details(){
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("please wait...");
@@ -348,6 +351,8 @@ public class EditProfile extends Fragment{
                             for (int i = 0; i < posts_aray.size(); i++) {
                                 Posts posts = new Posts(posts_aray.get(i).getAsJsonObject(), getActivity());
                                 postsfrom_api.add(posts);
+                                im.ene.toro.sample.feature.facebook.timeline.Posts posts1 = new im.ene.toro.sample.feature.facebook.timeline.Posts(posts_aray.get(i).getAsJsonObject(),getActivity());
+                                postsfrom_api_tkl.add(posts1);
                             }
                             editProfileAdapter.notifyDataSetChanged();
                             Picasso.with(getActivity()).load(jsonObject.get("image").getAsString()).placeholder(R.drawable.ic_profile).into(item_image);
