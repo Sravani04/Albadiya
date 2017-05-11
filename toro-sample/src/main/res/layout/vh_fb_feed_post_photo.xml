@@ -16,6 +16,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -29,15 +30,29 @@
   <include layout="@layout/vh_fb_feed_user"/>
 
 
-  <ImageView
-      android:id="@+id/photoviewimage"
+  <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="200dp"
-      android:layout_marginTop="2dp"
-      android:scaleType="centerCrop"
-      android:src="@drawable/holder"
-      />
+      android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/photoviewimage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/holder"
+        android:adjustViewBounds="true" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/heart_anim"
+        android:adjustViewBounds="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:src="@drawable/with" />
+  </RelativeLayout>
 
 
   <View

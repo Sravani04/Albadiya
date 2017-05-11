@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 
 public class Notifications implements Serializable {
-    public String post,type,time,time_ar,member_id,member_name,member_image,post_id,post_title,post_image;
+    public String post,type,time,time_ar,member_id,member_name,member_image,post_id,post_title,post_image,message,member1_id,member1_name,member1_image;
 
     public Notifications(JsonObject jsonObject, Context context){
         member_id    = jsonObject.get("member").getAsJsonObject().get("id").getAsString();
@@ -35,5 +35,10 @@ public class Notifications implements Serializable {
         type         = jsonObject.get("type").getAsString();
         time         = jsonObject.get("time").getAsString();
         time_ar      = jsonObject.get("time_ar").getAsString();
+        message      = jsonObject.get("message").getAsString();
+
+        member1_id = jsonObject.get("member1").getAsJsonObject().get("id").getAsString();
+        member1_name = jsonObject.get("member1").getAsJsonObject().get("name").getAsString();
+        member1_image = jsonObject.get("member1").getAsJsonObject().get("image").getAsString();
     }
 }

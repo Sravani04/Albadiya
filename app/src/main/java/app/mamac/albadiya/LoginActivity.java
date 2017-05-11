@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +27,7 @@ public class LoginActivity extends Activity {
        ln_btn = (TextView) findViewById(R.id.ln_btn);
        email   = (EditText) findViewById(R.id.email);
        password = (EditText) findViewById(R.id.password);
-       getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
        ln_btn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -58,9 +57,10 @@ public class LoginActivity extends Activity {
                                            progressDialog.dismiss();
                                        if (result.get("status").getAsString().equals("Success")){
                                            Settings.SetUserId(LoginActivity.this,result.get("member_id").getAsString());
-                                           Toast.makeText(LoginActivity.this,result.get("name").getAsString(),Toast.LENGTH_SHORT).show();
+                                           //Toast.makeText(LoginActivity.this,result.get("name").getAsString(),Toast.LENGTH_SHORT).show();
                                            Intent intent = new Intent(LoginActivity.this,InstaFragment.class);
                                            startActivity(intent);
+                                           finish();
                                        }else {
                                            Toast.makeText(LoginActivity.this,result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
                                        }

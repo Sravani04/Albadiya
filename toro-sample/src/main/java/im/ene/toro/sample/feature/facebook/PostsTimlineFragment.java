@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.google.android.exoplayer2.C;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -32,7 +33,6 @@ import im.ene.toro.ToroStrategy;
 import im.ene.toro.sample.BaseToroFragment;
 import im.ene.toro.sample.R;
 import im.ene.toro.sample.feature.facebook.playlist.FacebookPlaylistFragment;
-import im.ene.toro.sample.feature.facebook.timeline.Posts;
 import im.ene.toro.sample.feature.facebook.timeline.PostsTimelineAdapter;
 import im.ene.toro.sample.feature.facebook.timeline.Settings;
 import im.ene.toro.sample.feature.facebook.timeline.TimelineItem;
@@ -57,9 +57,10 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
     HashMap<String,Integer> likes;
     LinearLayout header;
     TextView language;
-    String post_id,main_header,horizontal_line,member;
+    String post_id,main_header,horizontal_line,member,user_name,user_image,user_id;
     LinearLayout line;
     AlbadiyaTimelineFragment fragment;
+    ArrayList<app.mamac.albadiya.Posts> posts;
 
 
 
@@ -132,6 +133,7 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
 //        });
 
         get_posts(true);
+        //make_page();
         return view;
 
     }
@@ -269,9 +271,8 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
             progressDialog.setCancelable(false);
             progressDialog.show();
             Ion.with(this)
-                    .load(Settings.SERVER_URL + "posts.php")
-                    .setBodyParameter("member_id", Settings.GetUserId(getContext()))
-                    .setBodyParameter("uploader_id",member)
+                    .load(Settings.SERVER_URL + "member-details.php")
+                    .setBodyParameter("member_id", member)
                     .asJsonArray()
                     .setCallback(new FutureCallback<JsonArray>() {
                         @Override
@@ -285,9 +286,13 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
                                 flags = new HashMap<>();
                                 likes = new HashMap<>();
                                 Log.e("response",result.toString());
-
-                                for (int i = 0; i < result.size(); i++) {
-                                    Posts posts = new Posts(result.get(i).getAsJsonObject(), getActivity());
+                                JsonObject jsonObject = result.get(0).getAsJsonObject();
+                                user_image =jsonObject.get("image").getAsString();
+                                user_name = jsonObject.get("name").getAsString();
+                                user_id = jsonObject.get("id").getAsString();
+                                JsonArray posts_aray = jsonObject.get("posts").getAsJsonArray();
+                                for (int i = 0; i < posts_aray.size(); i++) {
+                                    app.mamac.albadiya.Posts posts = new app.mamac.albadiya.Posts(posts_aray.get(i).getAsJsonObject(), getActivity(),false);
                                     String type, type_url;
                                     if (posts.video.equals("")) {
                                         type = "image";
@@ -298,9 +303,10 @@ public class PostsTimlineFragment extends BaseToroFragment implements FacebookPl
                                     }
 
                                     post_id = posts.id;
-                                    TimelineItem timelineItem = new TimelineItem(getActivity(), posts.id, posts.user_name,
-                                            posts.user_image, posts.description, type, type_url, posts.time, posts.total_likes,
-                                            posts.total_views, posts.member_like, posts.user_id,posts.competition_id);
+
+                                    TimelineItem timelineItem = new TimelineItem(getActivity(), posts.id, user_name,
+                                            user_image, posts.description, type, type_url, posts.time, posts.total_likes,
+                                            posts.total_views, posts.member_like, user_id,posts.competition_id);
 //                                    if (posts.user_id.equals(member)) {
                                         itemsfrom_api.add(timelineItem);
 

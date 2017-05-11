@@ -55,8 +55,8 @@ public class GalleryImageItems extends Fragment {
             }
         });
 
-       // get_member_details();
-        get_posts();
+       get_member_details();
+        //get_posts();
 
         return view;
     }
@@ -69,7 +69,7 @@ public class GalleryImageItems extends Fragment {
         String url = Settings.SERVER_URL+"member-details.php";
         Ion.with(getActivity())
                 .load(url)
-                .setBodyParameter("member_id",Settings.GetUserId(getActivity()))
+                .setBodyParameter("member_id",member)
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
@@ -99,8 +99,8 @@ public class GalleryImageItems extends Fragment {
         progressDialog.show();
         Ion.with(getContext())
                 .load(Settings.SERVER_URL+"posts.php")
-                .setBodyParameter("member_id",Settings.GetUserId(getContext()))
-                .setBodyParameter("uploader_id",member)
+                .setBodyParameter("member_id",member)
+                .setBodyParameter("uploader_id",Settings.GetUserId(getContext()))
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override

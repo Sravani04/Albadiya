@@ -28,7 +28,7 @@ public class Posts implements Serializable {
         else
             member_like = "0";
 
-        if (jsonObject.has("total_likes"))
+        if (jsonObject.has("likes"))
             total_likes = jsonObject.get("total_likes").getAsString();
         else
             total_likes = "0";
@@ -58,6 +58,7 @@ public class Posts implements Serializable {
     }
 
 
+
     public Posts(JsonObject jsonObject, Context context,boolean tre) {
         id = jsonObject.get("id").getAsString();
         title = jsonObject.get("title").getAsString();
@@ -66,7 +67,7 @@ public class Posts implements Serializable {
         video = jsonObject.get("video").getAsString();
         description = jsonObject.get("description").getAsString();
         description_ar = jsonObject.get("description_ar").getAsString();
-        if (jsonObject.has("member_like"))
+        if (jsonObject.has("member_liked"))
             member_like = jsonObject.get("member_liked").getAsString();
         else
             member_like = "0";
@@ -85,9 +86,6 @@ public class Posts implements Serializable {
             else
                 total_views = "99";
 
-            user_id = jsonObject.get("posted").getAsJsonObject().get("id").getAsString();
-            user_image = jsonObject.get("posted").getAsJsonObject().get("image").getAsString();
-            user_name = jsonObject.get("posted").getAsJsonObject().get("name").getAsString();
 
 
         } catch (Exception ex) {

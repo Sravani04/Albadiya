@@ -1,5 +1,6 @@
 package app.mamac.albadiya;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,8 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
+import im.ene.toro.sample.feature.facebook.AlbadiyaTimelineFragment;
+
 /**
  * Created by T on 12-12-2016.
  */
@@ -27,6 +30,10 @@ public class FollowingFragment extends Fragment {
     ListView listView;
     ArrayList<Notifications> notificationsfrom_api;
     String type;
+
+
+
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState){
@@ -65,13 +72,15 @@ public class FollowingFragment extends Fragment {
     }
 
 
+
+
     public void get_notifications(){
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("please wait..");
         progressDialog.setCancelable(false);
         progressDialog.show();
         Ion.with(getContext())
-                .load(Settings.SERVER_URL+"notifications.php")
+                .load(Settings.SERVER_URL+"notifications-list.php")
                 .setBodyParameter("member_id",Settings.GetUserId(getContext()))
                 .setBodyParameter("type",type)
                 .asJsonArray()

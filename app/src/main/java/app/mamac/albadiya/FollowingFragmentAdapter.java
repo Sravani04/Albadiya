@@ -1,5 +1,6 @@
 package app.mamac.albadiya;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,9 @@ public class FollowingFragmentAdapter  extends BaseAdapter{
     ArrayList<Integer> mimages;
     ArrayList<String> mnames;
     ArrayList<Notifications> notifications;
+    FollowingFragment followingFragment;
+    UserProfileSelectedListner uCallback;
+    String member_id;
 
 
     protected FollowingFragmentAdapter(Context context,ArrayList<Notifications> notifications){
@@ -35,6 +39,28 @@ public class FollowingFragmentAdapter  extends BaseAdapter{
         this.notifications = notifications;
         inflater = LayoutInflater.from(context);
     }
+
+    public interface UserProfileSelectedListner {
+
+        public void onUserSelected(String member_id);
+    }
+
+
+    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        //if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) return;
+        try {
+            uCallback = (UserProfileSelectedListner) activity;
+
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
+
     @Override
     public int getCount() {
         return notifications.size();
@@ -50,6 +76,9 @@ public class FollowingFragmentAdapter  extends BaseAdapter{
         return 0;
     }
 
+
+
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View item_view = inflater.inflate(R.layout.following_list,null);
@@ -62,14 +91,14 @@ public class FollowingFragmentAdapter  extends BaseAdapter{
         ImageView ic_member_image = (ImageView) item_view.findViewById(R.id.ic_member_image);
         TextView changing_text = (TextView) item_view.findViewById(R.id.changing_text);
         if (notifications.get(position).type.equals("Follow")){
-            changing_text.setText("Started Following You");
+            changing_text.setText(notifications.get(position).message);
         }else if (notifications.get(position).type.equals("Like")){
-            changing_text.setText("Liked Your Post");
+            changing_text.setText(notifications.get(position).message);
         }
         //TextView follow = (TextView) item_view.findViewById(R.id.follow);
         if (notifications.get(position).type.equals("Follow")){
-           // Picasso.with(context).load(notifications.get(position).member_image).into(ic_member_image);
-            ic_member_image.setVisibility(View.GONE);
+            Picasso.with(context).load(notifications.get(position).member1_image).into(ic_member_image);
+//            ic_member_image.setVisibility(View.GONE);
 //            follow.setVisibility(View.VISIBLE);
 //            follow.setText(notifications.get(position).type);
         }else if (notifications.get(position).type.equals("Like")){
@@ -77,6 +106,22 @@ public class FollowingFragmentAdapter  extends BaseAdapter{
             //follow.setVisibility(View.GONE);
             Picasso.with(context).load(notifications.get(position).post_image).into(ic_member_image);
         }
+
+
+
+        user_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
         return item_view;
     }
+
+
+
+
+
 }
