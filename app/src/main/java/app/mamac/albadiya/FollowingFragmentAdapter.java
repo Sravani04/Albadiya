@@ -1,6 +1,5 @@
 package app.mamac.albadiya;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import im.ene.toro.sample.feature.facebook.AlbadiyaTimelineFragment;
 
 /**
  * Created by T on 03-01-2017.
@@ -27,39 +27,19 @@ public class FollowingFragmentAdapter  extends BaseAdapter{
     ArrayList<Integer> mimages;
     ArrayList<String> mnames;
     ArrayList<Notifications> notifications;
-    FollowingFragment followingFragment;
-    UserProfileSelectedListner uCallback;
-    String member_id;
+    AlbadiyaTimelineFragment.UserProfileSelectedListner mCallback;
+    String member_id,member;
 
 
-    protected FollowingFragmentAdapter(Context context,ArrayList<Notifications> notifications){
+    protected FollowingFragmentAdapter(Context context,ArrayList<Notifications> notifications,AlbadiyaTimelineFragment.UserProfileSelectedListner mCallback){
 //        mimages = images;
 //        mnames = names;
         this.context = context;
         this.notifications = notifications;
         inflater = LayoutInflater.from(context);
+        this.mCallback = mCallback;
     }
 
-    public interface UserProfileSelectedListner {
-
-        public void onUserSelected(String member_id);
-    }
-
-
-    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        //if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) return;
-        try {
-            uCallback = (UserProfileSelectedListner) activity;
-
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-    }
 
     @Override
     public int getCount() {
@@ -107,12 +87,21 @@ public class FollowingFragmentAdapter  extends BaseAdapter{
             Picasso.with(context).load(notifications.get(position).post_image).into(ic_member_image);
         }
 
+member_id = notifications.get(position).member_id;
+        member = notifications.get(position).member1_id;
 
 
         user_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCallback.onUserSelected(member_id);
+            }
+        });
 
+        ic_member_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallback.onUserSelected(member);
             }
         });
 

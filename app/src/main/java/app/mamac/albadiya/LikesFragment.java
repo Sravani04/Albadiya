@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import im.ene.toro.sample.feature.facebook.AlbadiyaTimelineFragment;
+
 /**
  * Created by T on 20-01-2017.
  */
 
-public class LikesFragment extends Fragment {
+public class LikesFragment extends Fragment implements AlbadiyaTimelineFragment.UserProfileSelectedListner {
     TextView following,you;
     FrameLayout like_fragment;
     @Override
@@ -71,5 +73,14 @@ public class LikesFragment extends Fragment {
                 you.setBackgroundColor(Color.parseColor("#ffffff"));
                 break;
         }
+    }
+
+    @Override
+    public void onUserSelected(String member_id) {
+        EditProfile userProfile = new EditProfile();
+        Bundle bundle = new Bundle();
+        bundle.putString("member_id",member_id);
+        userProfile.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.fragment,userProfile).commit();
     }
 }

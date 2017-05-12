@@ -29,8 +29,26 @@ public class FollowingFragment extends Fragment {
     ArrayList<String> names;
     ListView listView;
     ArrayList<Notifications> notificationsfrom_api;
+    AlbadiyaTimelineFragment.UserProfileSelectedListner mCallback;
     String type;
+    public interface UserProfileSelectedListner {
 
+        public void onUserSelected(String member_id);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (AlbadiyaTimelineFragment.UserProfileSelectedListner) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
 
 
 
@@ -57,7 +75,7 @@ public class FollowingFragment extends Fragment {
         names.add("timeline");
         names.add("yellowsoft");
 
-        followingFragmentAdapter = new FollowingFragmentAdapter(getActivity(),notificationsfrom_api);
+        followingFragmentAdapter = new FollowingFragmentAdapter(getActivity(),notificationsfrom_api,mCallback);
         listView.setAdapter(followingFragmentAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,9 +88,6 @@ public class FollowingFragment extends Fragment {
         return view;
 
     }
-
-
-
 
     public void get_notifications(){
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
