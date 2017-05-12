@@ -6,7 +6,11 @@ import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,9 +52,10 @@ public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
     private TextView  no_of_views;
     private ImageView delete_btn;
     AlbadiyaTimelineFragment albadiyaTimelineFragment;
-    String post_id;
+    String post_id,get_user_like;
     String member_id;
     PostsTimlineFragment postsTimlineFragment;
+    private ImageView  heartAnim;
 
 
 
@@ -69,6 +74,7 @@ public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
         no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
         no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
         delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
+        heartAnim = (ImageView) itemView.findViewById(R.id.heart_anim);
     }
     public PostsPhotoViewHolder(View itemView,AlbadiyaTimelineFragment fragment,PostsTimlineFragment timeline) {
         super(itemView);
@@ -84,6 +90,7 @@ public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
         no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
         no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
         delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
+        heartAnim = (ImageView) itemView.findViewById(R.id.heart_anim);
         albadiyaTimelineFragment = fragment;
         postsTimlineFragment = timeline;
 
@@ -154,6 +161,15 @@ public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
 //      }
 //    });
 
+        mThumbnail.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                return gd.onTouchEvent(event);
+            }
+        });
+
+
 
 
 
@@ -212,6 +228,7 @@ public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
 
 
         post_id = ((TimelineItem) object).getAuthor().getUserId();
+        get_user_like = ((TimelineItem) object).getAuthor().getUserLikes();
 
 
         if (postsTimlineFragment.get_like_id(((TimelineItem)object).getAuthor().getUserId())) {
@@ -305,6 +322,97 @@ public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
 
         builder2.show();
     }
+
+    final GestureDetector gd = new GestureDetector(itemView.getContext(), new GestureDetector.SimpleOnGestureListener() {
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+
+            Animation pulse_fade = AnimationUtils.loadAnimation(itemView.getContext(), R.anim.pulse_fade_in);
+            pulse_fade.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    heartAnim.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    heartAnim.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            heartAnim.startAnimation(pulse_fade);
+
+            if (postsTimlineFragment.get_like_id(post_id)) {
+                user_like.setBackgroundResource(R.drawable.with);
+            }
+            else {
+                user_like.setBackgroundResource(R.drawable.without);
+            }
+
+            Ion.with(itemView.getContext())
+                    .load(Settings.SERVER_URL+"like.php")
+                    .setBodyParameter("member_id",Settings.GetUserId(itemView.getContext()))
+                    .setBodyParameter("post_id",post_id)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+//                           if (result.get("status").getAsString().equals("Success")){
+//                             Toast.makeText(itemView.getContext(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+//                             user_like.setBackgroundResource(R.drawable.heart);
+//                           }else{
+//                               user_like.setBackgroundResource(R.drawable.ic_likes_vi);
+//                               Toast.makeText(itemView.getContext(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
+//                             }
+                            postsTimlineFragment.set_like_id(post_id);
+                            postsTimlineFragment.set_like_count(post_id);
+
+                            if (postsTimlineFragment.get_like_id(post_id)) {
+                                user_like.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.with));
+                                no_of_likes.setText( postsTimlineFragment.get_like_count(post_id));
+
+                            }
+                            else {
+                                user_like.setBackgroundResource(R.drawable.without);
+                                no_of_likes.setText(get_user_like);
+                                no_of_likes.setText( postsTimlineFragment.get_like_count(post_id));
+
+                            }
+
+                        }
+                    });
+
+
+
+
+
+//      user_like.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.with));
+//      no_of_likes.setText( albadiyaTimelineFragment.get_like_count(post_id));
+
+            return true;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            super.onLongPress(e);
+
+        }
+
+        @Override
+        public boolean onDoubleTapEvent(MotionEvent e) {
+            return true;
+        }
+    });
+
 
 
 

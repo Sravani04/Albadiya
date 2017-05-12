@@ -22,7 +22,11 @@ import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -61,9 +65,10 @@ public class PhotoViewHolder extends TimelineViewHolder {
   private ImageView share_it;
   private TextView  no_of_likes;
   private TextView  no_of_views;
+  private ImageView  heartAnim;
   //private ImageView delete_btn;
   AlbadiyaTimelineFragment albadiyaTimelineFragment;
-  String post_id;
+  String post_id,get_user_like;
   String member_id;
 
 
@@ -82,6 +87,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
     //share_it = (ImageView) itemView.findViewById(R.id.share_it);
     no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
         no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
+    heartAnim = (ImageView) itemView.findViewById(R.id.heart_anim);
     //delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
   }
   public PhotoViewHolder(View itemView,AlbadiyaTimelineFragment fragment) {
@@ -97,6 +103,8 @@ public class PhotoViewHolder extends TimelineViewHolder {
    // share_it = (ImageView) itemView.findViewById(R.id.share_it);
     no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
     no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
+    heartAnim = (ImageView) itemView.findViewById(R.id.heart_anim);
+
     //delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
     albadiyaTimelineFragment = fragment;
 
@@ -186,6 +194,8 @@ public class PhotoViewHolder extends TimelineViewHolder {
 
 
 
+
+
     download.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -223,7 +233,18 @@ public class PhotoViewHolder extends TimelineViewHolder {
 
 
 
+    mThumbnail.setOnTouchListener(new View.OnTouchListener() {
+      @Override
+      public boolean onTouch(View v, MotionEvent event) {
+
+        return gd.onTouchEvent(event);
+      }
+    });
+
+
+
     post_id = ((TimelineItem) object).getAuthor().getUserId();
+    get_user_like = ((TimelineItem) object).getAuthor().getUserLikes();
 
 
     if (albadiyaTimelineFragment.get_like_id(((TimelineItem)object).getAuthor().getUserId())) {
@@ -318,9 +339,84 @@ public class PhotoViewHolder extends TimelineViewHolder {
     builder2.show();
   }
 
+  final GestureDetector gd = new GestureDetector(itemView.getContext(), new GestureDetector.SimpleOnGestureListener() {
+    @Override
+    public boolean onDown(MotionEvent e) {
+      return true;
+    }
 
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
 
+      Animation pulse_fade = AnimationUtils.loadAnimation(itemView.getContext(), R.anim.pulse_fade_in);
+      pulse_fade.setAnimationListener(new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+          heartAnim.setVisibility(View.VISIBLE);
+        }
 
+        @Override
+        public void onAnimationEnd(Animation animation) {
+          heartAnim.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+      });
+      heartAnim.startAnimation(pulse_fade);
+
+      if (albadiyaTimelineFragment.get_like_id(post_id)) {
+        user_like.setBackgroundResource(R.drawable.with);
+      }
+      else {
+        user_like.setBackgroundResource(R.drawable.without);
+      }
+
+      Ion.with(itemView.getContext())
+              .load(Settings.SERVER_URL+"like.php")
+              .setBodyParameter("member_id",Settings.GetUserId(itemView.getContext()))
+              .setBodyParameter("post_id",post_id)
+              .asJsonObject()
+              .setCallback(new FutureCallback<JsonObject>() {
+                @Override
+                public void onCompleted(Exception e, JsonObject result) {
+                  albadiyaTimelineFragment.set_like_id(post_id);
+                  albadiyaTimelineFragment.set_like_count(post_id);
+
+                  if (albadiyaTimelineFragment.get_like_id(post_id)) {
+                    user_like.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.with));
+                    no_of_likes.setText( albadiyaTimelineFragment.get_like_count(post_id));
+
+                  }
+                  else {
+                    user_like.setBackgroundResource(R.drawable.without);
+                    no_of_likes.setText(get_user_like);
+                    no_of_likes.setText( albadiyaTimelineFragment.get_like_count(post_id));
+
+                  }
+
+                }
+              });
+
+//      user_like.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.with));
+//      no_of_likes.setText( albadiyaTimelineFragment.get_like_count(post_id));
+
+      return true;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+      super.onLongPress(e);
+
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+      return true;
+    }
+  });
 
 
 }
