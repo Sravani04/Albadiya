@@ -36,7 +36,8 @@ public class RegisterActivity extends Activity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegisterActivity.this.onBackPressed();
+                Intent intent = new Intent(RegisterActivity.this,HomeActivityScreen.class);
+                startActivity(intent);
             }
         });
         reg_btn.setOnClickListener(new View.OnClickListener() {

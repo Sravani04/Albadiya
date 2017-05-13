@@ -36,7 +36,8 @@ public class LoginActivity extends Activity {
        back_btn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               LoginActivity.this.onBackPressed();
+               Intent intent = new Intent(LoginActivity.this,HomeActivityScreen.class);
+               startActivity(intent);
            }
        });
 
