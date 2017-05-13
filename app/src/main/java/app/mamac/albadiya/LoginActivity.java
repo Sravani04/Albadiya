@@ -5,7 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.koushikdutta.ion.Ion;
 public class LoginActivity extends Activity {
     TextView ln_btn;
     EditText email,password;
+    ImageView back_btn;
    @Override
   public void onCreate(Bundle savedInstanceState){
        super.onCreate(savedInstanceState);
@@ -27,6 +30,15 @@ public class LoginActivity extends Activity {
        ln_btn = (TextView) findViewById(R.id.ln_btn);
        email   = (EditText) findViewById(R.id.email);
        password = (EditText) findViewById(R.id.password);
+       back_btn = (ImageView) findViewById(R.id.back_btn);
+       getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+       back_btn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               LoginActivity.this.onBackPressed();
+           }
+       });
 
        ln_btn.setOnClickListener(new View.OnClickListener() {
            @Override

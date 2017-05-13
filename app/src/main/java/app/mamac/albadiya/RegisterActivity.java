@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.koushikdutta.ion.Ion;
 public class RegisterActivity extends Activity {
     EditText name,password,email;
     TextView reg_btn;
+    ImageView back_btn;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -29,6 +31,14 @@ public class RegisterActivity extends Activity {
         email = (EditText) findViewById(R.id.email);
         reg_btn = (TextView) findViewById(R.id.reg_btn);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        back_btn = (ImageView) findViewById(R.id.back_btn);
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegisterActivity.this.onBackPressed();
+            }
+        });
         reg_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

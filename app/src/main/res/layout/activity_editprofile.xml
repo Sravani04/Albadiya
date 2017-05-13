@@ -82,7 +82,6 @@
                 android:id="@+id/back_btn"
                 android:adjustViewBounds="true"
                 android:padding="2dp"
-                android:src="@drawable/arrow_left1"
                 android:tint="#948067"
                 android:layout_width="25dp"
                 android:layout_marginTop="5dp" />

@@ -17,8 +17,41 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="50dp"
             android:background="#ffffff">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_height="30dp"
+                    android:id="@+id/back_btn"
+                    android:adjustViewBounds="true"
+                    android:padding="2dp"
+                    android:src="@drawable/arrow_left1"
+                    android:tint="#948067"
+                    android:layout_width="30dp"
+                    android:layout_marginTop="9dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView40"
+                    android:src="@drawable/logo_icon"
+                    android:padding="10dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_height="30dp"
+                    android:adjustViewBounds="true"
+                    android:padding="2dp"
+                    android:tint="#948067"
+                    android:layout_width="30dp"
+                    android:layout_marginTop="6dp" />
+
+            </LinearLayout>
 
             <ImageView
                 android:layout_width="match_parent"

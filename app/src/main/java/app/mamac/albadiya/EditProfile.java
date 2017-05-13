@@ -194,13 +194,7 @@ public class EditProfile extends Fragment{
 //                getFragmentManager().beginTransaction().replace(R.id.fragment,settingsFragment).commit();
 //            }
 //        });
-        backbtn = (ImageView) view.findViewById(R.id.back_btn);
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
+
 
         //gridView = (GridView) view.findViewById(R.id.gallery_images);
         //item_name = (TextView) view.findViewById(R.id.item_name);

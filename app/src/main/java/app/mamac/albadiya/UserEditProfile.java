@@ -35,7 +35,7 @@ public class UserEditProfile extends Activity {
     EditText email;
     EditText phone;
     TextView update_btn;
-    ImageView item_image;
+    ImageView item_image,back_btn;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -45,6 +45,13 @@ public class UserEditProfile extends Activity {
         email = (EditText) findViewById(R.id.email);
         phone = (EditText) findViewById(R.id.phone);
         item_image = (ImageView) findViewById(R.id.item_image);
+        back_btn = (ImageView) findViewById(R.id.back_btn);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserEditProfile.this.onBackPressed();
+            }
+        });
         item_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -21,9 +21,14 @@ public class SplashActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this,InstaFragment.class);
-                startActivity(intent);
-               // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                if (Settings.GetUserId(SplashActivity.this).equals("-1")){
+                    Intent intent = new Intent(SplashActivity.this,HomeActivityScreen.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(SplashActivity.this,InstaFragment.class);
+                    startActivity(intent);
+                }
+
                 finish();
             }
         }, 1500);
