@@ -107,7 +107,7 @@ public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
         this.mInfoUser.setText((((TimelineItem) object).getAuthor().getUserName()));
         Picasso.with(itemView.getContext()).load((((TimelineItem) object).getAuthor().getUserUrl())).into(mThumbnailUser);
         this.user_desc.setText(((TimelineItem) object).getAuthor().getUserDescription());
-        Picasso.with(itemView.getContext()).load(this.photoItem.getPhotoUrlstr()).into(mThumbnail);
+        Picasso.with(itemView.getContext()).load(this.photoItem.getPhotoUrlstr()).placeholder(R.drawable.placeholder).into(mThumbnail);
         this.time.setText(((TimelineItem) object).getAuthor().getUserTime());
         this.no_of_likes.setText(((TimelineItem) object).getAuthor().getUserLikes());
         this.no_of_views.setText(((TimelineItem) object).getAuthor().getUserViews());
@@ -354,9 +354,7 @@ public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
             if (postsTimlineFragment.get_like_id(post_id)) {
                 user_like.setBackgroundResource(R.drawable.with);
             }
-            else {
-                user_like.setBackgroundResource(R.drawable.without);
-            }
+
 
             Ion.with(itemView.getContext())
                     .load(Settings.SERVER_URL+"like.php")
@@ -366,27 +364,16 @@ public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
-//                           if (result.get("status").getAsString().equals("Success")){
-//                             Toast.makeText(itemView.getContext(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
-//                             user_like.setBackgroundResource(R.drawable.heart);
-//                           }else{
-//                               user_like.setBackgroundResource(R.drawable.ic_likes_vi);
-//                               Toast.makeText(itemView.getContext(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
-//                             }
                             postsTimlineFragment.set_like_id(post_id);
                             postsTimlineFragment.set_like_count(post_id);
 
                             if (postsTimlineFragment.get_like_id(post_id)) {
-                                user_like.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.with));
+                                user_like.setBackgroundResource(R.drawable.with);
+//                                user_like.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.with));
                                 no_of_likes.setText( postsTimlineFragment.get_like_count(post_id));
 
                             }
-                            else {
-                                user_like.setBackgroundResource(R.drawable.without);
-                                no_of_likes.setText(get_user_like);
-                                no_of_likes.setText( postsTimlineFragment.get_like_count(post_id));
 
-                            }
 
                         }
                     });

@@ -24,6 +24,7 @@ public class HomeActivityScreen extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivityScreen.this,LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -32,6 +33,7 @@ public class HomeActivityScreen extends Activity {
             public void onClick(View v) {
                 Intent screen = new Intent(HomeActivityScreen.this,RegisterActivity.class);
                 startActivity(screen);
+                finish();
             }
         });
     }

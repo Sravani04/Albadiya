@@ -120,7 +120,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
     this.mInfoUser.setText((((TimelineItem) object).getAuthor().getUserName()));
     Picasso.with(itemView.getContext()).load((((TimelineItem) object).getAuthor().getUserUrl())).into(mThumbnailUser);
     this.user_desc.setText(((TimelineItem) object).getAuthor().getUserDescription());
-    Picasso.with(itemView.getContext()).load(this.photoItem.getPhotoUrlstr()).into(mThumbnail);
+    Picasso.with(itemView.getContext()).load(this.photoItem.getPhotoUrlstr()).placeholder(R.drawable.placeholder).into(mThumbnail);
     this.time.setText(((TimelineItem) object).getAuthor().getUserTime());
     this.no_of_likes.setText(((TimelineItem) object).getAuthor().getUserLikes());
     this.no_of_views.setText(((TimelineItem) object).getAuthor().getUserViews());
@@ -370,9 +370,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
       if (albadiyaTimelineFragment.get_like_id(post_id)) {
         user_like.setBackgroundResource(R.drawable.with);
       }
-      else {
-        user_like.setBackgroundResource(R.drawable.without);
-      }
+
 
       Ion.with(itemView.getContext())
               .load(Settings.SERVER_URL+"like.php")
@@ -386,17 +384,11 @@ public class PhotoViewHolder extends TimelineViewHolder {
                   albadiyaTimelineFragment.set_like_count(post_id);
 
                   if (albadiyaTimelineFragment.get_like_id(post_id)) {
-                    user_like.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.with));
+                    user_like.setBackgroundResource(R.drawable.with);
+//                    user_like.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.with));
                     no_of_likes.setText( albadiyaTimelineFragment.get_like_count(post_id));
 
                   }
-                  else {
-                    user_like.setBackgroundResource(R.drawable.without);
-                    no_of_likes.setText(get_user_like);
-                    no_of_likes.setText( albadiyaTimelineFragment.get_like_count(post_id));
-
-                  }
-
                 }
               });
 
