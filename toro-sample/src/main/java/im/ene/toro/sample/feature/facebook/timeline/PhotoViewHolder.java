@@ -66,6 +66,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
   private TextView  no_of_likes;
   private TextView  no_of_views;
   private ImageView  heartAnim;
+  private ImageView  heartWithout;
   //private ImageView delete_btn;
   AlbadiyaTimelineFragment albadiyaTimelineFragment;
   String post_id,get_user_like;
@@ -88,6 +89,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
     no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
         no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
     heartAnim = (ImageView) itemView.findViewById(R.id.heart_anim);
+    heartWithout = (ImageView) itemView.findViewById(R.id.heart_without);
     //delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
   }
   public PhotoViewHolder(View itemView,AlbadiyaTimelineFragment fragment) {
@@ -104,6 +106,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
     no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
     no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
     heartAnim = (ImageView) itemView.findViewById(R.id.heart_anim);
+    heartWithout = (ImageView) itemView.findViewById(R.id.heart_without);
 
     //delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
     albadiyaTimelineFragment = fragment;

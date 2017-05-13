@@ -52,6 +52,16 @@
         android:layout_centerVertical="true"
         android:visibility="gone"
         android:src="@drawable/with" />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/heart_without"
+        android:adjustViewBounds="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:src="@drawable/without" />
   </RelativeLayout>
 
 
