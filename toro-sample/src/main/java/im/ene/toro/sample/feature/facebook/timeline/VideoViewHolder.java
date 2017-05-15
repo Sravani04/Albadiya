@@ -25,7 +25,11 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -70,6 +74,8 @@ public class VideoViewHolder extends ExoVideoViewHolder {
   private AlbadiyaTimelineFragment fragment;
   private ImageView delete_btn;
   private ImageView sound_btn;
+  private ImageView  heartAnim;
+  private ImageView  heartWithout;
   String post_id;
   boolean isvolume = true;
 
@@ -89,8 +95,9 @@ public class VideoViewHolder extends ExoVideoViewHolder {
     no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
     no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
     seconds = (TextView) itemView.findViewById(R.id.seconds);
-    delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
+    //delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
     sound_btn = (ImageView) itemView.findViewById(R.id.sound_btn);
+    heartAnim = (ImageView) itemView.findViewById(R.id.heart_anim);
 
   }
   public VideoViewHolder(View itemView, AlbadiyaTimelineFragment fragment) {
@@ -107,9 +114,10 @@ public class VideoViewHolder extends ExoVideoViewHolder {
     no_of_likes = (TextView) itemView.findViewById(R.id.no_of_likes);
     no_of_views = (TextView) itemView.findViewById(R.id.no_of_views);
     seconds = (TextView) itemView.findViewById(R.id.seconds);
-    delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
+   // delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
     this.fragment = fragment;
     sound_btn = (ImageView) itemView.findViewById(R.id.sound_btn);
+    heartAnim = (ImageView) itemView.findViewById(R.id.heart_anim);
 
   }
 
@@ -175,7 +183,7 @@ public class VideoViewHolder extends ExoVideoViewHolder {
 
 
     Ion.with(itemView.getContext())
-            .load("http://naqshapp.com/albadiya/api/view.php")
+            .load(Settings.SERVER_URL+"view.php")
             .setBodyParameter("post_id",((TimelineItem) object).getAuthor().getUserId())
             .asJsonObject()
             .setCallback(new FutureCallback<JsonObject>() {
@@ -195,18 +203,18 @@ public class VideoViewHolder extends ExoVideoViewHolder {
               }
             });
 
-    if (((TimelineItem) object).getAuthor().getPersonId().equals(Settings.GetUserId(itemView.getContext()))){
-      delete_btn.setVisibility(View.VISIBLE);
-    }else {
-      delete_btn.setVisibility(View.GONE);
-    }
+//    if (((TimelineItem) object).getAuthor().getPersonId().equals(Settings.GetUserId(itemView.getContext()))){
+//      delete_btn.setVisibility(View.VISIBLE);
+//    }else {
+//      delete_btn.setVisibility(View.GONE);
+//    }
 
-    delete_btn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-         delete_popup();
-      }
-    });
+//    delete_btn.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View view) {
+//         delete_popup();
+//      }
+//    });
 
 
     download.setOnClickListener(new View.OnClickListener() {
@@ -300,6 +308,15 @@ public class VideoViewHolder extends ExoVideoViewHolder {
       }
     });
 
+    videoView.setOnTouchListener(new View.OnTouchListener() {
+      @Override
+      public boolean onTouch(View v, MotionEvent event) {
+
+        return gd.onTouchEvent(event);
+      }
+    });
+
+
 
   }
 
@@ -379,7 +396,7 @@ public class VideoViewHolder extends ExoVideoViewHolder {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         Ion.with(itemView.getContext())
-                .load("http://naqshapp.com/albadiya/api/post-delete.php")
+                .load(Settings.SERVER_URL+"post-delete.php")
                 .setBodyParameter("member_id", Settings.GetUserId(itemView.getContext()))
                 .setBodyParameter("post_id", post_id)
                 .asJsonObject()
@@ -411,5 +428,78 @@ public class VideoViewHolder extends ExoVideoViewHolder {
 
     builder2.show();
   }
+
+  final GestureDetector gd = new GestureDetector(itemView.getContext(), new GestureDetector.SimpleOnGestureListener() {
+    @Override
+    public boolean onDown(MotionEvent e) {
+      return true;
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+
+      Animation pulse_fade = AnimationUtils.loadAnimation(itemView.getContext(), R.anim.pulse_fade_in);
+      pulse_fade.setAnimationListener(new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+          heartAnim.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+          heartAnim.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+      });
+      heartAnim.startAnimation(pulse_fade);
+
+
+      if (fragment.get_like_id(post_id)) {
+        user_like.setBackgroundResource(R.drawable.with);
+      }
+
+
+
+
+      Ion.with(itemView.getContext())
+              .load(Settings.SERVER_URL+"like.php")
+              .setBodyParameter("member_id",Settings.GetUserId(itemView.getContext()))
+              .setBodyParameter("post_id",post_id)
+              .asJsonObject()
+              .setCallback(new FutureCallback<JsonObject>() {
+                @Override
+                public void onCompleted(Exception e, JsonObject result) {
+                  fragment.set_like_id(post_id);
+                  fragment.set_like_count(post_id);
+
+                  if (fragment.get_like_id(post_id)) {
+                    user_like.setBackgroundResource(R.drawable.with);
+                    no_of_likes.setText( fragment.get_like_count(post_id));
+                  }
+                }
+              });
+
+//      user_like.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.with));
+//      no_of_likes.setText( albadiyaTimelineFragment.get_like_count(post_id));
+
+      return true;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+      super.onLongPress(e);
+
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+      return true;
+    }
+  });
+
 
 }

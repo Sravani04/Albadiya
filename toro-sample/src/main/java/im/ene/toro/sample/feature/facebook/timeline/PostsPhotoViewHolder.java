@@ -129,7 +129,7 @@ public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
         });
 
         Ion.with(itemView.getContext())
-                .load("http://naqshapp.com/albadiya/api/view.php")
+                .load(Settings.SERVER_URL+"view.php")
                 .setBodyParameter("post_id",((TimelineItem) object).getAuthor().getUserId())
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -288,7 +288,7 @@ public class PostsPhotoViewHolder extends PostsTimelineViewHolder {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Ion.with(itemView.getContext())
-                        .load("http://naqshapp.com/albadiya/api/post-delete.php")
+                        .load(Settings.SERVER_URL+"post-delete.php")
                         .setBodyParameter("member_id", Settings.GetUserId(itemView.getContext()))
                         .setBodyParameter("post_id", post_id)
                         .asJsonObject()

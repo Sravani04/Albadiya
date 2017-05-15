@@ -9,7 +9,11 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -54,9 +58,10 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
     private TextView seconds;
     private PostsTimlineFragment timeline;
     private ImageView delete_btn;
-    String post_id;
+    String post_id,get_user_likes;
     private ImageView sound_btn;
     boolean isvolume = true;
+    private ImageView  heartAnim;
 
 
     public PostsVideoViewHolder(View itemView) {
@@ -75,9 +80,11 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
         seconds = (TextView) itemView.findViewById(R.id.seconds);
         delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
         sound_btn = (ImageView) itemView.findViewById(R.id.sound_btn);
+        heartAnim = (ImageView) itemView.findViewById(R.id.heart_anim);
 
     }
-    public PostsVideoViewHolder(View itemView, AlbadiyaTimelineFragment fragment,PostsTimlineFragment timeline) {
+
+    public PostsVideoViewHolder(View itemView, AlbadiyaTimelineFragment fragment, PostsTimlineFragment timeline) {
         super(itemView);
         mThumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
         mInfo = (TextView) itemView.findViewById(R.id.info);
@@ -94,16 +101,19 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
         delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
         this.timeline = timeline;
         sound_btn = (ImageView) itemView.findViewById(R.id.sound_btn);
+        heartAnim = (ImageView) itemView.findViewById(R.id.heart_anim);
 
     }
 
 
-    @Override protected ExoVideoView findVideoView(View itemView) {
+    @Override
+    protected ExoVideoView findVideoView(View itemView) {
         return (ExoVideoView) itemView.findViewById(R.id.video);
     }
 
 
-    @Override public void bind(RecyclerView.Adapter adapter, @Nullable final Object object) {
+    @Override
+    public void bind(RecyclerView.Adapter adapter, @Nullable final Object object) {
         if (!(object instanceof TimelineItem)
                 || !(((TimelineItem) object).getEmbedItem() instanceof TimelineItem.VideoItem)) {
             throw new IllegalArgumentException("Only VideoItem is accepted");
@@ -133,7 +143,7 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
 
         videoView.setVolume(0f);
         sound_btn.setImageResource(R.drawable.mute_volume);
-        Log.e("sound","sound muted");
+        Log.e("sound", "sound muted");
         isvolume = true;
 
         sound_btn.setOnClickListener(new View.OnClickListener() {
@@ -144,39 +154,39 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
                     sound_btn.setImageResource(R.drawable.voulme);
                     isvolume = false;
                     Log.e("sound", "sound on");
-                }else {
+                } else {
                     videoView.setVolume(0f);
                     sound_btn.setImageResource(R.drawable.mute_volume);
-                    Log.e("sound","sound muted");
+                    Log.e("sound", "sound muted");
                     isvolume = true;
                 }
             }
         });
 
         Ion.with(itemView.getContext())
-                .load("http://naqshapp.com/albadiya/api/view.php")
-                .setBodyParameter("post_id",((TimelineItem) object).getAuthor().getUserId())
+                .load(Settings.SERVER_URL+"view.php")
+                .setBodyParameter("post_id", ((TimelineItem) object).getAuthor().getUserId())
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         try {
-                            Log.e("views_response",result.get("status").getAsString());
-                            if (result.get("status").getAsString().equals("Success")){
+                            Log.e("views_response", result.get("status").getAsString());
+                            if (result.get("status").getAsString().equals("Success")) {
                                 //Toast.makeText(itemView.getContext(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
-                            }else {
+                            } else {
                                 //Toast.makeText(itemView.getContext(),result.get("message").getAsString(),Toast.LENGTH_SHORT).show();
                             }
-                        }catch (Exception ex){
+                        } catch (Exception ex) {
                             e.printStackTrace();
                         }
 
                     }
                 });
 
-        if (((TimelineItem) object).getAuthor().getPersonId().equals(Settings.GetUserId(itemView.getContext()))){
+        if (((TimelineItem) object).getAuthor().getPersonId().equals(Settings.GetUserId(itemView.getContext()))) {
             delete_btn.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             delete_btn.setVisibility(View.GONE);
         }
 
@@ -184,6 +194,14 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
             @Override
             public void onClick(View view) {
                 delete_popup();
+            }
+        });
+
+        videoView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                return gd.onTouchEvent(event);
             }
         });
 
@@ -225,11 +243,11 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
         });
 
         post_id = ((TimelineItem) object).getAuthor().getUserId();
+        get_user_likes = ((TimelineItem) object).getAuthor().getUserLikes();
 
-        if (timeline.get_like_id(((TimelineItem)object).getAuthor().getUserId())) {
+        if (timeline.get_like_id(((TimelineItem) object).getAuthor().getUserId())) {
             user_like.setBackgroundResource(R.drawable.with);
-        }
-        else {
+        } else {
             user_like.setBackgroundResource(R.drawable.without);
         }
 
@@ -238,25 +256,24 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
             @Override
             public void onClick(View v) {
                 Ion.with(itemView.getContext())
-                        .load(Settings.SERVER_URL+"like.php")
-                        .setBodyParameter("member_id",Settings.GetUserId(itemView.getContext()))
-                        .setBodyParameter("post_id",((TimelineItem) object).getAuthor().getUserId())
+                        .load(Settings.SERVER_URL + "like.php")
+                        .setBodyParameter("member_id", Settings.GetUserId(itemView.getContext()))
+                        .setBodyParameter("post_id", ((TimelineItem) object).getAuthor().getUserId())
                         .asJsonObject()
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
-                                timeline.set_like_id(((TimelineItem)object).getAuthor().getUserId());
-                                timeline.set_like_count(((TimelineItem)object).getAuthor().getUserId());
+                                timeline.set_like_id(((TimelineItem) object).getAuthor().getUserId());
+                                timeline.set_like_count(((TimelineItem) object).getAuthor().getUserId());
 
-                                if (timeline.get_like_id(((TimelineItem)object).getAuthor().getUserId())) {
+                                if (timeline.get_like_id(((TimelineItem) object).getAuthor().getUserId())) {
                                     user_like.setBackgroundResource(R.drawable.with);
-                                    no_of_likes.setText( timeline.get_like_count(((TimelineItem)object).getAuthor().getUserId()));
+                                    no_of_likes.setText(timeline.get_like_count(((TimelineItem) object).getAuthor().getUserId()));
 
-                                }
-                                else {
+                                } else {
                                     user_like.setBackgroundResource(R.drawable.without);
                                     no_of_likes.setText(((TimelineItem) object).getAuthor().getUserLikes());
-                                    no_of_likes.setText( timeline.get_like_count(((TimelineItem)object).getAuthor().getUserId()));
+                                    no_of_likes.setText(timeline.get_like_count(((TimelineItem) object).getAuthor().getUserId()));
 
                                 }
 
@@ -282,66 +299,80 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
 
     }
 
-    @Override public void setOnItemClickListener(View.OnClickListener listener) {
+    @Override
+    public void setOnItemClickListener(View.OnClickListener listener) {
         super.setOnItemClickListener(listener);
         mInfo.setOnClickListener(listener);
         this.videoView.setOnClickListener(listener);
     }
 
 
-    @Nullable @Override public String getMediaId() {
+    @Nullable
+    @Override
+    public String getMediaId() {
         return Util.genVideoId(this.videoItem.getVideoUrl(), getAdapterPosition());
     }
 
-    @Override public void onVideoPreparing() {
+    @Override
+    public void onVideoPreparing() {
         super.onVideoPreparing();
         mInfo.setText("Preparing");
     }
 
-  @Override public void onVideoPrepared() {
-    super.onVideoPrepared();
-    //mInfo.setText("Prepared");
-  }
+    @Override
+    public void onVideoPrepared() {
+        super.onVideoPrepared();
+        //mInfo.setText("Prepared");
+    }
 
-    @Override public void onViewHolderBound() {
+    @Override
+    public void onViewHolderBound() {
         super.onViewHolderBound();
         Picasso.with(itemView.getContext())
                 .load(R.drawable.video_play_button)
-                .resize(400, 300 )
+                .resize(400, 300)
                 .into(mThumbnail);
         //mInfo.setText("Bound");
     }
 
-    @Override public void onPlaybackStarted() {
+    @Override
+    public void onPlaybackStarted() {
         mThumbnail.animate().alpha(0.f).setDuration(250).setListener(new AnimatorListenerAdapter() {
-            @Override public void onAnimationEnd(Animator animation) {
+            @Override
+            public void onAnimationEnd(Animator animation) {
                 PostsVideoViewHolder.super.onPlaybackStarted();
             }
         }).start();
         //mInfo.setText("Started");
     }
 
-    @Override public void onPlaybackPaused() {
+    @Override
+    public void onPlaybackPaused() {
         mThumbnail.animate().alpha(1.f).setDuration(250).setListener(new AnimatorListenerAdapter() {
-            @Override public void onAnimationEnd(Animator animation) {
+            @Override
+            public void onAnimationEnd(Animator animation) {
                 PostsVideoViewHolder.super.onPlaybackPaused();
             }
         }).start();
-       // mInfo.setText("Paused");
+        // mInfo.setText("Paused");
     }
 
-    @Override public void onPlaybackCompleted() {
+    @Override
+    public void onPlaybackCompleted() {
         mThumbnail.animate().alpha(1.f).setDuration(250).setListener(new AnimatorListenerAdapter() {
-            @Override public void onAnimationEnd(Animator animation) {
+            @Override
+            public void onAnimationEnd(Animator animation) {
                 PostsVideoViewHolder.super.onPlaybackCompleted();
             }
         }).start();
-       // mInfo.setText("Completed");
+        // mInfo.setText("Completed");
     }
 
-    @Override public boolean onPlaybackError(Exception error) {
+    @Override
+    public boolean onPlaybackError(Exception error) {
         mThumbnail.animate().alpha(1.f).setDuration(0).setListener(new AnimatorListenerAdapter() {
-            @Override public void onAnimationEnd(Animator animation) {
+            @Override
+            public void onAnimationEnd(Animator animation) {
                 // Immediately finish the animation.
             }
         }).start();
@@ -356,7 +387,7 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Ion.with(itemView.getContext())
-                        .load("http://naqshapp.com/albadiya/api/post-delete.php")
+                        .load(Settings.SERVER_URL+"post-delete.php")
                         .setBodyParameter("member_id", Settings.GetUserId(itemView.getContext()))
                         .setBodyParameter("post_id", post_id)
                         .asJsonObject()
@@ -388,4 +419,81 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
 
         builder2.show();
     }
+
+
+    final GestureDetector gd = new GestureDetector(itemView.getContext(), new GestureDetector.SimpleOnGestureListener() {
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+
+            Animation pulse_fade = AnimationUtils.loadAnimation(itemView.getContext(), R.anim.pulse_fade_in);
+            pulse_fade.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    heartAnim.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    heartAnim.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            heartAnim.startAnimation(pulse_fade);
+
+            if (timeline.get_like_id(post_id)) {
+                user_like.setBackgroundResource(R.drawable.with);
+            }
+
+
+            Ion.with(itemView.getContext())
+                    .load(Settings.SERVER_URL + "like.php")
+                    .setBodyParameter("member_id", Settings.GetUserId(itemView.getContext()))
+                    .setBodyParameter("post_id", post_id)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            timeline.set_like_id(post_id);
+                            timeline.set_like_count(post_id);
+
+                            if (timeline.get_like_id(post_id)){
+                                user_like.setBackgroundResource(R.drawable.with);
+                                no_of_likes.setText(timeline.get_like_count(post_id));
+
+                            }
+
+
+
+                        }
+                    });
+
+
+//      user_like.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.with));
+//      no_of_likes.setText( albadiyaTimelineFragment.get_like_count(post_id));
+
+            return true;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            super.onLongPress(e);
+
+        }
+
+        @Override
+        public boolean onDoubleTapEvent(MotionEvent e) {
+            return true;
+        }
+    });
+
+
 }

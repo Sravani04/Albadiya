@@ -145,7 +145,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
     });
 
     Ion.with(itemView.getContext())
-            .load("http://naqshapp.com/albadiya/api/view.php")
+            .load(Settings.SERVER_URL+"view.php")
             .setBodyParameter("post_id",((TimelineItem) object).getAuthor().getUserId())
             .asJsonObject()
             .setCallback(new FutureCallback<JsonObject>() {
@@ -307,7 +307,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         Ion.with(itemView.getContext())
-                .load("http://naqshapp.com/albadiya/api/post-delete.php")
+                .load(Settings.SERVER_URL+"post-delete.php")
                 .setBodyParameter("member_id", Settings.GetUserId(itemView.getContext()))
                 .setBodyParameter("post_id", post_id)
                 .asJsonObject()
@@ -355,7 +355,7 @@ public class PhotoViewHolder extends TimelineViewHolder {
       pulse_fade.setAnimationListener(new Animation.AnimationListener() {
         @Override
         public void onAnimationStart(Animation animation) {
-          heartAnim.setVisibility(View.VISIBLE);
+            heartAnim.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -370,9 +370,11 @@ public class PhotoViewHolder extends TimelineViewHolder {
       });
       heartAnim.startAnimation(pulse_fade);
 
+
       if (albadiyaTimelineFragment.get_like_id(post_id)) {
         user_like.setBackgroundResource(R.drawable.with);
       }
+
 
 
       Ion.with(itemView.getContext())
@@ -390,8 +392,8 @@ public class PhotoViewHolder extends TimelineViewHolder {
                     user_like.setBackgroundResource(R.drawable.with);
 //                    user_like.setImageDrawable(itemView.getContext().getResources().getDrawable(R.drawable.with));
                     no_of_likes.setText( albadiyaTimelineFragment.get_like_count(post_id));
-
                   }
+
                 }
               });
 
