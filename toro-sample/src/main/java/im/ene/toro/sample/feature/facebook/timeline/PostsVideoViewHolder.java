@@ -316,7 +316,7 @@ public class PostsVideoViewHolder extends ExoVideoViewHolder {
     @Override
     public void onVideoPreparing() {
         super.onVideoPreparing();
-        mInfo.setText("Preparing");
+        //mInfo.setText("Preparing");
     }
 
     @Override
