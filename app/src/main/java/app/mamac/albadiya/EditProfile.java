@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,7 @@ public class EditProfile extends Fragment{
     ArrayList<Integer> images;
     //GridView gridView;
     //TextView log_out;
-    ImageView backbtn;
+    ImageView back_btn;
     TextView no_posts,no_of_followers,no_of_following;
     ImageView images_post;
     String member_id;
@@ -63,6 +64,7 @@ public class EditProfile extends Fragment{
 
         edit_btn = (TextView) view.findViewById(R.id.edit_btn);
         edit_image_btn = (ImageView) view.findViewById(R.id.edit_image_btn);
+        back_btn = (ImageView) view.findViewById(R.id.back_btn);
         if(member_id.equals(Settings.GetUserId(getActivity())))
         {
             edit_btn.setText("Edit Profile");
@@ -104,6 +106,19 @@ public class EditProfile extends Fragment{
                     startActivity(intent);
                 }
             });
+
+            back_btn.setVisibility(View.VISIBLE);
+            back_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    InstaSearchFragment instaSearchFragment = new InstaSearchFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_left, R.anim.exit_to_left);
+                    transaction.replace(R.id.fragment, instaSearchFragment);
+                    transaction.commit();
+                }
+            });
+
             edit_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
