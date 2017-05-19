@@ -21,13 +21,12 @@ public class SplashActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (Settings.GetUserId(SplashActivity.this).equals("-1")){
-                    Intent intent = new Intent(SplashActivity.this,HomeActivityScreen.class);
-                    startActivity(intent);
-                }else{
+//                if (Settings.GetUserId(SplashActivity.this).equals("-1")){
+//                    Intent intent = new Intent(SplashActivity.this,HomeActivityScreen.class);
+//                    startActivity(intent);
+//                }else{
                     Intent intent = new Intent(SplashActivity.this,InstaFragment.class);
                     startActivity(intent);
-                }
 
                 finish();
             }
