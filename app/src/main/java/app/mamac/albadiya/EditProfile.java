@@ -163,6 +163,7 @@ public class EditProfile extends Fragment{
                 Settings.SetUserId(getActivity(),"-1");
                 Intent intent = new Intent(getActivity(),HomeActivityScreen.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -297,6 +298,8 @@ public class EditProfile extends Fragment{
 
     }
 
+
+
     String cnt="0";
     public void follow_status(){
         Ion.with(getActivity())
@@ -408,6 +411,8 @@ public class EditProfile extends Fragment{
                     }
                 });
     }
+
+
 
 
 
